@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yuan.mapper.UserMapper">
+    <select id="select" resultType="com.yuan.domain.User" parameterType="com.yuan.domain.User">
+        select * from user where username=#{username} and password = #{password}
+    </select>
+    <select id="selectByEmail" resultType="com.yuan.domain.User" parameterType="java.lang.String">
+        select * from user where email=#{email jdbcType=VARCHAR}
+    </select>
+    <update id="updatePassword" parameterType="com.yuan.domain.User" >
+        update user set password = #{password} where id=#{id}
+    </update>
+    <select id="findUserByUsername" resultType="com.yuan.domain.User" parameterType="string">
+        select * from user where username=#{username}
+    </select>
+    <insert id="insertUser" parameterType="com.yuan.domain.User">
+        insert into user (id,username,password,phone,email,role)
+            values (null,#{username},#{password},#{phone},#{email},1)
+    </insert>
+</mapper>

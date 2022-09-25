@@ -1,0 +1,66 @@
+/* pages/login/login.wxss */
+page{
+    height: 100%;
+    background-image:linear-gradient(110.01595960288273deg, rgba(48, 245, 251,1) 5.533854166666667%,rgba(23, 142, 203,1) 96.67968749999999%);
+}
+.box{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 80%;
+}
+/* 图片logo */
+.logo{
+    width: 200rpx;
+    height: 200rpx;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border: 1px solid rgb(83, 175, 228);
+    border-radius: 50%;
+}
+.logo image{
+    width: 130rpx;
+    height: 130rpx;
+}
+.btn{
+    width: 50% !important;
+    background-color: white;
+    color: rgb(12, 138, 177);
+    font-weight: bold;
+    box-shadow: 1px 1px 3px gray inset;
+    margin-top: 100rpx;
+}
+/* 登入框 */
+/* .loginbox{
+    width: 90%;
+    height: 50%;
+    position: relative;
+    border-radius: 20rpx;
+    text-align: center;
+    margin-top: 5%;
+} */
+/* .userinfo{
+    display: flex;
+    height: 80rpx;
+    background-color: white;
+    border-radius: 10rpx;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: 10% 0;
+} */
+/* 输入框 */
+/* .logininput{
+    color: black;
+    width:  80%;
+    text-align: left;
+    border-bottom: 1px solid white;
+} */
+/* 小图标 */
+/* .loginimg{
+    width: 60rpx;
+    height: 60rpx;
+} */
+

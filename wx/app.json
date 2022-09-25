@@ -1,0 +1,48 @@
+{
+  "pages":[
+    "pages/home/home",
+    "pages/notice/notice",
+    "pages/introduce/introduce",
+    "pages/my/my",
+    "pages/login/login"
+  ],
+  "subPackages": [
+      {
+          "root":"sub_package",
+          "pages":[
+              "pages/order/order"
+          ]
+      }
+  ],
+  "tabBar": {
+     "selectedColor":"#1296db",
+     "borderStyle":"black",
+      "list": [
+          {
+          "pagePath": "pages/home/home",
+          "text": "首 页",
+          "iconPath": "/icon/home.png",
+          "selectedIconPath": "/icon/home_active.png"
+        },
+          {
+          "pagePath": "pages/introduce/introduce",
+          "text": "驾校信息",
+          "iconPath": "/icon/jianjie.png",
+          "selectedIconPath": "/icon/jianjie_active.png"
+        },
+          {
+          "pagePath": "pages/my/my",
+          "text": "个人中心",
+          "iconPath": "/icon/my.png",
+          "selectedIconPath": "/icon/my_active.png"
+        }
+    ]
+  },
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "学车吧",
+    "navigationBarTextStyle":"black"
+  }, 
+  "sitemapLocation": "sitemap.json"
+}

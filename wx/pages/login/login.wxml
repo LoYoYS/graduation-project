@@ -1,0 +1,6 @@
+<view class="box">
+    <view class="logo">
+        <image src="/icon/car.png"></image>
+    </view>
+    <button class="btn" bindtap="login">一 键 授 权 登 入</button>
+</view>

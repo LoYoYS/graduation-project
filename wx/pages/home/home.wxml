@@ -1,0 +1,43 @@
+<view class="vessel">
+   <swiper 	indicator-dots="true" 
+   autoplay circular interval="3000" 
+   class="imglist" 
+   indicator-active-color=" #fff">
+        <swiper-item wx:for="{{images}}" wx:key="index" 
+        bindtap="showImage" data-index="{{index}}">
+            <image src="{{item}}"></image>
+        </swiper-item>
+   </swiper>
+   <view class="funList">功能服务</view>
+   <view class="middle">
+        <view class="item">
+            <van-icon name="/icon/yuyue_active.png" size="45px"></van-icon>
+            <text>预约学车</text>
+            <text>线上预约、告别等待</text>
+        </view>
+        <view class="item">
+            <van-icon name="/icon/record.png" size="38px"></van-icon>
+            <text>预约记录</text>
+        </view>
+        <view class="item">
+            <van-icon name="/icon/record.png" size="38px"></van-icon>
+            <text>考试进度</text>
+        </view>
+        <view class="item">
+            <van-icon name="/icon/record.png" size="38px"></van-icon>
+            <text>评价管理</text>
+        </view>
+        <view class="item">
+            <van-icon name="/icon/record.png" size="38px"></van-icon>
+            <text>查找教练</text>
+        </view>
+   </view>
+   <view class="bottom">
+        <view class="notice">
+            
+        </view>
+        <view>
+            
+        </view>
+   </view>
+</view>

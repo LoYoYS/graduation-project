@@ -1,0 +1,23 @@
+<view class="my_container">
+    <view class="top">
+        <view class="picturebox" wx:if="{{false}}">
+            <image src="/img/car1.png"></image>
+            <view class="text_box">
+                <text>小 样</text>
+                <text>15277***174</text>
+            </view>
+        </view>
+        <view wx:else>
+            <button class="btn">授权登入</button>
+        </view>
+    </view>
+    <view class="bottom">
+        <view class="list"> 
+                <van-cell title="个人信息" size="large" icon="/icon/imformation.png" is-link/>
+                <van-cell title="身份认证" size="large" icon="/icon/identify.png" is-link/>
+                <van-cell title="关于我们" size="large" icon="/icon/about.png" is-link/>
+                <van-cell title="意见反馈" size="large" icon="/icon/feedback.png" is-link/>
+                <van-cell title="清除缓存" size="large" icon="/icon/clear.png" is-link/>
+        </view>
+    </view>  
+</view>

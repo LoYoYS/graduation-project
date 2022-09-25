@@ -1,0 +1,84 @@
+/* pages/introduce/introduce.wxss */
+page,.vessel{
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(112.15334473777807deg, rgba(48, 245, 251,1) 5.533854166666667%,rgba(23, 142, 203,1) 96.67968749999999%); 
+}
+.top,.center{
+    width: 95%;
+    display: flex;
+    justify-content: center;
+    background-color: white;
+    border-radius: 10px;
+    margin: 0 auto;
+    box-shadow: 2px 2px 5px rgb(194, 193, 193);
+}
+.top{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 25%;
+    margin-top: 100rpx;
+}
+.title{
+    display: flex;
+    margin: 30rpx 0 0 30rpx;
+}
+.top .title .logo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    width: 110rpx;
+    height: 110rpx;
+    border: 1rpx solid gainsboro;
+    box-shadow: 1px 1px 2px gainsboro;
+}
+.top .title .logo image{
+    width: 80rpx;
+    height: 80rpx;
+    margin: 0 0 1px 1px;
+}
+.title .name{
+    font-size: 40rpx;
+    margin-left: 20rpx;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+.title .name view{
+    font-size: 30rpx;
+    display: flex;
+    justify-content: space-between;
+    width: 350rpx;
+    margin-top: 10rpx;
+}
+.title .name view text{
+    text-align: center;
+    width: 70rpx;
+    background-color: rgba(169, 137, 204, 0.2);
+    border-radius: 2px;
+}
+.sub_title{
+    display: flex;
+    flex-direction: column;
+    margin-left: 30rpx;
+}
+.sub_title .content{
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    margin: 8rpx 0;
+}
+.jianjie{
+    margin: 20px auto;
+    text-align: center;
+    background-color: rgb(1, 161, 224);
+    width: 200rpx;
+    color: white;
+    border-radius: 10px;
+}
+.center text{
+    width: 98%;
+    text-align: center;
+}

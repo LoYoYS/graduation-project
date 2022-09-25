@@ -1,0 +1,7 @@
+<view class="swiper">
+    <view class="swiper-item {{index==datetSelectIndex?'active':''}}" 
+    wx:for="{{dateArr}}" wx:key="index" catchtap="changeSelect" data-index="{{index}}">
+        <text>{{index==0?'今天':item.title}}</text>
+        <text>{{item.dateValue}}</text>
+    </view>
+</view>

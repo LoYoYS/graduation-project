@@ -1,0 +1,35 @@
+<view class="vessel">
+    <view class="top">
+        <view class="title">
+            <view class="logo">
+                <image src="/icon/car.png"></image>
+            </view>
+            <view class="name">
+                <text>梧州XXX驾校</text>
+                <view>
+                    <text>专业</text>
+                    <text>品质</text>
+                    <text>高效</text>
+                    <text>保障</text>
+                </view>
+            </view>
+        </view>
+        <view class="sub_title">
+            <view class="content">
+                <van-icon name="phone" color="#48dbfb" size="25px"></van-icon>
+                <text>007-77359901</text>
+            </view>
+            <view class="content" catchtap="openLocation">
+                <van-icon name="location" color="#48dbfb" size="25px"></van-icon>
+                <text>梧州市万秀区XX路XX号</text>
+            </view>
+        </view>
+    </view>
+    <view class="jianjie">
+        驾校简介
+    </view>
+    <view class="center">
+        <text user-select="true">水电费计划就是复健科基督教粉红色的风格IE姜恩惠肯德基军军军军军军军军军军过付多军付党纪国法VB你康复科所肩负的康师傅国内的复健科数据赋给点击开始更好地夫人韩冬梅，非结构化防空洞里涉及到的法律课污染肺结核对饿了就看电视剧规范哈多公里咯而离开我就官方店法规及发货大是大非多多多多多多多多多多多多多多对收费hi冷负荷热尔if独立国家很快
+        </text>
+    </view>
+</view>

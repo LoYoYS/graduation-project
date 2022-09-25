@@ -1,0 +1,3 @@
+<view class="notice_warp">
+    <rich-text nodes="<h1>暂无公告!</h1>"></rich-text>
+</view>
