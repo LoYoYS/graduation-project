@@ -1,4 +1,9 @@
 /**app.wxss**/
+/**app.wxss**/
+@import "colorui/main.wxss";
+@import "colorui/icon.wxss";
+@import "colorui/animation.wxss";  /** 最后这个看自己需求，如果需要使用微动画则可以引入**/
+
 .container {
   height: 100%;
   display: flex;

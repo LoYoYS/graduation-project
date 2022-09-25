@@ -33,34 +33,5 @@ page{
     box-shadow: 1px 1px 3px gray inset;
     margin-top: 100rpx;
 }
-/* 登入框 */
-/* .loginbox{
-    width: 90%;
-    height: 50%;
-    position: relative;
-    border-radius: 20rpx;
-    text-align: center;
-    margin-top: 5%;
-} */
-/* .userinfo{
-    display: flex;
-    height: 80rpx;
-    background-color: white;
-    border-radius: 10rpx;
-    justify-content: space-evenly;
-    align-items: center;
-    margin: 10% 0;
-} */
-/* 输入框 */
-/* .logininput{
-    color: black;
-    width:  80%;
-    text-align: left;
-    border-bottom: 1px solid white;
-} */
-/* 小图标 */
-/* .loginimg{
-    width: 60rpx;
-    height: 60rpx;
-} */
+
 

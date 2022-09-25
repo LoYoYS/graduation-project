@@ -1,3 +1,6 @@
+<cu-custom bgColor="bg-gradual-blue">
+	<view slot="content">个人中心</view>
+</cu-custom>
 <view class="my_container">
     <view class="top">
         <view class="picturebox" wx:if="{{false}}">

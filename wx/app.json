@@ -39,10 +39,10 @@
     ]
   },
   "window":{
-    "backgroundTextStyle":"light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "学车吧",
-    "navigationBarTextStyle":"black"
+    "navigationStyle":"custom"
   }, 
+  "usingComponents": {
+    "cu-custom": "/colorui/components/cu-custom"
+  },
   "sitemapLocation": "sitemap.json"
 }

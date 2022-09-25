@@ -22,6 +22,7 @@ page,.vessel{
     background-image:linear-gradient(110.01595960288273deg, rgba(48, 245, 251,1) 5.533854166666667%,rgba(23, 142, 203,1) 96.67968749999999%);
 }
 .middle,.bottom{
+    position: relative;
     display: flex;
     flex-wrap: wrap;
     width: 95%;
@@ -32,18 +33,50 @@ page,.vessel{
     border-radius: 5%;
     box-shadow: 1px 1px 10px gainsboro;
 }
-.item{
-    /* width: 100%; */
+.item,.yuyue{
+    width: 50%;
+    height: 50%;
     display: flex;
+    box-sizing: border-box;
     flex-direction: column;
     align-items: center;
-    border-bottom: 1px solid gainsboro;
-    /* height: 45%; */
+    justify-content: center;
+    border-bottom: 1px solid rgb(238, 238, 238);
 }
-.item text:nth-of-type(2){
-    font-size:12px;
-    color: rgb(109, 108, 108);
+.item view{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+.item .odd_item{
+    margin-right: 25px;
+}
+.item .even_item{
+    margin-left: 25px;
+}
+.middle view:nth-of-type(even){
+    border-left:1px solid rgb(238, 238, 238);
+}
+.yuyue{
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    width: 120px;
+    height: 120px;
+    border: 5px solid rgb(203, 238, 243);
+    background-image:linear-gradient(110.01595960288273deg, rgba(48, 245, 251,1) 5.533854166666667%,rgba(23, 142, 203,1) 96.67968749999999%);
+    position: absolute;
+    z-index: 999;
+    border-radius: 50%;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
 }
 .bottom{
     height: auto;
+}
+[class^="cuIcon"]{
+    text-align: center;
+    font-size: 38px;
 }

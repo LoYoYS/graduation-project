@@ -21,7 +21,11 @@ Page({
     onReady() {
 
     },
-
+    BackPage() {
+        wx.navigateTo({
+          url: '/pages/home/home',
+        })
+      },
     /**
      * 生命周期函数--监听页面显示
      */

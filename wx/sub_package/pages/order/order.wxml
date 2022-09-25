@@ -1,3 +1,6 @@
+<cu-custom bgColor="bg-gradual-pink">
+	<view slot="content">预约学车</view>
+</cu-custom>
 <view class="swiper">
     <view class="swiper-item {{index==datetSelectIndex?'active':''}}" 
     wx:for="{{dateArr}}" wx:key="index" catchtap="changeSelect" data-index="{{index}}">
