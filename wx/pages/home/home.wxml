@@ -12,7 +12,7 @@
         </swiper-item>
    </swiper>
    <view class="funList">功能服务</view>
-   <view class="middle">
+   <view class="middle" wx:if="{{true}}">
         <view class="item">
             <view class="odd_item">
                 <view class="cuIcon-formfill" style="color: #81ecec;"></view>
@@ -40,6 +40,36 @@
         <view class="yuyue" catchtap="gotologin">
             <van-icon name="/icon/yuyue.png" size="45px"></van-icon>
             <text>预约学车</text>
+        </view>
+   </view>
+   <view class="middle" wx:else>
+        <view class="item">
+                <view class="odd_item">
+                    <view class="cuIcon-communityfill" style="color: #1dd1a1;"></view>
+                    <text>学员评价</text>
+                </view>
+        </view>
+        <view class="item">
+            <view class="even_item">
+                <view class="cuIcon-timefill" style="color: #ffa801;"></view>
+                <text>我的车辆</text>
+            </view>
+        </view>
+        <view class="item">
+            <view class="odd_item">
+                <view class="cuIcon-attentionfill" style="color: #B33771;"></view>
+                <text>查看学员</text>
+            </view>
+        </view>
+        <view class="item">
+            <view class="even_item scale-down">
+                <view class="cuIcon-formfill" style="color: #3B3B98;"></view>
+                <text>预约记录</text>
+            </view>
+        </view>
+        <view class="yuyue scale-down">
+            <van-icon name="/icon/yuyue.png" size="45px"></van-icon>
+            <text>预约列表</text>
         </view>
    </view>
    <view class="bottom">

@@ -1,5 +1,6 @@
 module.exports = {
   request : function(url, method = 'GET',data = {}, header={}){
+    // 192.168.1.102
     let fullUrl = `http://localhost:8081/${url}`
     return new Promise((resolve,reject)=>{
       wx.request({
