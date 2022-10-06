@@ -14,34 +14,37 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-	//
 	// 实体校验异常捕获
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(value = MethodArgumentNotValidException.class)
 	public ResultData<String> handler(MethodArgumentNotValidException e) {
-
 		BindingResult result = e.getBindingResult();
 		ObjectError objectError = result.getAllErrors().stream().findFirst().get();
-
 		log.error("实体校验异常：----------------{}", objectError.getDefaultMessage());
-		return ResultData.fail(objectError.getDefaultMessage());
+		return ResultData.fail(5000,"error",objectError.getDefaultMessage());
 	}
 
+	// 参数异常
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(value = IllegalArgumentException.class)
 	public ResultData<String> handler(IllegalArgumentException e) {
 		log.error("Assert异常：----------------{}", e.getMessage());
-		return ResultData.fail(e.getMessage());
+		return ResultData.fail(5001,"error",e.getMessage());
 	}
 
-	/*
-	* 运行时异常
-	* */
+	//	运行时异常
 	@ResponseStatus(HttpStatus.ACCEPTED)
 	@ExceptionHandler(value = RuntimeException.class)
 	public ResultData<String> handler(RuntimeException e) {
 		log.error("运行时异常：----------------{}", e.getMessage());
-		return ResultData.fail(e.getMessage());
+		return ResultData.fail(5005,"error","系统异常，请联系技术人员。");
 	}
 
+	//自定义异常
+	@ResponseStatus(HttpStatus.ACCEPTED)
+	@ExceptionHandler(BusinessException.class)
+	public  ResultData<String> doBusinessException(Exception e) {
+		log.error("业务异常消息------------", e.getMessage());
+		return ResultData.fail(9999,"error",e.getMessage());
+	}
 }

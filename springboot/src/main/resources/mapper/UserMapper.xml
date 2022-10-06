@@ -7,14 +7,27 @@
     <select id="selectByEmail" resultType="com.yuan.domain.User" parameterType="java.lang.String">
         select * from user where email=#{email jdbcType=VARCHAR}
     </select>
-    <update id="updatePassword" parameterType="com.yuan.domain.User" >
+    <update id="updatePassword">
+        update user set password = #{newPassword} where id=#{id}
+    </update>
+    <update id="forgetPassword">
         update user set password = #{password} where id=#{id}
+    </update>
+    <update id="updateUser">
+        update user set nickName=#{nickName},phone=#{phone},email=#{email}
+        where id=#{id}
+    </update>
+    <update id="updateUserAvatar">
+        update user set url=#{url} where id=#{id}
     </update>
     <select id="findUserByUsername" resultType="com.yuan.domain.User" parameterType="string">
         select * from user where username=#{username}
     </select>
+    <select id="selectByPassword" resultType="com.yuan.domain.User">
+        select * from user where password=#{oldPassword} and id=#{id}
+    </select>
     <insert id="insertUser" parameterType="com.yuan.domain.User">
-        insert into user (id,username,password,phone,email,role)
+        insert into user
             values (null,#{username},#{password},#{phone},#{email},1)
     </insert>
 </mapper>

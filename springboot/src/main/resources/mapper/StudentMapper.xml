@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yuan.mapper.StudentMapper">
+    <resultMap id="studentList" type="com.yuan.domain.Student">
+        <result property="id" column="id"></result>
+        <result property="name" column="name"></result>
+        <result property="sex" column="sex"></result>
+        <result property="id_number" column="id_number"></result>
+        <result property="phone" column="phone"></result>
+        <result property="date" column="date"></result>
+        <result property="type" column="type"></result>
+        <association property="subject" javaType="com.yuan.domain.Subject">
+            <result property="a" column="subject_a"></result>
+            <result property="b" column="subject_b"></result>
+            <result property="c" column="subject_c"></result>
+            <result property="d" column="subject_d"></result>
+        </association>
+    </resultMap>
+    <insert id="insert" parameterType="com.yuan.domain.Student">
+        insert into student values(null,#{name},#{sex},#{id_number},#{phone},#{date},#{type})
+    </insert>
+    <update id="updateStudent" parameterType="com.yuan.domain.Student">
+        update student set name =#{name},sex =#{sex},id_number =#{id_number},
+                           phone =#{phone},date =#{date},type =#{type}
+                           where id=#{id}
+    </update>
+    <delete id="delete" parameterType="com.yuan.domain.Student">
+        delete from student where id =#{id}
+    </delete>
+    <delete id="deleteList" parameterType="java.util.List">
+        delete from student where id in
+        <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+            #{item.id}
+        </foreach>
+    </delete>
+    <select id="list" resultMap="studentList" parameterType="com.yuan.qo.StudentQo">
+        select s.*,sub.subject_a,sub.subject_b,sub.subject_c,sub.subject_d from student s left join subject sub on s.phone=sub.phone
+        <where>
+            <if test="keyWord != null and keyWord !=''">
+                 s.name like concat('%',#{keyWord},'%') or s.phone =#{keyWord}
+            </if>
+            <if test=" type!= null and type !=''">
+                and s.type =#{type}
+            </if>
+            <if test="subject != null and subject !=''">
+                and sub.subject_${subject} = 1
+            </if>
+        </where>
+    </select>
+    <select id="findAllById_number" resultType="com.yuan.domain.Student" parameterType="com.yuan.domain.Student">
+        select * from student where id_number = #{id_number} and type = #{type}
+    </select>
+</mapper>

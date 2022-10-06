@@ -6,9 +6,12 @@ Page({
      */
     data: {
         images:[
-            'https://s1.ax1x.com/2022/09/22/xFJ4ij.jpg',
+            /* 'https://s1.ax1x.com/2022/09/22/xFJ4ij.jpg',
             'https://s1.ax1x.com/2022/09/22/xFski6.jpg',
-            'https://s1.ax1x.com/2022/09/22/xFsmsH.jpg',
+            'https://s1.ax1x.com/2022/09/22/xFsmsH.jpg', */
+            'https://imgdata.kusu.icu/3/6332bfc31373a.jpg',
+            'https://imgdata.kusu.icu/3/6332bfc3c1b22.jpg',
+            'https://imgdata.kusu.icu/3/6332bfc74322d.jpg'
         ]
     },
     // 图片预览
@@ -18,6 +21,7 @@ Page({
           urls: this.data.images,
         })
     },
+    // 小动画
     gotologin(){
         wx.navigateTo({
           url: '/pages/login/login',

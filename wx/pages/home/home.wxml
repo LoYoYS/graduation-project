@@ -62,7 +62,7 @@
             </view>
         </view>
         <view class="item">
-            <view class="even_item scale-down">
+            <view class="even_item">
                 <view class="cuIcon-formfill" style="color: #3B3B98;"></view>
                 <text>预约记录</text>
             </view>

@@ -1,10 +1,10 @@
 <template>
   <div>
     <div class="navBar">
-    <!-- 折叠按钮 -->
-    <div class="foldBtn" @click="changeFold" title="折叠">
-      <i :class="isFold"></i>
-    </div>
+      <!-- 折叠按钮 -->
+      <div class="foldBtn" @click="changeFold" title="折叠">
+        <i :class="isFold"></i>
+      </div>
     <el-breadcrumb separator-class="el-icon-arrow-right">
       <el-breadcrumb-item v-for="item of breadcrumbList" 
       :key="item.path"
@@ -17,7 +17,7 @@
         <i class="el-icon-full-screen"></i>
       </div>
       <el-dropdown @command="handleCommand">
-        <div class="icon"></div>
+        <el-avatar icon="el-icon-user-solid" :size="50" :src="$store.state.userInfo.url" fit="cover"></el-avatar>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item icon="el-icon-user-solid" command="setting">个人中心</el-dropdown-item>
           <el-dropdown-item icon="el-icon-switch-button" command="logout">退出登入</el-dropdown-item>
@@ -30,7 +30,7 @@
       <div class="tabs-wrapper">
         <span :class="isActive(item)" v-for="item of this.$store.state.tabList" :key="item.path" @click="goTo(item)">
           {{ item.name }}
-          <i class="el-icon-close" v-if="item.path != '/main'" @click.stop="removeTab(item)" />
+          <i class="el-icon-close" v-if="item.path != '/'" @click.stop="removeTab(item)" />
         </span>
       </div>
       <el-button class="tabs-close-item" style="float: right" @click="closeAllTab">全部关闭</el-button>
@@ -55,9 +55,15 @@ export default {
       getBreadcrumb(){
         let matched = this.$route.matched
         const first = matched[0]
-        if (first && first.name !== '首页') {
-          matched = [{ path: '/main', name: '首页' }].concat(matched)
+        const second = matched[1]
+        if (first && first.name !== undefined) {
+          matched = [{ path: '/', name: '首页' }].concat(matched)
         }
+        else if(second && second.name!=='首页'){
+          matched = [{ path: '/', name: '首页' }].concat([second])
+        }
+        else
+          matched=[second]
         this.breadcrumbList = matched
       },
       // 全屏
@@ -125,7 +131,7 @@ export default {
       },
       handleCommand(command){
         if(command=='setting'){
-
+          this.$router.push({path:'/my'})
         }
         if(command=='logout'){
           this.$confirm('确定退出登入吗?', '提示', {
@@ -139,7 +145,7 @@ export default {
           });
           this.$store.commit('logout')
           this.$store.commit('resetTab') 
-          this.$router.replace({path:'/'})
+          this.$router.replace({path:'/login'})
           
         }).catch(() => {
            return          
@@ -147,10 +153,14 @@ export default {
         }
       },
       closeAllTab(){
-        if(this.$route.path === '/main')
+        if(this.$store.state.tabList.length === 1)
           return
-        this.$store.commit('resetTab')
-        this.$router.push({ path: '/main' })
+        else if(this.$store.state.tabList.length !== 1 && this.$route.path === '/')
+          this.$store.commit('resetTab')
+        else{
+          this.$store.commit('resetTab')
+          this.$router.push({ path: '/' })
+        }  
       },
     },
     computed:{
@@ -183,6 +193,7 @@ export default {
   .navBar{
     position: relative;
     display: flex;
+    height: 56px;
     align-items: center;
     padding: 0 10px;
   }
@@ -195,27 +206,29 @@ export default {
     justify-content: space-between;
     align-items: center;
     position: absolute;
-    right: 20px;
-  }
-  .icon{
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background-color: rgb(0, 202, 253);
+    right: 10px;
   }
   .fullScreen{
     cursor: pointer;
     font-size: 20px;
     margin-right: 10px;
   }
+  .el-dropdown{
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+  }
   .el-breadcrumb{
     margin-left: 20px;
   }
-  .tabs-view-container {
+  .tabs-view-container{
     display: flex;
     align-items: center;
     position: relative;
-    height: 33px;
+    height: 34px;
     background: #fff;
     border-bottom: 1px solid #d8dce5;
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12), 0 0 3px 0 rgba(0, 0, 0, 0.04);
@@ -254,9 +267,8 @@ export default {
     line-height: 26px;
     padding: 0 8px;
     font-size: 12px;
-    background-color: #42b983;
+    background-image:linear-gradient(45deg, #0081ff, #1cbbb4);
     color: #fff;
-    border-color: #42b983;
   }
   .tabs-view-item-active:before {
     content: '';

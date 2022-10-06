@@ -4,7 +4,7 @@
 <view class="my_container">
     <view class="top">
         <view class="picturebox" wx:if="{{false}}">
-            <image src="/img/car1.png"></image>
+            <view></view>
             <view class="text_box">
                 <text>小 样</text>
                 <text>15277***174</text>
@@ -13,7 +13,11 @@
         <view wx:else>
             <button class="btn">授权登入</button>
         </view>
+        <view class="wave">
+            <image src="https://imgdata.kusu.icu/3/6332512f37bbb.gif"></image>
+        </view>
     </view>
+    
     <view class="bottom">
         <view class="list"> 
                 <van-cell title="个人信息" size="large" icon="/icon/imformation.png" is-link/>

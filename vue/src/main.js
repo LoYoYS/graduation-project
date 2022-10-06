@@ -7,10 +7,11 @@ import router from './router/index'
 /* 引入Vuex */
 import store from './store/index'
 import axios from 'axios'
-import VueAxios from "vue-axios" 
+import VueAxios from "vue-axios"
+import{MessageBox} from 'element-ui'
 
 const service=axios.create({
-  baseURL: 'http://localhost:8080/',
+  baseURL: 'http://localhost:8080',
   timeout: 30000,// 超时时间
   // responseType: "json",
     //请求头
@@ -27,17 +28,30 @@ service.interceptors.request.use(
 })
 /* 响应拦截器 */
 service.interceptors.response.use((res)=>{
-  if(res.data.code==400){
-    app.config.globalProperties.$notify({
-      title: 'Error',
-      message: res.data.data,
-      type: 'error'
+  if(res.data.code===9999){
+    MessageBox.alert(res.data.data,'错误',{
+      confirmButtonText: '确定',
+      type:'error'
+    }).then(()=>{
+        sessionStorage.removeItem('token')
+        router.replace({path:'/login'})
+    }).catch(()=>{
+        sessionStorage.removeItem('token')
+        router.replace({path:'/login'})
     })
-    sessionStorage.removeItem('token')
-    router.replace({path:'/'})
+  }
+  else if(res.data.code===5005){
+    MessageBox.alert(res.data.data,'错误',{
+      confirmButtonText: '确定',
+      type:'error'
+    }).then(()=>{
+      return
+    }).catch(()=>{
+      return
+    })
   }
   else
-    return res
+    return res.data
 })
 
 Vue.use(VueAxios, service) 

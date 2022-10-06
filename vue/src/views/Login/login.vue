@@ -2,7 +2,7 @@
   <div class="container">
     <div class="loginbox">
       <h1 class="welcome">WELCOME</h1>
-      <el-form :model="ruleForm" :rules="rules" status-icon ref="ruleForm" class="demo-ruleForm">
+      <el-form :model="ruleForm" :rules="rules" status-icon ref="ruleForm" class="demo-ruleForm" @keyup.enter.native="submitForm">
         <el-form-item prop="username">
           <el-input
             class="input"
@@ -37,25 +37,9 @@
       <li></li>
       <li></li>
     </ul>
-    <!-- 图形验证码 -->
-    <!-- <div class="picture" v-if="isShow">
-      <div class="verify">
-        <h1 style="font-size:18px">拖动下方滑块完成拼图</h1>
-        <div class="close" @click="closeMask">
-          <i class="el-icon-circle-close"></i>
-        </div>
-        <span>{{text}}</span>
-        <slide-verify 
-          ref="slideblock"
-          @success="onSuccess"
-          slider-text="向右滑"
-          >
-        </slide-verify>
-      </div>
-    </div> -->
     <!-- 忘记密码框 -->
     <transition name="el-zoom-in-top">
-      <div class="paswordbox" v-if="isShow1">
+      <div class="paswordbox" v-if="isShow">
         <div class="box">
           <div class="close1" @click="showbox">
            <i class="el-icon-circle-close"></i>
@@ -63,20 +47,17 @@
           <el-form :model="ruleForm1" :rules="rules1" status-icon ref="ruleForm1">
             <el-form-item prop="email">
               <el-input 
-                  class="input"
                   placeholder="邮 箱"
                   prefix-icon="el-icon-message"
-                  autocomplete="off"
                   v-model="ruleForm1.email"
                   clearable>
               </el-input>
             </el-form-item>
             <el-form-item prop="newPassword">    
               <el-input 
-                class="input"
-                placeholder="新 密 码" 
+                placeholder="新 密 码"
+                autocomplete="new-password" 
                 prefix-icon="el-icon-lock"
-                autocomplete="off"
                 v-model="ruleForm1.newPassword" 
                 show-password>
               </el-input>
@@ -85,7 +66,7 @@
                 <el-form-item prop="code">
                   <el-input style="width:175px" v-model="ruleForm1.code"></el-input>
                 </el-form-item>
-                <el-button style="width:114px;height:40px" type="primary" @click="sendCode" :loading="isloading" :disabled="isunable">{{btntext}}</el-button>
+                <el-button style="width:114px;height:40px" type="primary" @click="sendCode" :disabled="isunable">{{btntext}}</el-button>
               </div>
               <el-button type="primary" class="input" @click="updatePassword">保 存</el-button>
           </el-form>  
@@ -101,11 +82,8 @@
         return {
           /* 是否展示图形验证码 */
           isShow:false,
-          isShow1:false,
           isunable:false,
-          isloading:false,
-          btntext:'发送验证码',
-          text: '',     
+          btntext:'发送验证码',   
           ruleForm: {
             username:'',
             password:'',
@@ -121,8 +99,8 @@
           },
           rules1: {
             email: [
-              { required: true, message: '请输入账号', trigger: 'blur' },
-              { type: 'email', message: '邮箱格式错误', trigger: 'blur' },
+              { required: true, message: '请输入邮箱', trigger: 'blur' },
+              { pattern: /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/,message:'请输入正确的邮箱格式',trigger: 'blur'},
             ],
             newPassword: [{required: true, message: '请输入新密码', trigger:'blur'}],
             code:[{required: true, message: '请输入验证码', trigger:'blur'}]
@@ -134,7 +112,6 @@
         submitForm() {
           this.$refs.ruleForm.validate((valid) => {
             if (valid) {
-              // this.closeMask()
               let that=this
               let catptcha = new TencentCaptcha('195684093',function(res){
                   if(res.ret===0){
@@ -148,17 +125,17 @@
         },
         /* 登入 */
         login(){
-          const result =  this.axios.post("user/login",this.ruleForm)
-          result.then(({data})=>{
+          const result =  this.axios.post("/api/user/login",this.ruleForm)
+          result.then((data)=>{
             if(data.code==2000){
-                  this.$store.state.userInfo=data.data
+                  this.$store.commit('getUserInfo',data.data)
                   sessionStorage.setItem('token',data.data.token)
                   this.$message({
                   message: data.message,
                   type: 'success'
                   });
                   this.$router.push({
-                    path:'/main'
+                    path:'/'
                   })
                 }
                 else
@@ -167,55 +144,36 @@
                     type: 'error'
                   }); 
           })},
-        // 图形验证码遮罩层关闭、打开
-        closeMask(){
-            this.isShow=!this.isShow
-            this.text=''
-        },
-        // 验证码成功回调
-        onSuccess(times){
-              this.text = `只用了${(times / 1000).toFixed(1)}s,速度起飞了`
-              clearTimeout(this.timer)
-              this.timer=setTimeout(()=>{
-                this.closeMask()
-                this.login()
-              },700) 
-          },
         // 忘记密码遮罩层关闭、打开
         showbox(){
-          this.isShow1=!this.isShow1
+          this.isShow=!this.isShow
         },
         // 发送验证码
         sendCode(){
-          const regEmail = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/ 
-          if(regEmail.test(this.ruleForm1.email)){
-            this.isunable=true
-            this.isloading=true
-            this.btntext='发送中'
-            const result =  this.axios.get(`user/sendCode?email=${this.ruleForm1.email}`)
-            result.then(({data})=>{
-              if(data.code==2000){
-                this.isloading=false
-                this.isloading=false
-                this.countDown()
-                this.$message({
-                  message: '发送成功!',
-                  type: 'success'
+          this.$refs.ruleForm1.validateField('email',(err)=>{
+              if(!err){
+                  this.isunable=true
+                  this.countDown()
+                  this.$message({
+                      message: '发送成功!',
+                      type: 'success'
                   });
+                  const result =  this.axios.get(`/api/user/sendCode?email=${this.ruleForm1.email}`)
+                  result.then((data)=>{
+                  if(data.code==2000){
+                    return
+                  }
+                  else{
+                    this.$message({
+                      message: '发送失败!',
+                      type: 'error'
+                      });
+                  }
+                })
               }
-              else{
-                this.$message({
-                  message: '发送失败!',
-                  type: 'error'
-                  });
-              }
-            })
-          }
-          else return this.$message({
-                message: '请输入正确的邮箱地址',
-                type: 'warning'
-                });
-        },
+              else
+               return
+          })  },
         // 保存修改密码
         updatePassword(){
           let form = new FormData()
@@ -224,7 +182,7 @@
           form.append('code',this.ruleForm1.code)
           this.$refs.ruleForm1.validate((valid) => {
             if(valid){
-                this.axios.post('user/update',form).then(({data})=>{
+                this.axios.post('/api/user/forgetPassword',form).then((data)=>{
                   if(data.code==2000)
                       this.$message({
                         message: data.data,
@@ -251,7 +209,6 @@
                 clearInterval(timer)
                 this.isunable=false
                 this.btntext='发送验证码'
-
               }
             },900)
         }
@@ -297,42 +254,6 @@
     }
     .btn{
       margin-top: 20px;
-    }
-    /* 图形验证码遮罩层 */
-    .picture{
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background-color: rgba(212, 207, 207, 0.1);
-      z-index: 2;
-    }
-    /* 图形验证码盒子 */
-    .verify{
-      display: flex;
-      position: relative;
-      justify-content: center;
-      align-items: center;
-      flex-wrap: wrap;
-      border-radius: 5%;
-      width: 400px;
-      height: 350px;
-      background-color: white;
-      /* z-index: 2; */
-    }
-    /* 关闭按钮 */
-    .close i{
-      transform: translate(80px,-15px);
-      font-size: 25px;
-    }
-    .picture span{
-      position: absolute;
-      z-index: 3;
-      top: 20%;
-      font-size: 18px;
-      color: rgb(52, 233, 140);
     }
     /* 忘记密码按钮 */
     .demo-ruleForm a{

@@ -2,6 +2,7 @@
 import Vue from 'vue'
 //引入Vuex
 import Vuex from 'vuex'
+import VuexPersistence from "vuex-persist"
 //应用Vuex插件
 Vue.use(Vuex)
 
@@ -10,6 +11,9 @@ const actions = {}
 //准备mutations对象——修改state中的数据
 const mutations = {
     // 改变折叠状态
+    getUserInfo(state,user){
+        state.userInfo=user
+    },
     changeFold(state){
         state.isFold=!state.isFold
     },
@@ -18,12 +22,15 @@ const mutations = {
         state.tabList.splice(index, 1)
     },
     resetTab(state) {
-        state.tabList = [{ name: '首页', path: '/main' }]
+        state.tabList = [{ name: '首页', path: '/' }]
     },
     logout(state) {
         state.userInfo = null
         sessionStorage.removeItem('token')
     },
+    updateAvatar(state,url){
+        state.userInfo.url=url
+    }
 }
 //准备state对象——保存具体的数据
 const state = {
@@ -31,11 +38,17 @@ const state = {
     isFold:false,
     userInfo: null,
     // 标签数组
-    tabList: [{ name: '首页', path: '/main' }],
+    tabList: [{ name: '首页', path: '/' }],
 }
+ 
+const vueLocal=new VuexPersistence({
+    storage:window.sessionStorage
+  })
+
 
 export default new Vuex.Store({
     actions,
     mutations,
-    state
+    state,
+    plugins:[vueLocal.plugin]
 })

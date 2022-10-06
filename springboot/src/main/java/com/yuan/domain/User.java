@@ -14,5 +14,7 @@ public class User {
         private String email;
         private Integer role;
         private String token;
+        private String nickName;
+        private String url;
 
 }

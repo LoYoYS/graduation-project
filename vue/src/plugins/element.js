@@ -1,5 +1,6 @@
 import Vue from "vue";
 import {
+    Avatar,
     Pagination,
     Dialog,
     Autocomplete,
@@ -152,6 +153,7 @@ import {
   Vue.use(Backtop);
   Vue.use(PageHeader);
   Vue.use(CascaderPanel);
+  Vue.use(Avatar);
   
   Vue.use(Loading.directive);
   

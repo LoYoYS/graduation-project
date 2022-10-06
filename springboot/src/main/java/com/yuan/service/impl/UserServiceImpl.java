@@ -5,21 +5,23 @@ import com.alibaba.fastjson.JSONObject;
 import com.yuan.domain.ResultData;
 import com.yuan.domain.User;
 import com.yuan.mapper.UserMapper;
+import com.yuan.qo.UpdatePasswordQo;
 import com.yuan.service.UserService;
 import com.yuan.utils.EmailUtil;
 import com.yuan.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.UUID;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -28,8 +30,13 @@ public class UserServiceImpl implements UserService {
     @Autowired
     JavaMailSenderImpl mailSender;
 
+    @Value("${Location.realPath}")
+    private String realPath;
+    @Value("${Location.mapperPath}")
+    private String mapperPath;
+
     @Override
-    public ResultData<User> selectUser(User user) {
+    public ResultData<User> login(User user) {
         User user1 = userMapper.select(user);
         if (user1!=null){
             String token = JwtUtil.getToken(user1.getUsername());
@@ -59,7 +66,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResultData<String> updatePassword(String email, String password, String code, String code1) {
+    public ResultData<String> forgetPassword(String email, String password, String code, String code1) {
         User user = userMapper.selectByEmail(email);
         if (code.equals(code1)){
             if (user==null){
@@ -67,7 +74,7 @@ public class UserServiceImpl implements UserService {
             }
             else{
                 user.setPassword(password);
-                userMapper.updatePassword(user);
+                userMapper.forgetPassword(user);
                 return ResultData.success("保存成功!");
             }
         }
@@ -84,15 +91,56 @@ public class UserServiceImpl implements UserService {
         //解析返回值，对象解析成字符串
         jsonObject= (JSONObject) JSON.parse(value);
         String openid= (String) jsonObject.get("openid");
-        String session_key= (String) jsonObject.get("session_key");
+//        String session_key= (String) jsonObject.get("session_key");
         User result = userMapper.findUserByUsername(openid);
         if(result==null){
-            User user = new User(null, openid, "123456", "", "", 1, "");
+            User user = new User(null, openid, "123456", "", "", 1, "","","");
             userMapper.insertUser(user);
             return ResultData.success("新注册",user);
         }
         else{
             return ResultData.success("老用户",result);
+        }
+    }
+
+    @Override
+    public ResultData<String> update(User user) {
+        int result=userMapper.updateUser(user);
+        if(result>0){
+            return ResultData.success("修改成功");
+        }
+        return ResultData.fail("修改失败");
+    }
+
+    @Override
+    public ResultData<String> updatePassword(UpdatePasswordQo qo) {
+        User user = userMapper.selectByPassword(qo);
+        if(user==null)
+            return ResultData.fail("旧密码不正确");
+        else{
+            Integer integer = userMapper.updatePassword(qo);
+            if(integer>0)
+                return ResultData.success("修改成功");
+            else
+                return ResultData.fail("修改失败");
+        }
+    }
+
+    @Override
+    public ResultData<String> updateAvatar(MultipartFile file, Integer id) {
+        String fileName = file.getOriginalFilename();
+        if(fileName!=null){
+            String suffixName = fileName.substring(fileName.lastIndexOf("."));
+            fileName = UUID.randomUUID()+suffixName;
+        }
+        try {
+            file.transferTo(new File(realPath+fileName));
+            String url="http://localhost:8081"+mapperPath+fileName;
+            userMapper.updateUserAvatar(id,url);
+            return ResultData.success(url);
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResultData.fail("更换失败");
         }
     }
 
