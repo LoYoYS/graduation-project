@@ -82,7 +82,7 @@
           :total="total">
         </el-pagination>
         <!-- 编辑框 -->
-        <el-dialog :title="title" :visible.sync="isShow" center top="80px">
+        <el-dialog :title="title" :visible.sync="isShow" center top="80px" @close="closeDialog">
             <el-form :model="car" class="demo-ruleForm" :rules="rules" ref="car"
             label-width="90px" label-position="rigth" @keyup.enter.native="submitForm('car')">
                 <el-form-item label="车牌号:" prop="number" size="medium">
@@ -139,7 +139,7 @@
             </el-form>
           <div slot="footer" class="dialog-footer">
             <el-button type="primary" @click="submitForm('car')" icon="el-icon-edit" style="width:220px">保存</el-button>
-            <el-button type="warning" plain @click="reset('car')" icon="el-icon-refresh" v-if="car.id==''">重置</el-button>
+            <el-button type="warning" plain @click="reset('car')" icon="el-icon-refresh" v-if="!car.id">重置</el-button>
           </div>
         </el-dialog>
     </div>
@@ -280,6 +280,7 @@
                         this.$message.success(res.data)
                         this.getCarList()
                         this.reset('car')
+                        this.car={}
                         this.getCoachList()
                       }
                       else
@@ -362,7 +363,8 @@
         },
         clear(){
           this.loading=true
-        } 
+        },
+        closeDialog(){this.$refs.document.clearFiles();} 
       },
       watch:{
         // 类型筛选

@@ -1,6 +1,7 @@
 <template>
   <div>
-    <el-row :gutter="50">
+    <div v-loading="loading">
+      <el-row :gutter="50">
       <el-col :span="6">
         <div class="card">
           <div class="icon">
@@ -48,19 +49,25 @@
     </el-row>
     <el-card style="margin-top: 4rem">
       <div style="text-align:left;">柱形图</div>
-      <div style="height: 350px">
-        <!-- <v-chart :option="viewNumber" v-loading="loading" /> -->
+      <div style="height: 400px;width: 100%;" id="myChart">
       </div>
     </el-card>
+    </div>
+    
   </div>
 </template>
 
 <script>
+let echarts = require('echarts/lib/echarts')
+require('echarts/lib/chart/bar')
+require('echarts/lib/component/tooltip')
+require('echarts/lib/component/legend')
+require('echarts/lib/component/grid')
 export default {
     name:'Home',
     data(){
       return {
-        loading:false,
+        loading:true,
         studentNumber:0,
         coachNumber:0,
         userNumber:0,
@@ -71,50 +78,56 @@ export default {
             axisPointer: {
               type: 'cross'
             },
+          },
           legend: {
-            data: ['学员数','教练数','用户数','车辆数']
+            x:'right',
+            data:['数量统计'],
+            itemWidth:30,
+            itemHeight:15,
+            textStyle:{
+              color:'#0081ff',
+              fontSize:16
+            }
           },
           xAxis:{
-            data: ['学员数','教练数','用户数','车辆数'],
-            // type:category,
-            // data:[]
+           name:'类型', 
+           data:['学员数量','教练数量','用户数量','车辆数量'],
+           axisLine: {
+              show:true,
+              lineStyle: {
+                color: '#048CCE'
+              }
+            }
           },
           yAxis: {
             type:'value',
+            name:'数量',
             axisLine: {
+              show:true,
               lineStyle: {
-                // 设置y轴颜色
                 color: '#048CCE'
               }
             }
         },
         series: [
           {
-            name: '学员数',
-            type: 'bar',
-            value: 300,
-            smooth: true
-          },
-          {
-            name: '教练数',
-            type: 'bar',
-            value: 300,
-            smooth: true
-          },
-          {
-            name: '用户数',
-            type: 'bar',
-            value: 300,
-            smooth: true
-          },
-          {
-            name: '车辆数',
-            type: 'bar',
-            value: 300,
-            smooth: true
+            name:'数量统计',
+            type:'bar',
+            data:[],
+            smooth: true,
+            barWidth:80,
+            itemStyle: {
+              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                  offset: 0,
+                  color: '#6851f1'
+              }, {
+                  offset: 1,
+                  color: '#00DDFF'
+              }]),
+              borderRadius: 20,
+            }
           }
         ]
-        },
         }
       }
     },
@@ -129,7 +142,19 @@ export default {
           this.coachNumber=res.data.coachCount
           this.userNumber=res.data.userCount
           this.carNumber=res.data.carCount
+          this.viewNumber.series[0].data=[
+            res.data.studentCount,
+            res.data.coachCount,
+            res.data.userCount,
+            res.data.carCount
+          ]
+          this.getCharts(this.viewNumber)
+          this.loading=false
         }
+      },
+      getCharts(option){
+        let myChart = echarts.init(document.getElementById('myChart'))
+        myChart.setOption(option)
       }
     }
 }
@@ -159,6 +184,10 @@ export default {
   }
   .card:hover{
     transform: translateZ(2px);
+    background-image: linear-gradient(rgb(0, 214, 252),rgb(61,81,252));
+  }
+  .card:hover,.card:hover *{
+    color: white !important;
   }
   .title{
     height: 100%;

@@ -14,7 +14,7 @@ public class JwtUtil {
     //密匙
     private static final String SECRET = "yuan";
     //过期时间一个小时
-    private static final long EXPIRATION = 3600*1000*2;
+    private static final long EXPIRATION = 3600*1000;
 
     /*
     * 获取token
