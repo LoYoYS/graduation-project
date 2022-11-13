@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yuan.mapper.OrderMapper">
+
+    <resultMap id="orders" type="com.yuan.domain.Order">
+        <result property="id" column="id"></result>
+        <result property="s_id" column="s_id"></result>
+        <result property="c_id" column="c_id"></result>
+        <result property="subject" column="subject"></result>
+        <result property="date" column="date"></result>
+        <result property="time" column="time"></result>
+        <result property="interval" column="interval"></result>
+        <result property="c_name" column="name"></result>
+        <result property="c_phone" column="phone"></result>
+        <result property="carNumber" column="car"></result>
+    </resultMap>
+
+    <select id="getCoachList" resultType="com.yuan.domain.Coach">
+        select c.id,c.name,c.phone,c.car from coach c left join arrange a on c.id=a.c_id
+            where a.work=1 and a.type=#{type} and subject=#{subject}
+             and date_format(a.date,'%Y-%m-%d') =date_format(#{date},'%Y-%m-%d')
+    </select>
+
+    <select id="getNumber" resultType="com.yuan.domain.Arrange">
+        select * from arrange where c_id= #{id} and date_format(date,'%Y-%m-%d') =date_format(#{date},'%Y-%m-%d')
+    </select>
+
+    <select id="getRecord" resultType="java.lang.Integer">
+        select count(*) FROM `order` where s_id = #{s_id} and status=0 and
+                                           isDelete=0 and date_format(date,'%Y-%m-%d') =date_format(#{date},'%Y-%m-%d')
+    </select>
+
+    <insert id="saveOrder">
+        insert into `order` values (#{id},#{s_id},#{c_id},#{subject},#{date},#{time},#{interval},#{startTime},
+                                    #{endTime},#{status},#{comment},#{isDelete})
+    </insert>
+
+    <update id="updateNumber">
+        update arrange
+            <set>
+                <if test='interval=="a"'>
+                    a=a-1
+                </if>
+                <if test='interval=="b"'>
+                    b=b-1
+                </if>
+                <if test='interval=="c"'>
+                    c=c-1
+                </if>
+                <if test='interval=="d"'>
+                    d=d-1
+                </if>
+                <if test='interval=="e"'>
+                    e=e-1
+                </if>
+                <if test='interval=="f"'>
+                    f=f-1
+                </if>
+            </set>
+            where c_id=#{c_id} and date_format(date,'%Y-%m-%d') =date_format(#{date},'%Y-%m-%d')
+    </update>
+
+    <update id="cancelUpdate">
+        update arrange
+        <set>
+            <if test='interval=="a"'>
+                a=a+1
+            </if>
+            <if test='interval=="b"'>
+                b=b+1
+            </if>
+            <if test='interval=="c"'>
+                c=c+1
+            </if>
+            <if test='interval=="d"'>
+                d=d+1
+            </if>
+            <if test='interval=="e"'>
+                e=e+1
+            </if>
+            <if test='interval=="f"'>
+                f=f+1
+            </if>
+        </set>
+        where c_id=#{c_id} and date_format(date,'%Y-%m-%d') =date_format(#{date},'%Y-%m-%d')
+    </update>
+
+    <update id="updateDueOrder">
+        update `order` set status=2 where s_id=#{s_id} and status=0 and
+                                          date_format(endTime,'%Y-%m-%d %T') &lt; date_format(NOW(),'%Y-%m-%d %T');
+    </update>
+
+    <update id="finishOrder">
+        update `order` set status=#{status} where id=#{id} and NOW() BETWEEN startTime and endTime;
+    </update>
+
+    <update id="cancelOrder">
+        update `order` set status=#{status} where id=#{id} and
+                                    date_format(startTime,'%Y-%m-%d %T') &gt; date_format(NOW(),'%Y-%m-%d %T');
+    </update>
+
+    <select id="getRecords" resultMap="orders">
+        select o.*,c.name,c.phone,c.car from `order` o left join coach c on o.c_id = c.id
+        where o.s_id =#{s_id} and o.status=#{status} and o.isDelete=0 order by id desc
+    </select>
+
+    <update id="deleteOrder">
+        update `order` set isDelete=1 where id=#{id}
+    </update>
+
+    <select id="getRecordList" resultType="com.yuan.domain.Order">
+        select o.*,s.name as s_name,s.phone as s_phone from `order` o left join student s on o.s_id = s.id
+                    where o.c_id =#{c_id} and o.status=#{status} and
+                  date_format(o.date,'%Y-%m-%d') =date_format(#{date},'%Y-%m-%d') order by id desc
+    </select>
+
+    <select id="getCompleteRecords" resultType="com.yuan.domain.Order">
+        select o.*,s.name as s_name,s.phone as s_phone from `order` o left join student s on o.s_id = s.id
+                        where o.c_id =#{c_id} and (o.status=1 or o.status=2) and
+                        date_format(o.date,'%Y-%m-%d') =date_format(#{date},'%Y-%m-%d') order by id desc
+    </select>
+
+</mapper>

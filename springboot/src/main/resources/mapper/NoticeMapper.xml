@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yuan.mapper.NoticeMapper">
+
+    <insert id="save">
+        insert into notice values (null,#{title},#{content},#{time})
+    </insert>
+
+    <update id="update">
+        update notice set title=#{title},content=#{content} where id=#{id}
+    </update>
+
+    <delete id="delete">
+        delete from notice where id=#{id}
+    </delete>
+
+    <select id="list" resultType="com.yuan.domain.Notice">
+        select * from notice order by id desc
+    </select>
+
+    <select id="getNotice" resultType="com.yuan.domain.Notice">
+        select * from notice where id=#{id}
+    </select>
+
+    <select id="getStudentCount" resultType="java.lang.Integer">
+        select count(*) from student
+    </select>
+
+    <select id="getCoachCount" resultType="java.lang.Integer">
+        select count(*) from coach
+    </select>
+
+    <select id="getUserCount" resultType="java.lang.Integer">
+        select count(*) from user
+    </select>
+
+    <select id="getCarCount" resultType="java.lang.Integer">
+        select count(*) from car
+    </select>
+
+</mapper>

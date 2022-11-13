@@ -10,6 +10,9 @@ import lombok.NoArgsConstructor;
 public class Car {
     private Integer id;
     private String brand;
+    private String url;
+    private Integer type;
     private String number;
-    private String user;
+    private Integer coach_id;
+    private String coach_name;
 }

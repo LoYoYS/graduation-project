@@ -7,6 +7,7 @@ import {
     Dropdown,
     DropdownMenu,
     DropdownItem,
+    Empty,
     Menu,
     Submenu,
     MenuItem,
@@ -82,6 +83,7 @@ import {
   
   Vue.use(Pagination);
   Vue.use(Dialog);
+  Vue.use(Empty);
   Vue.use(Autocomplete);
   Vue.use(Dropdown);
   Vue.use(DropdownMenu);

@@ -1,0 +1,100 @@
+<cu-custom bgColor="bg-gradual-my" isBack="{{true}}">
+	<view slot="content">预约记录</view>
+	<view slot="backText">返回</view>
+</cu-custom>
+<van-tabs active="{{0}}" bind:change="onChange" sticky
+swipeable color="#0081ff" line-width="70" title-active-color="#0081ff">
+  <van-tab title="待练车">
+    <view class="orderList" wx:if="{{!loading && records.length}}">
+        <view class="order_item shadow-lg" wx:for="{{records}}" wx:key="idex">
+            <view class="cu-tag round bg-gradual-my text-lg time">{{item.date}} {{item.time}}</view>
+            <view style="margin: 5px 10px;">练习科目：{{item.subject===0?'科目二':'科目三'}}</view>
+            <view style="margin: 5px 10px;">车牌号码：{{item.carNumber?item.carNumber:'暂无号码'}}</view>
+            <view style="margin: 5px 10px;">
+                <text>教学教练：{{item.c_name}}</text> 
+                <text class="margin-left">电话号码：{{item.c_phone}}</text> 
+            </view>
+            <view class="btn">
+                <van-button round plain color="#0081ff" bind:click="finish" data-order="{{item}}">
+                    完成练车
+                </van-button>
+                <van-button round plain color="#fbbd08" bind:click="cancelOrder" data-order="{{item}}">
+                    取消预约
+                </van-button>
+            </view>
+        </view>
+    </view>
+    <van-empty 
+        wx:if="{{!records.length && !loading}}"
+        description="无记录">
+    </van-empty>
+  </van-tab>
+  <van-tab title="已完成">
+    <view class="orderList" wx:if="{{!loading && records.length}}">
+        <view class="order_item shadow-lg" wx:for="{{records}}" wx:key="idex">
+            <view class="cu-tag round bg-gradual-my text-lg time">{{item.date}} {{item.time}}</view>
+            <view style="margin: 5px 10px;">练习科目：{{item.subject===0?'科目二':'科目三'}}</view>
+            <view style="margin: 5px 10px;">车牌号码：{{item.carNumber?item.carNumber:'暂无号码'}}</view>
+            <view style="margin: 5px 10px;">
+                <text>教学教练：{{item.c_name}}</text> 
+                <text class="margin-left">电话号码：{{item.c_phone}}</text> 
+            </view>
+            <view class="btn">
+                <van-button round plain color="#e54d42" bind:click="deleteOrder" data-id="{{item.id}}"> 删除记录
+                </van-button>
+            </view>
+        </view>
+    </view>
+    <van-empty 
+        wx:if="{{!records.length && !loading}}"
+        description="无记录">
+    </van-empty>
+  </van-tab>
+  <van-tab title="已过期">
+    <view class="orderList" wx:if="{{!loading && records.length}}">
+        <view class="order_item shadow-lg" wx:for="{{records}}" wx:key="idex">
+            <view class="cu-tag round bg-gradual-my text-lg time">{{item.date}} {{item.time}}</view>
+            <view style="margin: 5px 10px;">练习科目：{{item.subject===0?'科目二':'科目三'}}</view>
+            <view style="margin: 5px 10px;">车牌号码：{{item.carNumber?item.carNumber:'暂无号码'}}</view>
+            <view style="margin: 5px 10px;">
+                <text>教学教练：{{item.c_name}}</text> 
+                <text class="margin-left">电话号码：{{item.c_phone}}</text> 
+            </view>
+            <view class="btn">
+                <van-button round plain color="#e54d42" bind:click="deleteOrder" data-id="{{item.id}}"> 删除记录
+                </van-button>
+            </view>
+        </view>
+    </view>
+    <van-empty 
+        wx:if="{{!records.length && !loading}}"
+        description="无记录">
+    </van-empty>
+  </van-tab>
+  <van-tab title="已取消">
+    <view class="orderList" wx:if="{{!loading && records.length}}">
+        <view class="order_item shadow-lg" wx:for="{{records}}" wx:key="idex">
+            <view class="cu-tag round bg-gradual-my text-lg time">{{item.date}} {{item.time}}</view>
+            <view style="margin: 5px 10px;">练习科目：{{item.subject===0?'科目二':'科目三'}}</view>
+            <view style="margin: 5px 10px;">车牌号码：{{item.carNumber?item.carNumber:'暂无号码'}}</view>
+            <view style="margin: 5px 10px;">
+                <text>教学教练：{{item.c_name}}</text> 
+                <text class="margin-left">电话号码：{{item.c_phone}}</text> 
+            </view>
+            <view class="btn">
+                <van-button round plain color="#e54d42" bind:click="deleteOrder" data-id="{{item.id}}"> 删除记录
+                </van-button>
+            </view>
+        </view>
+    </view>
+    <van-empty 
+        wx:if="{{!records.length && !loading}}"
+        description="无记录">
+    </van-empty>
+  </van-tab>
+</van-tabs>
+<van-dialog id="van-dialog" />
+<van-toast id="van-toast" />
+<van-loading color="#0081ff" size="50" vertical wx:if="{{loading}}">
+    加载中...
+</van-loading>

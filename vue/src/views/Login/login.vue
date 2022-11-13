@@ -22,7 +22,7 @@
           </el-input>
         </el-form-item>
         <a href="javascript:;" @click="showbox">忘记密码？</a>
-        <el-button class="btn" type="primary" @click="submitForm">登入</el-button>
+        <el-button class="Btn" type="primary" @click="submitForm">登入</el-button>
       </el-form>
     </div>
     <ul class="list">
@@ -130,19 +130,11 @@
             if(data.code==2000){
                   this.$store.commit('getUserInfo',data.data)
                   sessionStorage.setItem('token',data.data.token)
-                  this.$message({
-                  message: data.message,
-                  type: 'success'
-                  });
-                  this.$router.push({
-                    path:'/'
-                  })
+                  this.$message.success(data.message)
+                  this.$router.push({path:'/'})
                 }
                 else
-                  this.$message({
-                    message: data.message,
-                    type: 'error'
-                  }); 
+                  this.$message.error(data.message)
           })},
         // 忘记密码遮罩层关闭、打开
         showbox(){
@@ -154,20 +146,14 @@
               if(!err){
                   this.isunable=true
                   this.countDown()
-                  this.$message({
-                      message: '发送成功!',
-                      type: 'success'
-                  });
+                  this.$message.success('发送成功！')
                   const result =  this.axios.get(`/api/user/sendCode?email=${this.ruleForm1.email}`)
                   result.then((data)=>{
                   if(data.code==2000){
                     return
                   }
                   else{
-                    this.$message({
-                      message: '发送失败!',
-                      type: 'error'
-                      });
+                    this.$message.error('发送失败！')
                   }
                 })
               }
@@ -184,15 +170,9 @@
             if(valid){
                 this.axios.post('/api/user/forgetPassword',form).then((data)=>{
                   if(data.code==2000)
-                      this.$message({
-                        message: data.data,
-                        type: 'success'
-                      })
+                    this.$message.success(data.data)
                   else
-                  this.$message({
-                        message: data.data,
-                        type: 'error'
-                      })
+                    this.$message.error(data.data)
               })
             }
             else
@@ -220,7 +200,8 @@
     .container{
         width: 100vw;
         height: 100vh;
-        background-image:linear-gradient(110.01595960288273deg, rgba(48, 245, 251,0.8) 5.533854166666667%,rgb(141, 189, 197)96.67968749999999%);
+        /* background-image:linear-gradient(110.01595960288273deg, rgba(48, 245, 251,0.8) 5.533854166666667%,rgb(141, 189, 197)96.67968749999999%); */
+        background:url(https://s1.ax1x.com/2022/10/13/xa5gQf.jpg)50%/cover no-repeat;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -228,7 +209,7 @@
         overflow: hidden;
     }
     .loginbox{
-      z-index: 1;
+      z-index: 3;
       width: 450px;
       position: relative;
       text-align: center;
@@ -249,10 +230,10 @@
       top: 55%;
       transform: translate(-50%,-50%);
     }
-    .input,.btn{
+    .input,.Btn{
       width: 300px;
     }
-    .btn{
+    .Btn{
       margin-top: 20px;
     }
     /* 忘记密码按钮 */
@@ -271,8 +252,8 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background-color: rgb(255, 255, 255);
-      z-index: 2;
+      background:url(https://s1.ax1x.com/2022/10/13/xa5hwQ.jpg)50%/cover no-repeat;
+      z-index: 99;
     }
     /* 忘记密码盒子 */
     .box{
@@ -284,12 +265,14 @@
       flex-wrap: wrap;
       width: 400px;
       height: 300px;
-      background-color: rgb(203, 238, 251);
+      background-color:rgba(231, 244, 245,0.9);
+      box-shadow: 5px 5px 5px rgba(46, 47, 47,0.3);
     }
     .close1{
       font-size: 25px;
       position: absolute;
       top: 5px;
+      cursor: pointer;
       right:7px;
     }
     .code{
@@ -303,22 +286,18 @@
       height: 100px;
       position: absolute;
       border-radius: 50%;
-      bottom:-100px;
-      box-shadow: 1px 1px 3px rgb(173, 173, 177);
+      box-shadow: 0px 0px 1px rgb(194, 189, 189);
       animation: circle 10s linear 0s infinite normal ;
     }
     .list li:nth-child(1){
       left: 3%;
-      width: 150px;
-      height: 150px;
       animation-duration: 8s;
       background-image: linear-gradient(112.15334473777807deg, rgba(249, 63, 72,1) 5.533854166666667%,rgba(250, 183, 121,1) 96.67968749999999%);  
     }
     .list li:nth-child(2){
       left: 15%;
-      animation-delay: 2s;
+      /* animation-delay: 2s; */
       animation-duration: 7s;
-      /* animation-timing-function: ease; */
       background-image: linear-gradient(112.15334473777807deg, rgba(247, 238, 147,1) 5.533854166666667%,rgba(234, 220, 34,1) 96.67968749999999%);   
     }
     .list li:nth-child(3){
@@ -329,17 +308,14 @@
     }
     .list li:nth-child(4){
       left: 26%;
-      animation-delay: 3s;
+      /* animation-delay: 3s; */
       animation-duration: 8s;
-      /* animation-timing-function: ease-in-out; */
       background-image: linear-gradient(112.15334473777807deg, rgba(249, 231, 148,1) 5.533854166666667%,rgba(246, 190, 212,1) 96.67968749999999%);   
     }
     .list li:nth-child(5){
       left: 40%;
-      width: 200px;
-      height: 200px;
       animation-duration: 15s;
-      animation-delay: 0.5s;
+      /* animation-delay: 0.5s; */
       background-image: linear-gradient(112.15334473777807deg, rgba(98, 185, 183,1) 5.533854166666667%,rgba(236, 246, 237,1) 96.67968749999999%);   
     }
     .list li:nth-child(6){
@@ -351,8 +327,6 @@
     }
     .list li:nth-child(7){
       left: 50%;
-      width: 130px;
-      height: 130px;
       animation-delay: 0.3s;
       background-image: linear-gradient(112.15334473777807deg, rgba(255, 148, 196,1) 5.533854166666667%,rgba(235, 81, 112,1) 96.67968749999999%);   
     }
@@ -363,10 +337,7 @@
     }
     .list li:nth-child(8){
       left: 68%;
-      width: 150px;
-      height: 150px;
       animation-duration: 7s;
-      /* animation-timing-function: ease-in-out; */
       background-image: linear-gradient(112.15334473777807deg, rgba(114, 55, 146,1) 5.533854166666667%,rgba(239, 173, 183,1) 96.67968749999999%);   
     }
     .list li:nth-child(9){
@@ -377,9 +348,6 @@
     }
     .list li:nth-child(10){
       left: 85%;
-      width: 200px;
-      height: 200px;
-      /* animation-timing-function: ease-out; */
       animation-duration: 12s;
       background-image: linear-gradient(112.15334473777807deg, rgba(72, 209, 227,1) 5.533854166666667%,rgba(69, 143, 178,1) 96.67968749999999%);   
     }

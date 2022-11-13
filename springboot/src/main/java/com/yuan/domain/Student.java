@@ -18,4 +18,5 @@ public class Student {
     private Date date;
     private String type;
     private Subject subject;
+    private Integer isBindWx=0;
 }

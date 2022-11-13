@@ -1,0 +1,24 @@
+<cu-custom bgColor="bg-gradual-my" isBack="{{true}}">
+	<view slot="content">公告列表
+    </view><view slot="backText">返回</view>
+</cu-custom>
+<view class="list" wx:if="{{noticeList.length && !loading}}">
+    <view class="item" wx:for="{{noticeList}}" wx:key="id"
+    bindtap="openNotice" data-id="{{item.id}}">
+        <view class="title">{{item.title}}</view>
+        <view>
+            <van-icon name="clock-o"/>
+            <text style="margin-left: 2px;">{{item.time}}</text>
+        </view>
+    </view>
+    <view class="noMore">
+        没有更多了~
+    </view>
+</view>
+<van-empty 
+        wx:if="{{!noticeList.length && !loading}}"
+        description="暂无公告">
+    </van-empty>
+<van-loading color="#0081ff" size="50" vertical wx:if="{{loading}}">
+    加载中...
+</van-loading>

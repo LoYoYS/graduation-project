@@ -1,0 +1,47 @@
+<cu-custom bgColor="bg-gradual-my" isBack="{{true}}">
+	<view slot="content">查看教练评价</view>
+	<view slot="backText">返回</view>
+</cu-custom>
+<view class="item">
+        <view>
+            <image src="https://pic1.imgdb.cn/item/635e8fcf16f2c2beb1efd8ca.png" 
+            style="width: 100rpx;height: 100rpx;"></image>
+        </view>
+        <view class="info margin-left">
+            <view>{{coach.name}}</view>
+            <view>电话：{{coach.phone}}</view>
+            <view>入职日期：{{coach.date}}</view>
+        </view>
+</view>
+<view scroll-y class="margin-top">
+    <block wx:if="{{comments.length && !loading}}">
+        <view class="comment" wx:for="{{comments}}" wx:key="id">
+            <view class="top">
+                <view class="left">
+                    <image  src="https://pic1.imgdb.cn/item/6364a11816f2c2beb12c106e.png"></image>
+                    <view class="margin-left">
+                        <view class="margin-tb-xs">{{item.hidden?'匿名学员':item.s_name}}</view>
+                        <view class="margin-tb-xs">{{item.date}}</view>
+                    </view>
+                </view>
+                <van-rate color="#0081ff" size="18px" value="{{item.start}}" readonly 
+                gutter="1px" void-color="#aaaaaa" style="margin-top: -15px;"/>
+            </view>
+            <view class="bottom">
+                <view>
+                    {{item.content}}
+                </view>
+                <view class="praise">
+                    <van-icon name="good-job-o" size="16px"/>
+                </view>
+            </view>
+        </view>
+    </block>
+    <van-empty 
+        wx:if="{{!comments.length && !loading}}"
+        description="该教练暂时还没有收到评价哦">
+</van-empty>
+</view>
+<van-loading color="#0081ff" size="50" vertical wx:if="{{loading}}">
+    加载中...
+</van-loading>

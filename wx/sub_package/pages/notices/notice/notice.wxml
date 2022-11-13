@@ -1,0 +1,14 @@
+<cu-custom bgColor="bg-gradual-my" isBack="{{true}}">
+	<view slot="content">公告详情</view><view slot="backText">返回</view>
+</cu-custom>
+<view class="vessel" wx:if="{{!loading}}">
+    <view class="title">{{notice.title}}</view>
+    <view style="color: #0081ff; margin-bottom: 8px;">来学车吧小程序  
+        <van-icon name="clock-o" style="margin-left: 10px; color:#8799a3;"/>
+        <text style="color:#8799a3;">{{notice.time}}</text>
+    </view>
+    <text class="content">{{notice.content}}</text>
+</view>
+<van-loading color="#0081ff" size="50" vertical wx:if="{{loading}}">
+    加载中...
+</van-loading>

@@ -1,33 +1,76 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yuan.mapper.UserMapper">
+
     <select id="select" resultType="com.yuan.domain.User" parameterType="com.yuan.domain.User">
         select * from user where username=#{username} and password = #{password}
     </select>
+
     <select id="selectByEmail" resultType="com.yuan.domain.User" parameterType="java.lang.String">
         select * from user where email=#{email jdbcType=VARCHAR}
     </select>
+
     <update id="updatePassword">
         update user set password = #{newPassword} where id=#{id}
     </update>
+
     <update id="forgetPassword">
         update user set password = #{password} where id=#{id}
     </update>
+
     <update id="updateUser">
-        update user set nickName=#{nickName},phone=#{phone},email=#{email}
+        update user set nickName=#{nickName},email=#{email}
         where id=#{id}
     </update>
+
     <update id="updateUserAvatar">
         update user set url=#{url} where id=#{id}
     </update>
-    <select id="findUserByUsername" resultType="com.yuan.domain.User" parameterType="string">
-        select * from user where username=#{username}
-    </select>
+
     <select id="selectByPassword" resultType="com.yuan.domain.User">
         select * from user where password=#{oldPassword} and id=#{id}
     </select>
-    <insert id="insertUser" parameterType="com.yuan.domain.User">
+
+    <update id="updateUserRole">
+        update user set a_id=null,role=0 where a_id=#{id} and role=#{role}
+    </update>
+
+<!--  小程序端  -->
+    <select id="findUserByUsername" resultType="com.yuan.domain.Wx_user" parameterType="string">
+        select * from user where username=#{username}
+    </select>
+
+    <select id="findUserById" resultType="com.yuan.domain.Wx_user">
+        select * from user where id=#{id}
+    </select>
+
+    <select id="list" resultType="com.yuan.domain.Wx_user">
+        select id,username,a_id,role,nickName,url from user 
+            <where>
+                <if test="true">
+                    id!=1
+                </if>
+                <if test="type !=null and type !='' or type==0">
+                  and role =#{type}
+                </if>
+                <if test="keyWord != null and keyWord !=''">
+                    and nickName like concat('%',#{keyWord},'%')
+                </if>
+            </where>
+    </select>
+
+    <insert id="insertUser" parameterType="com.yuan.domain.User" useGeneratedKeys="true" keyProperty="id">
         insert into user
-            values (null,#{username},#{password},#{phone},#{email},1)
+            values (null,#{username},null,null,null,1,#{nickName},#{url})
     </insert>
+
+    <update id="updateRole">
+        update user set a_id=#{a_id},role=#{role} where id=#{id}
+    </update>
+
+    <update id="unbind">
+        update user set a_id=null,role =0 where id=#{id}
+    </update>
+
+
 </mapper>

@@ -1,10 +1,85 @@
-<cu-custom bgColor="bg-gradual-pink">
+<cu-custom bgColor="bg-gradual-my" isBack="{{true}}">
 	<view slot="content">预约学车</view>
+	<view slot="backText">返回</view>
 </cu-custom>
 <view class="swiper">
     <view class="swiper-item {{index==datetSelectIndex?'active':''}}" 
-    wx:for="{{dateArr}}" wx:key="index" catchtap="changeSelect" data-index="{{index}}">
-        <text>{{index==0?'今天':item.title}}</text>
+    wx:for="{{dateArr}}" wx:key="index" catchtap="changeSelect" data-index="{{index}}" data-item="{{item}}">
+        <text>{{index==0?'明天':item.title}}</text>
         <text>{{item.dateValue}}</text>
+    </view>  
+</view>
+<view class="margin text-blue">
+    *提示：一天只能预约一次练车。
+</view>
+<view class="Content shadow-lg">
+    <view>
+        <van-cell is-link bind:click="openSubject" value="{{subject.name}}">
+            <text slot="title" class="cu-tag  round bg-blue">选择科目</text>
+        </van-cell>
+    </view>
+    <view>
+        <van-cell is-link bind:click="openCoach" value="{{coach.name}}">
+            <text slot="title" class="cu-tag  round bg-blue">选择教练</text>
+        </van-cell>
+    </view>
+    <view>
+        <van-cell is-link bind:click="openTime" value="{{time.name}}">
+            <text slot="title" class="cu-tag  round bg-blue">选择时间</text>
+        </van-cell>
+    </view>
+    <view class="text-center margin-top-xl btn">
+        <van-button bind:click="submit" round>点击预约</van-button>
     </view>
 </view>
+<van-action-sheet
+    title="{{title}}"
+    cancel-text="取消"
+    show="{{show}}"
+    actions="{{actions}}"
+    bind:close="onClose"
+    bind:cancel="onClose"
+    bind:select="onSelect">
+<van-empty wx:if="{{actions.length==0}}" description="暂无教练上班！" />
+</van-action-sheet>
+<van-action-sheet 
+    show="{{show1}}" 
+    title="{{title}}"
+    cancel-text="取消"
+    bind:close="onClose"
+    bind:cancel="onClose">
+  <van-button class="time_item" wx:for="{{actions}}" wx:key="index" 
+  disabled="{{!item.value}}" bind:click="onSelect" data-item="{{item}}">
+    <view style="font-weight: bold;font-size: 18px;">{{item.name}}</view>
+    <text class="cu-tag round bg-blue sm">余量：{{item.number}}</text>
+  </van-button >
+</van-action-sheet>
+<van-dialog id="van-dialog"/>
+<van-dialog 
+    id="van-dialog"
+    use-slot
+    show="{{showInfo}}"
+    title="确认预约信息"
+    show-cancel-button
+    bind:confirm="confirmSubmit"
+    bind:close="onClose"
+    bind:cancel="onClose"> 
+    <view class="info">
+        <view>预约日期：</view>
+        <view>{{dateArr[datetSelectIndex].dateValue}}</view>
+    </view>
+    <view class="info">
+        <view>预约科目：</view>
+        <view>{{subject.name}}</view>
+    </view>
+    <view class="info">
+        <view>教练：</view>
+        <view>{{coach.name}}</view>
+    </view>
+    <view class="info">
+        <view>练车时间：</view>
+        <view>{{time.name}}</view>
+    </view>
+</van-dialog>
+<van-toast id="van-toast" />
+

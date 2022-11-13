@@ -1,0 +1,40 @@
+page{
+    background-image: linear-gradient(#DDE0FF,#FCFEFF 40%);
+}
+.vessel{
+    width: 100%;
+    /* min-height: calc(100% - 100rpx); */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.titel{
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 60rpx;
+}
+.img image{
+    width: 130rpx;
+    height: 130rpx;
+    margin-top: 80rpx;
+}
+.form{
+    width: 100%;
+    padding: 10px;
+    position: relative;
+    background-color: white;
+}
+.van-cell__value{
+    color: black !important;
+}
+.btn .van-button{
+    left: 50%;
+    bottom: -25%;
+    font-size: 18px !important;
+    font-weight: bold;
+    width: 80% !important;
+    color: white !important;
+    transform: translateX(-50%);
+    position: absolute !important;
+    background-image: linear-gradient(rgb(0, 214, 252),rgb(61,81,252)) !important;
+}

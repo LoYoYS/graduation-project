@@ -1,0 +1,42 @@
+.order_item{
+    width: 95%;
+    height: 280rpx;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+    margin: 20px auto;
+    box-sizing: border-box;
+    border-radius: 20rpx;
+    padding: 20rpx 40rpx;
+    background-color: white;
+}
+.time{
+    position: absolute;
+    width: 80%;
+    top: -10rpx;
+    left: 50%;
+    transform: translateX(-50%);
+    font-weight: bold;
+}
+.btn{
+    position: absolute;
+    right: 10rpx;
+    bottom: 15rpx;
+}
+.van-button{
+    width: 140rpx;
+    height: 40rpx !important;
+    padding: 0 !important;
+    margin: 0 10rpx;
+}
+.van-loading{
+    position: absolute;
+    top:50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+.van-dialog__button button{
+    height: 100rpx !important;
+    margin: 0 !important;
+}

@@ -1,9 +1,0 @@
-<cu-custom bgColor="bg-gradual-blue"  isCustom="{{true}}">
-    <view slot="content">个人中心</view>
-</cu-custom>
-<view class="box">
-    <view class="logo">
-        <image src="/icon/car.png"></image>
-    </view>
-    <button class="btn" bindtap="login">一 键 授 权 登 入</button>
-</view>

@@ -36,7 +36,7 @@ const mutations = {
 const state = {
     /* 侧边栏折叠状态 */
     isFold:false,
-    userInfo: null,
+    userInfo: {url:''},
     // 标签数组
     tabList: [{ name: '首页', path: '/' }],
 }

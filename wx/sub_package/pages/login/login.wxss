@@ -1,0 +1,36 @@
+page{
+    background-image: linear-gradient(rgb(0, 214, 252),rgb(61,81,252));
+}
+.box{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 80%;
+}
+/* 图片logo */
+.logo{
+    width: 200rpx;
+    height: 200rpx;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border: 1px solid rgb(83, 175, 228);
+    border-radius: 50%;
+}
+.logo image{
+    width: 130rpx;
+    height: 130rpx;
+}
+.btn{
+    width: 50% !important;
+    background-color: white;
+    color: rgb(12, 138, 177);
+    font-weight: bold;
+    border-radius: 25px;
+    box-shadow: 1px 1px 3px gray inset;
+    margin-top: 100rpx;
+}
+
+

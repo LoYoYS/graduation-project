@@ -5,14 +5,9 @@ module.exports = defineConfig({
   devServer:{
     proxy:{
       '/api':{
-        target: 'http://localhost:8081',// 代理目标的基础路径
+        target: 'http://localhost:8081',
         changeOrigin: true,
         pathRewrite: {'^/api': ''}
-      },
-      '/photo':{
-        target: 'https://img.kusu.icu/api/v1',// 代理目标的基础路径
-        changeOrigin: true,
-        pathRewrite: {'^/photo': ''}
       }
     }
   }

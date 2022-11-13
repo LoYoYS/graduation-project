@@ -1,0 +1,39 @@
+.list{
+    width: 100%;
+    height: 100%;
+}
+.list{
+    height: auto;
+    box-sizing: border-box;
+    padding: 10px;
+}
+.item{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 10px;
+    /* height: 10%; */
+    border-bottom: 1rpx solid rgb(207, 207, 207);
+}
+.title{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 16px;
+    color: #0081ff;
+    margin-bottom: 5px;
+}
+.item view:last-child{
+    color:gray
+}
+.noMore{
+    width: 100%;
+    color:gray;
+    text-align: center;
+}
+.van-loading{
+    position: absolute;
+    top:50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}

@@ -1,29 +1,25 @@
 module.exports = {
-  request : function(url, method = 'GET',data = {}, header={}){
+  request : function(url, method = 'GET',data = {}, header){
+    // 192.168.1.101
     // 192.168.1.102
-    let fullUrl = `http://192.168.1.102:8081/${url}`
+    // localhost
+    // 172.20.10.5
+    let fullUrl = `http://192.168.1.103:8081/${url}`
     return new Promise((resolve,reject)=>{
       wx.request({
         url: fullUrl,
         method,
         data,
-        header,
+        header:{
+            'content-type':header?'application/x-www-form-urlencoded':''||'application/json'
+        },
         success(res){
-            console.log(res)
-          if(res.data.code == 2000){
             resolve(res.data)
-          }else{
-            wx.showToast({
-              title: '请求失败',
-              icon:'error'
-            })
-            reject(res.data)
-          }
         },
         fail(){
           wx.showToast({
             title: '接口请求错误',
-            icon:'none'
+            icon:'error'
           })
           reject('接口请求错误')
         }

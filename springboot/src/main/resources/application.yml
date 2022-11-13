@@ -2,6 +2,8 @@ server:
   port: 8081
 
 spring:
+  mvc:
+    static-path-pattern: /static/**
   main:
     allow-circular-references: true
   servlet:

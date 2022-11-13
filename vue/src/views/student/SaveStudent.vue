@@ -2,21 +2,21 @@
   <div class="form_area">
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" status-icon
         label-width="100px" class="demo-ruleForm" label-position="left"  @keyup.enter.native="submitForm('ruleForm')">
-        <el-form-item label="姓名:" prop="name">
-            <el-input v-model="ruleForm.name"></el-input>
+        <el-form-item label="姓名:" prop="name" >
+            <el-input v-model="ruleForm.name" style="width:260px"></el-input>
         </el-form-item>
         <el-form-item label="性别:" prop="sex">
             <el-radio v-model="ruleForm.sex" label="男" border>男</el-radio>
             <el-radio v-model="ruleForm.sex" label="女" border>女</el-radio>
         </el-form-item>
         <el-form-item label="身份证号:" prop="id_number">
-            <el-input v-model="ruleForm.id_number" maxlength="18" clearable></el-input>
+            <el-input v-model="ruleForm.id_number" maxlength="18" clearable style="width:260px"></el-input>
         </el-form-item>
         <el-form-item label="电话号码:" prop="phone">
-            <el-input v-model="ruleForm.phone" maxlength="11" clearable></el-input>
+            <el-input v-model="ruleForm.phone" maxlength="11" clearable style="width:260px"></el-input>
         </el-form-item>
         <el-form-item label="驾照类型:" prop="type">
-            <el-select v-model="ruleForm.type" placeholder="请选择">
+            <el-select v-model="ruleForm.type" placeholder="请选择" style="width:260px">
                 <el-option v-for="item in options" :key="item" :value="item">
                 </el-option>
             </el-select>
@@ -26,12 +26,13 @@
                 v-model="ruleForm.date"
                 type="date"
                 value-format="yyyy-MM-dd"
-                placeholder="选择日期">
+                placeholder="选择日期"
+                style="width:260px">
             </el-date-picker>
         </el-form-item>
         <el-form-item>
-            <el-button type="primary" @click="submitForm('ruleForm')">添加</el-button>
-            <el-button type="warning" plain @click="resetForm('ruleForm')">重置</el-button>
+            <el-button type="primary" icon="el-icon-plus" @click="submitForm('ruleForm')">添加</el-button>
+            <el-button type="warning" plain icon="el-icon-refresh" @click="resetForm('ruleForm')">重置</el-button>
         </el-form-item>
     </el-form>
   </div>
@@ -79,17 +80,11 @@ export default {
                   let result = this.axios.post('/api/student/save',this.ruleForm)
                   result.then((data)=>{
                     if(data.code===2000){
-                      this.$message({
-                        message:data.data,
-                        type:'success'
-                      })
+                      this.$message.success(data.data)
                       this.resetForm(name)
                     }
                     else
-                    this.$message({
-                        message:data.data,
-                        type:'error'
-                      })
+                      this.$message.error(data.data)
                   })
                 }
                 else

@@ -1,0 +1,33 @@
+<cu-custom  isBack="{{true}}" style="color: white;">
+	<view slot="backText">返回</view>
+</cu-custom>
+<view class="commentList">
+    <view class="title">评价列表</view>
+    <block wx:if="{{list.length && !loading}}">
+        <view class="item" wx:for="{{list}}" wx:key="id">
+            <view class="top">
+                <view class="left">
+                    <image  src="https://pic1.imgdb.cn/item/6364a11816f2c2beb12c106e.png"></image>
+                    <view class="margin-left">
+                        <view class="margin-tb-xs">{{item.hidden?'匿名学员':item.s_name}}</view>
+                        <view class="margin-tb-xs">{{item.date}}</view>
+                    </view>
+                </view>
+                <van-rate color="#0081ff" size="18px" value="{{item.start}}" readonly 
+                gutter="1px" void-color="#aaaaaa" style="margin-top: -15px;"/>
+            </view>
+            <view class="bottom">
+                <view>
+                    {{item.content}}
+                </view>
+                <view class="praise">
+                    <van-icon name="good-job-o" size="16px"/>
+                </view>
+            </view>
+        </view>
+    </block>
+    <van-empty wx:else description="暂无评价!"></van-empty>
+</view>
+<van-loading color="#0081ff" size="50" vertical wx:if="{{loading}}">
+    加载中...
+</van-loading>

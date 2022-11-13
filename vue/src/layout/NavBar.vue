@@ -22,7 +22,7 @@
           <el-dropdown-item icon="el-icon-user-solid" command="setting">个人中心</el-dropdown-item>
           <el-dropdown-item icon="el-icon-switch-button" command="logout">退出登入</el-dropdown-item>
         </el-dropdown-menu>
-     </el-dropdown> 
+      </el-dropdown> 
     </div>
     </div>
      <!-- 动态标签栏 -->
@@ -267,7 +267,7 @@ export default {
     line-height: 26px;
     padding: 0 8px;
     font-size: 12px;
-    background-image:linear-gradient(45deg, #0081ff, #1cbbb4);
+    background-image: linear-gradient(rgb(0, 214, 252),rgb(61,81,252));
     color: #fff;
   }
   .tabs-view-item-active:before {

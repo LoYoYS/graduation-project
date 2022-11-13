@@ -1,0 +1,97 @@
+page{
+    background-image: linear-gradient(rgb(0, 214, 252),rgb(61,81,252));
+}
+.btn .van-button{
+    left: 50%;
+    bottom: 2%;
+    font-size: 16px !important;
+    font-weight: bold;
+    width: 80% !important;
+    color: white !important;
+    transform: translateX(-50%);
+    position: absolute !important;
+    background-image: linear-gradient(rgb(0, 214, 252),rgb(61,81,252)) !important;
+}
+.vessel{
+    height: calc(100% - 60px);
+    background-color: #F1F1F1;
+}
+.title,.list,.item,.info,.status,.status>view{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.title{
+    width: 100%;
+    position: sticky;
+    top: 60px;
+    height: 20%;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    justify-content: center;
+    border-radius: 0px 0px 20% 20%;
+    background-image: linear-gradient(rgb(0, 214, 252),rgb(61,81,252));
+}
+.list{
+    width: 100%;
+    height: calc(100% - 20% - 45rpx);
+    overflow-y: scroll;
+    display: flex;
+    text-align: center;
+    margin-top: 45rpx;
+    flex-direction: column;
+}
+.item{
+    width: 95%;
+    position: relative;
+    min-height: 220rpx;
+    box-sizing: border-box;
+    align-items: flex-start;
+    padding: 5px 15px;
+    margin: 5px auto;
+    background-color: white;
+    border-radius: 6px;
+}
+.info{
+    min-height: 200rpx;
+    align-items: flex-start;
+    flex-direction: column;
+}
+.status{
+    width: 130rpx;
+    height: 130rpx;
+    border-radius: 50%;
+    margin-right: 40rpx;
+    border: 3px solid;
+    justify-content: center;
+}
+.status>view{
+    width: 110rpx;
+    height: 110rpx;
+    border-radius: 50%;
+    border: 1px solid;
+    justify-content: center;
+}
+.status>view>text{
+    text-align: center;
+}
+.cuIcon-right{
+    position: absolute;
+    top:50%;
+    transform: translateY(-50%);
+    right: 6px;
+    font-size: 16px;
+}
+.dialogInfo{
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    min-height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.dialogInfo .van-button{
+    width: 100% !important;
+}

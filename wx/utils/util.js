@@ -1,14 +1,20 @@
 const getDate = function(){
     let date = new Date()
-    let day = date.getDate()
-    let week =date.getDay()
-    let month =formatdate(date.getMonth()+1)
     let year = date.getFullYear()
+    let month =date.getMonth()+1
+    let week =date.getDay()+1
+    let day = date.getDate()+1
+    let days = new Date(year,month,0).getDate()
     let dateArr = []
     for(let i =0; i<8;i++){
-      let newday=formatdate(day+i)
-      let newweek =getWeek(week+i)
-      dateArr[i]={title:newweek,dateValue:(year+'-'+month+'-'+newday),isSelect:false}
+        let y=year,m=month
+        if(day+i>days){
+          m=12<(month+1)?formatdate((month+1)%12):formatdate(month+1)
+          y=12<(month+1)?year+1:year
+        }
+        let newday=day+i>days?formatdate((day+i)%days):formatdate(day+i)
+        let newweek =getWeek(week+i)
+        dateArr[i]={title:newweek,dateValue:(y+'-'+m+'-'+newday),isSelect:false}
     }
     return dateArr
 }

@@ -1,88 +1,85 @@
-// pages/home/home.js
+const api = require("../../api/common")
+const app = getApp()
 Page({
 
-    /**
-     * 页面的初始数据
-     */
     data: {
         images:[
-            /* 'https://s1.ax1x.com/2022/09/22/xFJ4ij.jpg',
-            'https://s1.ax1x.com/2022/09/22/xFski6.jpg',
-            'https://s1.ax1x.com/2022/09/22/xFsmsH.jpg', */
-            'https://imgdata.kusu.icu/3/6332bfc31373a.jpg',
-            'https://imgdata.kusu.icu/3/6332bfc3c1b22.jpg',
-            'https://imgdata.kusu.icu/3/6332bfc74322d.jpg'
-        ]
+            'https://pic1.imgdb.cn/item/63620eba16f2c2beb1f9633e.jpg',
+            'https://pic1.imgdb.cn/item/63620eb616f2c2beb1f9565b.jpg',
+            'https://pic1.imgdb.cn/item/63620ea916f2c2beb1f92e71.jpg',
+            'https://pic1.imgdb.cn/item/63620eb016f2c2beb1f943ff.jpg'
+        ],
+        notices:[],
+        isStudent:true,
     },
-    // 图片预览
+    onLoad(options) {
+        // 获取公告列表
+        api.getNoticeList(1).then((res)=>{
+            if(res.code===2000)
+                this.setData({notices:res.data.list})
+        })
+    },
+    onShow(){
+        if(app.globalData.userInfo)
+            this.setData({isStudent:app.globalData.userInfo.role}) 
+    },
+     // 图片预览
     showImage(e){
         wx.previewImage({
           current:this.data.images[e.currentTarget.dataset.index],
           urls: this.data.images,
         })
     },
-    // 小动画
-    gotologin(){
+    // 前往预约
+    gotoOrder(){
+        let flag = app.checkUser()
+        if(!flag)
+            return
+        wx.navigateTo({url: '/sub_package/pages/order/order'})
+    },
+     // 前往预约列表
+     gotoOrderList(){
+        let flag = app.checkUser()
+        if(!flag)
+            return
+        wx.navigateTo({url: '/sub_packageB/pages/orders/orders'})
+    },
+    // 打开学员功能页面
+    gotoNewPage({currentTarget:{dataset:{index}}}){
+        if(index===1)
+            wx.navigateTo({url: '/sub_package/pages/order/record/record'})
+        else if(index===2)
+            wx.navigateTo({url: '/sub_package/pages/progress/progress'})
+        else if(index===3)
+            wx.navigateTo({url: '/sub_package/pages/comment/comment'})
+        else
+            wx.navigateTo({url: '/sub_package/pages/findCoach/findCoach'})
+    },
+    // 打开教练功能页面
+    gotoNewPageB({currentTarget:{dataset:{index}}}){
+        if(index===1)
+            wx.navigateTo({url: '/sub_packageB/pages/comment/comment'})
+        else if(index===2)
+            wx.navigateTo({url: '/sub_packageB/pages/vacate/vacate'})
+        else if(index===3)
+            wx.navigateTo({url: '/sub_packageB/pages/car/car'})
+        else
+            wx.showToast({
+              title: '功能正在开发中',
+              icon:'error'
+            })
+            
+    },
+    // 查看公告
+    openNotice(e){
         wx.navigateTo({
-          url: '/pages/login/login',
+          url: `/sub_package/pages/notices/notice/notice?id=${e.currentTarget.dataset.id}`,
         })
-      /*   wx.redirectTo({
-          url: '/pages/login/login',
-        }) */
     },
-    /**
-     * 生命周期函数--监听页面加载
-     */
-    onLoad(options) {
-
+    // 查看公告列表
+    openNoticeList(){
+        wx.navigateTo({
+          url: '/sub_package/pages/notices/notices',
+        })
     },
-
-    /**
-     * 生命周期函数--监听页面初次渲染完成
-     */
-    onReady() {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面显示
-     */
-    onShow() {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面隐藏
-     */
-    onHide() {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面卸载
-     */
-    onUnload() {
-
-    },
-
-    /**
-     * 页面相关事件处理函数--监听用户下拉动作
-     */
-    onPullDownRefresh() {
-
-    },
-
-    /**
-     * 页面上拉触底事件的处理函数
-     */
-    onReachBottom() {
-
-    },
-
-    /**
-     * 用户点击右上角分享
-     */
-    onShareAppMessage() {
-
-    }
 })

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yuan.mapper.CarMapper">
+    <resultMap id="car" type="com.yuan.domain.Car">
+        <result property="id" column="id"></result>
+        <result property="brand" column="brand"></result>
+        <result property="number" column="number"></result>
+        <result property="url" column="url"></result>
+        <result property="type" column="type"></result>
+        <result property="coach_id" column="coach"></result>
+        <result property="coach_name" column="name"></result>
+    </resultMap>
+    <insert id="save">
+        insert into car values (null,#{brand},#{number},#{type},#{coach_id},#{url})
+    </insert>
+
+    <update id="update">
+        update car set coach = #{id} where number=#{number}
+    </update>
+
+    <update id="updateList" parameterType="java.util.List">
+        update car set coach = null where number in
+        <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+            #{item.car}
+        </foreach>
+    </update>
+
+    <update id="updateCar">
+        update car set brand=#{brand},type=#{type},coach=#{coach_id},url=#{url} where id=#{id}
+    </update>
+
+    <delete id="delete">
+        delete from car where id=#{id}
+    </delete>
+
+    <delete id="deleteList" parameterType="java.util.List">
+        delete from car where id in
+        <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+            #{item.id}
+        </foreach>
+    </delete>
+
+    <select id="numberList" resultType="java.lang.String">
+        select number from car where coach is null
+    </select>
+
+    <select id="findCarByNumber" resultType="com.yuan.domain.Car">
+        select * from car where number =#{number}
+    </select>
+
+    <select id="list" resultMap="car">
+        select car.*,coach.name from car left join coach on car.coach=coach.id
+        <where>
+            <if test="type !=null and type !='' or type ==0">
+                type =#{type}
+            </if>
+            <if test="keyWord != null and keyWord !=''">
+               and number like concat('%',#{keyWord},'%')
+            </if>
+        </where>
+    </select>
+
+</mapper>

@@ -6,10 +6,12 @@
           <el-button type="danger" icon="el-icon-delete" :disabled="deleteList.length==0" 
           size="small" @click="deleteStudentList">批量删除</el-button>
           <el-button type="primary" size="small" icon="el-icon-plus" @click="toAdd">添加学员</el-button>
+          <el-button type="primary" size="small" icon="el-icon-upload" @click="showImport=true">导入数据</el-button>
+          <el-button type="primary" size="small" icon="el-icon-download" @click="exportData">导出数据</el-button>
+          <el-button type="primary" size="small" icon="el-icon-download" @click="download">下载模板</el-button>
         </div>
         <div class="right">
-          <el-select v-model="type" placeholder="驾照类型" size="small" style="width:170px">
-            <el-option label="全部" value="" />
+          <el-select v-model="type" placeholder="驾照类型" clearable size="small" style="width:170px">
             <el-option
               v-for="item in options"
               :key="item"
@@ -25,22 +27,22 @@
               :value="item.value">
             </el-option>
           </el-select>
-          <el-input v-model.lazy="keyWord" size="small" style="width:170px" 
+          <el-input v-model.lazy="keyWord" size="small" style="width:170px" clearable
           placeholder="姓名/手机号" prefix-icon="el-icon-search">
           </el-input>
           <el-button type="primary" size="small" icon="el-icon-search"  @click="search">搜素</el-button>
         </div>
       </div>
       <!-- 表格 -->
-      <el-table :data="studentList" border  style="width: 100%" 
+      <el-table :data="studentList" border  style="width: 100%"  v-loading="loading"
           :header-cell-style="{background:'#f4f3f9',color:'#606266',fontWeight:'bold'}"
           @selection-change="seletChange"
           >
         <el-table-column type="selection" align="center"></el-table-column>
         <el-table-column prop="name" label="姓名" align="center" width="auto"></el-table-column>
-        <el-table-column prop="sex" label="性别" align="center" width="auto"></el-table-column>
+        <el-table-column prop="sex" label="性别" align="center" width="75px"></el-table-column>
         <el-table-column prop="id_number" label="身份证号" align="center" width="200px"></el-table-column>
-        <el-table-column prop="phone" label="电话号码" align="center" width="150px"></el-table-column>
+        <el-table-column prop="phone" label="电话号码" align="center" width="130px"></el-table-column>
         <el-table-column prop="date" label="报名日期" align="center" width="130px"></el-table-column>
         <el-table-column prop="type" label="驾照类型" align="center" width="auto"></el-table-column>
         <el-table-column prop="subject.subject_a" label="科目一" align="center" width="auto">
@@ -67,15 +69,29 @@
               <el-tag type="danger" v-else>未通过</el-tag>
           </template>
         </el-table-column>
-        <el-table-column label="操作" align="center" width="150px">
+        <el-table-column prop="subject.isBindWx" label="绑定微信" align="center" width="auto">
+          <template slot-scope="scope">
+            <el-switch
+              v-model="scope.row.isBindWx"
+              active-color="#13ce66"
+              :active-value="1"
+              :inactive-value="0"
+              @change="switchChange"
+              >
+            </el-switch>
+          </template>
+        </el-table-column>
+        <el-table-column label="操作" align="center" width="180px">
           <template slot-scope="scope">
             <el-button
               size="mini"
               type="primary"
+              icon="el-icon-edit"
               @click="handleEdit(scope.row)">编辑</el-button>
             <el-button
               size="mini"
               type="danger"
+              icon="el-icon-delete"
               @click="handleDelete(scope.row)">删除</el-button>
           </template>
         </el-table-column>  
@@ -92,8 +108,7 @@
         :total="total">
       </el-pagination>
       <!-- 编辑框 -->
-      <div v-if="isShow">
-        <el-dialog title="编辑学员" :visible.sync="isShow" center top="50px">
+      <el-dialog title="编辑学员" :visible.sync="isShow" center top="50px">
         <el-form :model="student" class="demo-ruleForm" :rules="rules" ref="student"
         label-width="90px" label-position="left" @keyup.enter="submitForm('student')">
           <el-form-item label="姓名:" prop="name" >
@@ -121,38 +136,62 @@
                   type="date"
                   size="medium"
                   value-format="yyyy-MM-dd"
-                  placeholder="选择日期">
+                  placeholder="选择日期"
+                  style="width:210px">
               </el-date-picker>
           </el-form-item>
-          <el-form-item label="* 完成科目:">
+          <el-form-item label="* 完成科目:" v-if="isShow">
               <el-checkbox :checked="student.subject.a===1" @change="checkBoxChange('a')">科目一</el-checkbox>
               <el-checkbox :checked="student.subject.b===1" @change="checkBoxChange('b')">科目二</el-checkbox>
               <el-checkbox :checked="student.subject.c===1" @change="checkBoxChange('c')">科目三</el-checkbox>
               <el-checkbox :checked="student.subject.d===1" @change="checkBoxChange('d')">科目四</el-checkbox>
+          </el-form-item>
+          <el-form-item label="* 绑定微信:" style="margin:0 !important">
+            <el-switch
+              v-model="student.isBindWx"
+              active-color="#13ce66"
+              :active-value="1"
+              :inactive-value="0"
+              @change="switchChange"
+              >
+            </el-switch>
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
           <el-button type="primary" @click="submitForm('student')" icon="el-icon-edit" style="width:220px">修改</el-button>
         </div>
       </el-dialog>
-      </div>
+      <el-dialog title="导入数据" :visible.sync="showImport" center @close="closeDialog">
+        <el-upload
+          class="upload-demo"
+          ref="upload"
+          drag
+          :headers="headers"
+          action="/api/student/importExcel"
+          :limit="1"
+          :auto-upload="false"
+          :on-success="importSuccess"
+          :on-error="importError"
+          accept=".xls,.xlsx">
+          <i class="el-icon-upload"></i>
+          <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+          <div class="el-upload__tip" slot="tip">只能上传.xls / .xlsx文件</div>
+        </el-upload>
+        <div slot="footer" class="dialog-footer">
+          <el-button type="primary" @click="submitUpload" icon="el-icon-upload" style="width:220px">点击导入</el-button>
+        </div>
+      </el-dialog>
+      
   </div>
 </template>
 
 <script>
+
 export default {
     name:'Student',
     data(){
         return{
-          student:{
-            subject:{
-              a:0,
-              b:0,
-              c:0,
-              d:0
-            }
-          },
-          oldstudent:{},
+          student:{subject:{}},
           rules: {
             name: [
               { required: true, message: '请输入姓名', trigger: 'blur' },
@@ -171,7 +210,7 @@ export default {
             type: [{ required: true, message: '请选择驾照类型', trigger: 'visible-change' }]
           },       
           options:['C1','C2','C3','C4','C5','C6','D','E','F'],
-          options1:[{label:'全部',value:''},{label:'科目一',value:'a'},{label:'科目二',value:'b'},
+          options1:[{label:'科目一',value:'a'},{label:'科目二',value:'b'},
           {label:'科目三',value:'c'},{label:'科目四',value:'d'}],
           keyWord:null,
           type:null,
@@ -180,9 +219,12 @@ export default {
           size:5,
           total:0,
           isShow:false,
+          showImport:false,
           studentList: [],
-          deleteList:[]
-      }
+          deleteList:[],
+          loading:true,
+          headers:{token:this.$store.state.userInfo.token}
+        }
     },
     created(){
       this.getStudentList()
@@ -201,12 +243,13 @@ export default {
         }).then((res)=>{
           this.studentList=res.data.list
           this.total=res.data.total
+          this.loading=false
         })
       },
       // 修改学员
       handleEdit(row){
         this.student=JSON.parse(JSON.stringify(row));
-        this.oldstudent = JSON.parse(JSON.stringify(row));
+        console.log(this.student);
         this.isShow=true
       },
       // 删除学员
@@ -218,17 +261,13 @@ export default {
         }).then(() => { 
           this.axios.delete('/api/student/delete',{data:row}).then((res)=>{
             if(res.code===2000){
-              this.$message({
-                message:res.data,
-                type:"success"
-              })
+              this.loading=true
+              this.$message.success(res.data)
+              this.deleteHandlePage(1)
               this.getStudentList()
             }
             else
-              this.$message({
-                message:res.data,
-                type:'error'
-            })
+              this.$message.error(res.data)
         })
         }).catch(() => {
            return          
@@ -236,16 +275,21 @@ export default {
       },
       // 模糊搜索
       search(){
+        if(this.keyWord==''||this.keyWord==null)
+            return this.$message.error("请输入关键字后再搜索")
+        this.loading=true
         this.currentPage=1
         this.getStudentList()
       },
       // 显示数量改变
       handleSizeChange(index){
+        this.loading=true
         this.size = index
         this.getStudentList()
       },
       // 页码改变
       handleCurrentChange(index){
+        this.loading=true
         this.currentPage=index
         this.getStudentList()
       },
@@ -257,6 +301,10 @@ export default {
       checkBoxChange(s){
         this.student.subject[s]=this.student.subject[s]===1?0:1
       },
+      // 微信绑定开关
+      switchChange(val){
+        this.student.isBindWx=val
+      },
       // 提交修改学员 
       submitForm(name){
             this.$refs[name].validate((valid)=>{
@@ -264,23 +312,16 @@ export default {
                   this.$confirm('确定修改吗?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
-                    type: 'info'
+                    type: 'warning'
                   }).then(()=>{
-                    this.axios.post('/api/student/update',
-                      {oldStudent:this.oldstudent,newStudent:this.student}
+                    this.axios.post('/api/student/update',this.student
                       ).then((res)=>{
                         if(res.code===2000){
-                          this.$message({
-                            message:res.data,
-                            type:'success'
-                          })
+                          this.$message.success(res.data)
                           this.getStudentList()
                         }
                         else
-                          this.$message({
-                            message:res.data,
-                            type:'error'
-                          })
+                          this.$message.error(res.data)
                     })
                   }).catch(()=>{
                     return
@@ -307,32 +348,81 @@ export default {
                   this.axios.delete('/api/student/deleteList',
                   {data:this.deleteList}).then((res)=>{
                     if(res.code===2000){
-                      this.$message({
-                        message:res.data,
-                        type:'success'
-                      })
+                      this.$message.success(res.data)
+                      this.loading=true
+                      this.deleteHandlePage(this.deleteList.length)
                       this.getStudentList()
                     }
                     else{
-                      this.$message({
-                        message:res.data,
-                        type:'error'
-                      })
+                      this.$message.error(res.data)
                     }
                   })
                 }).catch(()=>{
                   return
           })
-      } 
+      },
+      // 删除数据后页码更新处理函数
+      deleteHandlePage(size){
+            let totalPage = Math.ceil((this.total - size) / this.size)
+            let pagenum = this.currentPage > totalPage ? totalPage : this.currentPage
+            this.currentPage = pagenum < 1 ? 1 : pagenum
+      },
+      // 导入
+      submitUpload(){
+        this.$refs.upload.submit()
+      },
+      // 导入成功
+      importSuccess(res){
+        if(res.code===2000){
+          this.$message.success(res.data)
+          this.$refs.upload.clearFiles();
+          this.getStudentList()
+        }
+        else
+        this.$message.error('导入失败！')
+      },
+      // 导入失败
+      importError(){
+        this.$message.error('导入失败！')
+      },
+      // 导出
+      async exportData(){
+        let res = await this.axios.post('/api/student/exportExcel',{},{responseType:'blob'})
+        this.downloadExcel(res)
+      },
+      // 下载模板
+      download(){
+        window.open('http://localhost:8081/static/excel/学员信息导入模板.xlsx')
+      },
+      //下载文件
+      downloadExcel(data){
+         if(!data){
+             return
+         }
+         let blob = new Blob([data])
+         let url = window.URL.createObjectURL(blob);
+         let aLink = document.createElement("a");
+         aLink.style.display = "none";
+         aLink.href = url;
+         aLink.setAttribute("download", "学员档案信息.xls");
+         document.body.appendChild(aLink);
+         aLink.click();
+         document.body.removeChild(aLink); //下载完成移除元素
+         window.URL.revokeObjectURL(url); //释放掉blob对象
+      },
+      closeDialog(){this.$refs.upload.clearFiles();}
+
     },
     watch:{
       // 类型筛选
       type(){
+        this.loading=true
         this.currentPage=1
         this.getStudentList()
       },
       // 科目筛选
       subject(){
+        this.loading=true
         this.currentPage=1
         this.getStudentList()
       },
@@ -342,7 +432,7 @@ export default {
 
 <style scoped>
 .el-table{
-  margin: 10px auto;
+  margin: 30px auto;
 }
 .operation{
   width: 100%;
@@ -351,15 +441,24 @@ export default {
   display: flex;
   justify-content: space-between;
 }
-.right{
+.left,.right{
   width: 650px;
   display: flex;
   justify-content: space-around;
   align-items: center;
 }
+.left{
+  width: 550px;
+}
 .demo-ruleForm{
     text-align: left;
     width: 300px;
     margin: 0 auto;
+}
+.el-form-item{
+  margin-bottom: 15px;
+}
+.upload-demo{
+  text-align: center;
 }
 </style>

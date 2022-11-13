@@ -8,16 +8,18 @@ import router from './router/index'
 import store from './store/index'
 import axios from 'axios'
 import VueAxios from "vue-axios"
+// // import ECharts from 'vue-echarts'
+// import 'echarts/lib/chart/bar'
+// import 'echarts/lib/component/tooltip'
+// import 'echarts/lib/component/legend'
 import{MessageBox} from 'element-ui'
+
+// Vue.component('v-chart',ECharts)
 
 const service=axios.create({
   baseURL: 'http://localhost:8080',
+  // baseURL: 'http://192.168.1.101:8080',
   timeout: 30000,// 超时时间
-  // responseType: "json",
-    //请求头
- /*  headers: {
-      'Content-Type': 'application-json/x-www-form-urlencoded;charset=utf-8',
-  } */
 })
 
 /** 添加请求拦截器 **/

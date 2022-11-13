@@ -1,0 +1,57 @@
+<cu-custom bgColor="bg-gradual-my" isBack="{{true}}">
+    <view slot="backText">返回</view>
+</cu-custom>
+<block wx-if="{{isShow}}">
+    <view class="cu-bar  bg-white">
+        <view class="action sub-title">
+        <text class="text-xl text-bold text-blue">个人信息</text>
+        <text class="text-ABC text-blue">imformation</text>
+        </view>
+    </view>
+    <view class="vessel">
+        <view class="Content shadow-lg padding-xs" hidden="{{!info}}">
+            <view class="text-center">
+                <van-icon name="manager" size="50px" color="#0081ff"></van-icon>
+            </view>
+            <view class="margin-top-xl solid-bottom">
+                <text class="text-lg text-blue ">* 姓名：</text>
+                <text class="text-lg">{{info.name}}</text>
+            </view>
+            <view class="margin-top solid-bottom ">
+                <text class="text-lg text-blue ">* 性别：</text>
+                <text class="text-lg">{{info.sex}}</text>
+            </view>
+            <view class="margin-top solid-bottom">
+                <text class="text-lg text-blue ">* 身份证号：</text>
+                <text class="text-lg">{{info.id_number}}</text>
+            </view>
+            <view class="margin-top solid-bottom">
+                <text class="text-lg text-blue ">* 手机号：</text>
+                <text class="text-lg">{{info.phone}}</text>
+            </view>
+            <view wx:if="{{isStudent===1}}">
+                <view class="margin-top solid-bottom">
+                    <text class="text-lg text-blue ">* 驾照类型：</text>
+                    <text class="text-lg">{{info.type}}</text>
+                </view>
+                <view class="margin-top solid-bottom">
+                    <text class="text-lg text-blue ">* 报名日期：</text>
+                    <text class="text-lg">{{info.date}}</text>
+                </view>
+            </view>
+            <view class="margin-top solid-bottom" wx:if="{{isStudent===-1}}">
+                <text class="text-lg text-blue ">* 入职日期：</text>
+                <text class="text-lg">{{info.date}}</text>
+            </view>
+        </view>
+        <view hidden="{{!info}}"></view>
+        <view hidden="{{!info}}"></view>
+        <van-empty description="暂时无法查看个人信息，完成身份认证后再来查看吧" wx:if="{{!info}}">
+            <van-button round bind:click="gotoIdentify" class="bottom-button">去认证</van-button>
+        </van-empty>
+    </view>
+</block>
+<view class='load-progress {{loadProgress!=0?"show":"hide"}}' style="top:{{CustomBar}}px;">
+  <view class='load-progress-bar bg-blue' style="{{loding}}"></view>
+  <view class='load-progress-spinner text-blue'></view>
+</view>

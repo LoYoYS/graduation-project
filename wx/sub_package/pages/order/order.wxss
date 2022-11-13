@@ -1,8 +1,10 @@
 .swiper{
     width: 100%;
     display: flex;
-    height: 100rpx;
+    height: 130rpx;
     overflow-x: scroll;
+    background-color: white;
+    border-bottom: 1rpx solid #89c4ff;
 }
 .swiper-item{
     display: flex;
@@ -13,12 +15,58 @@
     width: 25%;
     height: 100%;
     flex-shrink: 0;
-    border-radius: 10rpx;
 }
 .active{
-    background-image: linear-gradient(112.15334473777807deg, rgba(48, 245, 251,1) 5.533854166666667%,rgba(23, 142, 203,1) 96.67968749999999%);
+    background-image: linear-gradient(rgb(0, 214, 252),rgb(61,81,252));
     color: white;
 }
 .swiper-item text:nth-child(2){
     font-size: 25rpx;
 }
+.Content{
+    width: 100%;
+    height: 60%;
+    border-radius: 10px;
+    background-color: white;
+}
+.btn .van-button{
+    width: 70%;
+    color: white !important;
+    /* border-radius: 5px !important; */
+    background-image: linear-gradient(rgb(0, 214, 252),rgb(61,81,252)) !important;
+}
+.van-cell{
+    height: 50px;
+}
+.van-cell__value{
+    color:#0081ff !important;
+}
+.time_item{
+    width: 100%;
+    height: 50px;
+    background: none !important;
+    border-bottom: 1rpx solid rgb(236, 236, 236);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.time_item .van-button{
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+.info{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.info view:first-child{
+    text-align: right;
+    width: 100px;
+}
+.info view:nth-child(2){
+    text-align: left;
+    width: 100px;
+}
+

@@ -1,0 +1,53 @@
+<cu-custom bgColor="bg-gradual-my" isBack="{{true}}">
+    <view slot="backText">返回</view>
+    <view slot="content">身份认证</view>
+</cu-custom>
+<view class="vessel">
+    <view wx:if="{{userInfo.a_id}}" class="card">
+        <van-icon name="checked" size="100px" color="#3F90FC"></van-icon>
+        <view class="text-xxl text-blue"> 已完成身份认证!</view>
+        <view class="card_info">
+            <text>{{name}}</text>
+            <text>{{id_number}}*****************</text>
+            <view>
+                <van-button icon="edit" round plain color="#e54d42" size="small"
+                bind:click="unbind">解除绑定</van-button>
+            </view>
+            
+        </view>
+    </view>
+    <view class="bg-white info shadow-warp" wx:else>
+        <view class="text-xl text-black" style="margin-top: 20px;">按照提示完善身份信息</view>
+        <view class="margin-top">
+                <van-field
+                    value="{{id_number}}"
+                    center
+                    type="idcard"
+                    focus
+                    clearable
+                    bind:input="collectNumber"
+                    maxlength="18"
+                    label="身份证号："
+                    required
+                    placeholder="请输入身份证号"
+                    error-message="{{error}}"
+                    >
+                </van-field>
+                <van-field
+                    value="{{name}}"
+                    center
+                    bind:input="collectName"
+                    maxlength="5"
+                    clearable
+                    label="姓  名："
+                    required
+                    placeholder="请输入姓名"
+                    error-message="{{error1}}"
+                    >
+                </van-field>
+                <van-button icon="edit" bind:click="submit">点击提交认证</van-button>
+        </view>
+    </view>    
+</view>
+<van-dialog id="van-dialog"/>
+<van-toast id="van-toast" />

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yuan.mapper.CoachMapper">
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="id">
+        insert into coach values (null,#{name},#{sex},#{id_number},#{phone},#{car},#{date},#{isBindWx})
+    </insert>
+
+    <update id="update">
+        update coach set  name =#{name},sex =#{sex},id_number =#{id_number},
+                          phone =#{phone},car=#{car},date =#{date},isBindWx =#{isBindWx}
+        where id=#{id}
+    </update>
+
+    <update id="updateCar">
+        update coach set car=#{car} where id= #{id}
+    </update>
+
+    <update id="updateList" parameterType="java.util.List">
+        update coach set car = null where id in
+        <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+            #{item.coach_id}
+        </foreach>
+    </update>
+
+    <delete id="delete">
+        delete from coach where id=#{id}
+    </delete>
+
+    <delete id="deleteList" parameterType="java.util.List">
+        delete from coach where id in
+        <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+            #{item.id}
+        </foreach>
+    </delete>
+
+    <select id="getList" resultType="com.yuan.domain.Coach">
+        select * from coach
+        <where>
+            <if test=" sex!= null and sex !=''">
+                 sex =#{sex}
+            </if>
+            <if test="keyWord != null and keyWord !=''">
+                and name like concat('%',#{keyWord},'%') or phone =#{keyWord}
+            </if>
+        </where>
+    </select>
+
+    <select id="findById_number" resultType="com.yuan.domain.Coach">
+        select * from coach where id_number=#{id_number}
+    </select>
+
+    <select id="getCoachList" resultType="com.yuan.domain.Coach">
+        select id,name from coach where car is null or car=""
+    </select>
+
+
+    <!--  小程序模块  -->
+    <select id="findCoachByNIW" resultType="java.lang.Integer">
+        select count(*) from coach where name=#{name} and id_number=#{id_number} and isBindWx=0
+    </select>
+
+    <select id="selectCoach" resultType="java.lang.Integer">
+        select id from coach where name=#{name} and id_number=#{id_number}
+    </select>
+
+    <update id="updateWx">
+        update coach set isBindWx=1 where name=#{name} and id_number=#{id_number}
+    </update>
+
+    <update id="unbind">
+        update coach set isBindWx=0 where id=#{id}
+    </update>
+
+    <select id="getInfo" resultType="com.yuan.domain.Coach">
+        select * from coach where id =#{id}
+    </select>
+
+    <select id="getCoaches" resultType="com.yuan.domain.Coach">
+        select id,name, phone, date from coach
+        <where>
+            <if test="keyWord != null and keyWord !=''">
+                and name like concat('%',#{keyWord},'%')
+            </if>
+        </where>
+    </select>
+    <select id="selectAll" resultType="com.yuan.domain.Coach">
+        select * from coach
+    </select>
+
+
+</mapper>

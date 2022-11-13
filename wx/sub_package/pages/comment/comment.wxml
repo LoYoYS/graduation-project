@@ -1,0 +1,104 @@
+<cu-custom bgColor="bg-gradual-my" isBack="{{true}}">
+	<view slot="content">评价中心</view>
+	<view slot="backText">返回</view>
+</cu-custom>
+<van-tabs active="{{0}}" bind:change="onChange" sticky swipeable animated
+ color="#0081ff" line-width="70" title-active-color="#0081ff">
+  <van-tab title="待评价" dot="{{records.length}}">
+    <view class="orderList" wx:if="{{!loading}}"> 
+        <view class="order_item shadow-lg" wx:for="{{records}}" wx:key="idex">
+            <view class="cu-tag round bg-gradual-my text-lg time">{{item.date}} {{item.time}}</view>
+            <view style="margin: 5px 10px;">练习科目：{{item.subject===0?'科目二':'科目三'}}</view>
+            <view style="margin: 5px 10px;">
+                <text>教学教练：{{item.c_name}}</text> 
+                <text class="margin-left">电话号码：{{item.c_phone}}</text> 
+            </view>
+            <view style="margin: 5px 10px;">车牌号码：{{item.carNumber?item.carNumber:'暂无号码'}}</view>
+            <view class="btn">
+                <van-button round plain color="#e03997" bind:click="comment" data-record="{{item}}">
+                    写评价
+                </van-button>
+            </view>
+        </view>
+    </view>
+    <van-empty 
+        wx:if="{{!records.length && !loading}}"
+        description="暂无待评价">
+    </van-empty>
+  </van-tab>
+  <van-tab title="已评价">
+    <view class="commentList" wx:if="{{!loading}}"> 
+        <view class="comment_item shadow-lg" wx:for="{{comments}}" wx:key="idex">
+            <view class="comment_content">
+                <view>{{item.content}}</view>
+                <view class="rate">
+                    <van-rate color="#0081ff" size="18px" value="{{item.start}}" gutter="1px"
+                     readonly/>
+                    <view style="font-size: 12px;"><van-icon name="clock-o"/> {{item.date}}</view>
+                </view>
+            </view>
+            <view class="order_content">
+                <image src="/icon/car.png" class="margin-left-lg" style="width: 60rpx; height: 60rpx;"></image>
+                <view class="margin-left-lg">
+                    <view>{{item.o_date}}</view>
+                    <view>{{item.time}}</view>
+                </view>
+                <view class="margin-left-sm">
+                    <view>练习科目：{{item.subject===0?'科目二':'科目三'}}</view>
+                    <view>教练：{{item.c_name}}</view>
+                </view>
+            </view>
+            <view class="delete">
+                <van-button round plain color="red" bind:click="deleteComment" data-id="{{item.id}}">
+                    删除评价
+                </van-button>
+            </view>
+        </view>
+    </view>
+    <van-empty 
+        wx:if="{{!comments.length && !loading}}"
+        description="没有评价记录">
+    </van-empty>
+  </van-tab>
+</van-tabs>
+<van-dialog
+  use-slot
+  title="评价本次预约"
+  show="{{show}}"
+  width="350"
+  show-cancel-button
+  bind:close="onClose"
+  bind:cancel="onClose"
+  bind:confirm="submitComment">
+    <view class="comment">
+        <view>你对教练满意吗？</view>
+        <view class="coachInfo">
+            <image src="https://pic1.imgdb.cn/item/635e8fcf16f2c2beb1efd8ca.png"></image>
+            <view class="info">
+                <view>{{record.c_name}}</view>
+                <view class="text-sm">{{record.date+record.time}}</view>
+            </view>
+        </view>
+        <view>
+            <view style="display: flex; align-items: center;">
+                <van-rate color="#0081ff" size="25px" value="{{value}}" void-color="#aaaaaa"
+                bind:change="rateChange"/>
+                <text style="font-size: 12px;">{{text}}</text>
+            </view>
+            <van-checkbox value="{{hidden}}" icon-size="18" bind:change="changeHidden">匿名评价</van-checkbox>
+        </view>
+        <van-field
+        value="{{comment}}"
+        type="textarea"
+        maxlength="100"
+        show-word-limit="true" 
+        autosize 
+        bind:input="collectComment"
+        placeholder="在此填写评语"/>
+    </view>
+</van-dialog>
+<van-dialog id="van-dialog" />
+<van-toast id="van-toast" />
+<van-loading color="#0081ff" size="50" vertical wx:if="{{loading}}">
+    加载中...
+</van-loading>

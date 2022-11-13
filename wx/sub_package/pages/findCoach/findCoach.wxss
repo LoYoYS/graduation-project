@@ -1,0 +1,50 @@
+.item,.item view:first-child{
+    display: flex;
+    align-items: center;
+}
+.item{
+    width: 95%;
+    margin: 15rpx auto;
+    box-sizing: border-box;
+    padding: 10rpx;
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: 1px 1px 5px rgb(233, 233, 233);
+}
+.item>view:first-child{
+    justify-content: center;
+    width: 130rpx;
+    height: 130rpx;
+    border-radius: 50%;
+    border: 1rpx solid #0363f3;
+    background-color: white;
+}
+.info{
+    display: flex;
+    height: 120rpx;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.btn{
+    margin-left: 15rpx;
+    margin-top: 50rpx;
+}
+.van-button{
+    color: white !important;
+    width: 200rpx;
+    height: 60rpx !important;
+    padding: 0 !important;
+    margin: 0 10rpx;
+    background-image: linear-gradient(rgb(0, 214, 252),rgb(61,81,252)) !important;
+}
+.van-cell{
+    padding: 0 !important;
+    background:none !important;
+    min-width: 230px;
+}
+.van-loading{
+    position: absolute;
+    top:50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}

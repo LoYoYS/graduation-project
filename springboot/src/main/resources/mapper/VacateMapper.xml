@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yuan.mapper.VacateMapper">
+
+
+    <insert id="submit">
+        insert into vacate
+        values (#{id},#{c_id},#{type},#{name},#{phone},#{content},#{startTime},#{endTime},#{status})
+    </insert>
+
+    <select id="find" resultType="java.lang.Integer">
+        select count(*) from vacate where c_id=#{id} and (status=0 or status=1)
+    </select>
+
+    <select id="list" resultType="com.yuan.domain.Vacate">
+        select * from vacate
+        <where>
+            <if test="status ==null or status==''">
+                status!=2
+            </if>
+            <if test="status !=null and status!='' or status==0">
+               and status=#{status}
+            </if>
+            <if test="keyWord != null and keyWord !=''">
+               and name like concat('%',#{keyWord},'%') or phone =#{keyWord}
+            </if>
+        </where>
+            order by id desc
+    </select>
+
+    <select id="getList" resultType="com.yuan.domain.Vacate">
+        select * from vacate where c_id =#{id} order by id desc
+    </select>
+
+    <update id="cancel">
+        update vacate set status=2 where id=#{id}
+    </update>
+
+    <update id="confirm">
+        update vacate set status=3 where id=#{id}
+    </update>
+
+    <update id="check">
+        update vacate set status=#{status} where id=#{id}
+    </update>
+
+    <update id="accessAll" parameterType="java.util.List">
+        update vacate set status=1 where id in
+        <foreach collection="list" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <update id="refuseAll" parameterType="java.util.List">
+        update vacate set status=-1 where id in
+        <foreach collection="list" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </update>
+
+</mapper>

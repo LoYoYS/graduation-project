@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yuan.mapper.CommentMapper">
+
+    <select id="getRecords" resultType="com.yuan.domain.Order">
+        select o.*,c.name as c_name,c.phone as c_phone,c.car as carNumber from
+            `order` o left join coach c on o.c_id = c.id where o.s_id =#{s_id}
+                                and o.status=#{status} and comment=0 and o.isDelete=0 order by id desc
+    </select>
+
+    <insert id="submitComment">
+        insert into comment values (#{id},#{o_id},#{s_id},#{c_id},#{date},#{content},#{start},#{hidden})
+    </insert>
+
+    <update id="updateRecord">
+        update `order` set comment=1 where id =#{id}
+    </update>
+
+    <select id="getComments" resultType="com.yuan.domain.Comment">
+        select m.*,o.subject,o.date as o_date,o.time,c.name as c_name from comment m left join
+                `order` o on m.o_id=o.id left join coach c on o.c_id=c.id where m.s_id=#{id} order by id desc
+    </select>
+
+    <delete id="deleteComment">
+        delete from comment where id=#{id}
+    </delete>
+
+    <select id="getCoachComment" resultType="com.yuan.domain.Comment">
+        select m.*,s.name as s_name from comment m left join
+                    student s on m.s_id=s.id where m.c_id=#{id} order by id desc
+    </select>
+
+</mapper>

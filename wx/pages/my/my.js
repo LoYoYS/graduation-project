@@ -1,70 +1,49 @@
-// pages/my/my.js
+const app = getApp()
+import Notify from '../../miniprogram_npm/@vant/weapp/notify/notify';
 Page({
-
-    /**
-     * 页面的初始数据
-     */
     data: {
+        userInfo:null
+    },
+    onLoad(options) {
         
     },
-
-    /**
-     * 生命周期函数--监听页面加载
-     */
-    onLoad(options) {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面初次渲染完成
-     */
-    onReady() {
-
-    },
-    BackPage() {
-        wx.navigateTo({
-          url: '/pages/home/home',
+    onShow(){
+        this.setData({
+            userInfo:app.globalData.userInfo
         })
-      },
-    /**
-     * 生命周期函数--监听页面显示
-     */
-    onShow() {
-
     },
-
-    /**
-     * 生命周期函数--监听页面隐藏
-     */
-    onHide() {
-
+    gotoLogin(){
+        wx.navigateTo({
+          url: '/sub_package/pages/login/login',
+        })
     },
-
-    /**
-     * 生命周期函数--监听页面卸载
-     */
-    onUnload() {
-
-    },
-
-    /**
-     * 页面相关事件处理函数--监听用户下拉动作
-     */
-    onPullDownRefresh() {
-
-    },
-
-    /**
-     * 页面上拉触底事件的处理函数
-     */
-    onReachBottom() {
-
-    },
-
-    /**
-     * 用户点击右上角分享
-     */
-    onShareAppMessage() {
-
-    }
+    // 清理缓存
+    clearCache(){
+       wx.showModal({
+         cancelColor: '#e54d42',
+         confirmColor: '#2EA7E0',
+         content: '清除后需重新登入，确定清除？',
+         showCancel: true,
+         title: '提示',
+         success: (res) => {
+             if(res.confirm){
+                wx.removeStorageSync('user')
+                wx.removeStorageSync('identifyInfo')
+                app.globalData.userInfo=null
+                app.globalData.identifyInfo=null
+                this.onShow()
+                Notify({ 
+                    type: 'success',
+                     message: '清除成功',
+                     top:50,
+                     safeAreaInsetTop:true,
+                     color:'#2EA7E0',
+                     background: '#fff'
+                })
+             }
+             else 
+                return
+         }
+       })
+    },  
 })

@@ -1,16 +1,16 @@
-page,.my_container{
+.my_container{
     height: 100%;
     width: 100%;
 }
 .top{
     position: relative;
     width: 100%;
-    height: 25%;
+    height: 35%;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    background-image: linear-gradient(112.15334473777807deg, rgba(48, 245, 251,1) 5.533854166666667%,rgba(23, 142, 203,1) 96.67968749999999%);
+    background-image: linear-gradient(rgb(0,254,244),rgb(61,81,252));
     box-shadow: 5px 5px 10px gainsboro;
 }
 .picturebox{
@@ -19,38 +19,31 @@ page,.my_container{
     display: flex;
     align-items: center;
 }
-.picturebox view:first-child{
+.picturebox image{
     width: 150rpx;
     height: 150rpx;
     border-radius: 50%;
-    background-color: black;
     margin-left: 50rpx;
 }
-.text_box{
+.picturebox text{
     color: white;
-    margin-left: 50rpx;
-    margin-top: 30rpx;
-    display: flex;
-    height: 130rpx;
-    flex-wrap: wrap;
-    flex-direction: column;
-    justify-content: space-between;
-}
-.text_box text:first-child{
-    font-size: 50rpx;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0 15px;
 }
 .btn{
-    width: 300rpx !important;
+    width: 350rpx !important;
     background-color: white;
     color: rgb(12, 138, 177);
     font-weight: bold;
+    border-radius: 25px;
     box-shadow: 1px 1px 3px gray inset;
 }
 .wave{
     position: absolute;
     bottom: -1px;
     width: 100%;
-    height: 35%;
+    height: 40%;
 }
 .wave image{
     width: 100%;
@@ -59,17 +52,30 @@ page,.my_container{
 }
 .bottom{
     display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 65%;
-}
-.bottom .list{
-    display: flex;
-    justify-content: space-evenly;
     flex-direction: column;
-    background-color: white;
+    height: 50%;
     width: 95%;
-    height: 70%;
+    padding: 5px;
+    margin: 12% auto;
+    justify-content: space-around;
+    box-sizing: border-box;
     border-radius: 5%;
+    background-color: white;
     box-shadow: 5px 5px 10px gainsboro;
 }
+.bottom button{
+    display: flex;
+    align-items: center;
+    height: 26px;
+    font-size: 16px;
+    background: none;
+    padding: 0;
+}
+.bottom button:hover{
+    border: none;
+}
+.bottom button::after{
+    border: none;
+}
+
+

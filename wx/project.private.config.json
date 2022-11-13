@@ -10,7 +10,7 @@
             "list": [
                 {
                     "name": "",
-                    "pathName": "pages/my/my",
+                    "pathName": "sub_package/pages/identify/identify",
                     "query": "",
                     "launchMode": "default",
                     "scene": null

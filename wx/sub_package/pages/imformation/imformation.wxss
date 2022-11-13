@@ -1,0 +1,46 @@
+.vessel{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 80%;
+    background-color: rgb(240, 240, 240);
+}
+.vessel>view:nth-child(2){
+    position: absolute;
+    top: 10%;
+    right: 3%;
+    width: 80%;
+    height: 70%;
+    background-image: linear-gradient(rgb(0, 214, 252),rgb(61,81,252));
+    border-radius: 15px;
+}
+.vessel>view:nth-child(3){
+    position: absolute;
+    top: 20%;
+    left: 3%;
+    width: 80%;
+    height: 70%;
+    background-image: linear-gradient(rgb(61,81,252),rgb(0, 214, 252));
+    border-radius: 15px;
+}
+.Content{
+    width: 80%;
+    height: 70%;
+    position: absolute;
+    z-index: 999;
+    box-sizing: border-box;
+    padding: 20px;
+    background-color: white;
+    border-radius: 15px;
+}
+.Content view{
+    height: 30px;
+}
+.van-button{
+    width: 200px !important;
+    color: white !important;
+    background-image: linear-gradient(rgb(0, 214, 252),rgb(61,81,252)) !important;
+}
+

@@ -1,0 +1,49 @@
+.order_item{
+    width: 90%;
+    height: 200rpx;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content:space-around;
+    margin: 20px auto;
+    box-sizing: border-box;
+    border-radius: 20rpx;
+    padding: 20rpx 40rpx;
+    background-color: white;
+}
+.time{
+    position: absolute;
+    width: 80%;
+    top: -15rpx;
+    left: 50%;
+    transform: translateX(-50%);
+    font-weight: bold;
+}
+.btn .van-button{
+    left: 50%;
+    bottom: 5%;
+    font-size: 18px !important;
+    font-weight: bold;
+    width: 50% !important;
+    color: white !important;
+    transform: translateX(-50%);
+    position: absolute !important;
+    background-image: linear-gradient(rgb(0, 214, 252),rgb(61,81,252)) !important;
+}
+.van-loading{
+    position: absolute;
+    top:50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+.logo{
+    width: 100rpx;
+    height: 100rpx;
+    display: flex;
+    position: absolute;
+    right: 20rpx;
+}
+.logo image{
+    width: 70rpx;
+    height: 70rpx;
+}

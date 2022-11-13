@@ -50,7 +50,9 @@ page {
 	--gradualPurple: linear-gradient(45deg, #9000ff, #5e00ff);
 	--gradualPink: linear-gradient(45deg, #ec008c, #6739b6);
 	--gradualBlue: linear-gradient(45deg, #0081ff, #1cbbb4);
-	--gradualmy: linear-gradient(112.15334473777807deg, rgba(48, 245, 251,1) 5.533854166666667%,rgba(23, 142, 203,1) 96.67968749999999%);
+	/* --gradualmy: linear-gradient(112.15334473777807deg, rgba(48, 245, 251,1) 5.533854166666667%,rgba(23, 142, 203,1) 96.67968749999999%); */
+	--gradualmy: linear-gradient(rgb(0, 255, 247),rgb(86, 103, 253));
+	--gradualRecord: linear-gradient(112.15334473777807deg, rgba(48, 245, 251,1) 5.533854166666667%,rgba(23, 142, 203,1) 96.67968749999999%);
     
 	/* 阴影透明色 */
 	--ShadowSize: 6rpx 6rpx 8rpx;
@@ -3611,6 +3613,12 @@ scroll-view.cu-steps .cu-item {
 
 .bg-gradual-my {
 	background-image: var(--gradualmy);
+	color: var(--white);
+}
+
+
+.bg-gradual-record {
+	background-image: var(--gradualRecord);
 	color: var(--white);
 }
 

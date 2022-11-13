@@ -1,0 +1,23 @@
+<cu-custom bgColor="bg-gradual-my" isBack="{{true}}">
+    <view slot="backText">返回</view>
+</cu-custom>
+<view class="cu-bar  bg-white">
+    <view class="action sub-title">
+      <text class="text-xl text-bold text-blue">关于我们</text>
+      <text class="text-ABC text-blue">about</text>
+    </view>
+</view>
+<view class='margin-xl bg-white padding-xl radius shadow-lg solid'>
+  <view class='text-center margin-bottom text-lg text-blue'>
+    来学车吧小程序
+  </view>
+  <view class='text-content'>
+    <view>Hi！欢迎使用来学车吧小程序</view>
+    <view class='margin-top-sm'>
+        此小程序是个人的毕业设计作品，程序提供的功能仅为毕业设计所需的体验功能，尚未具备真实性。在用户使用小程序时，一些功能需要用户本人授予相关权限，才能够体验相关功能，在用户同意授予相关权限后，程序会将用户您的一些相关信息上传至服务器数据库保存，以便您进行功能的体验。
+    </view>
+    <view class='margin-top-sm'>
+        本小程序承诺，在用户您未同意授予相关权限的情况下，本小程序不会收集您的任何信息，在您同意授权后，小程序会妥善保管好您的信息，绝不会利用用户信息进行任何违反国家法律道德的活动。感谢！
+    </view>
+  </view>
+</view>

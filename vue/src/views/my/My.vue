@@ -24,10 +24,6 @@
                     <el-input v-model="userInfo.username" readonly size="small">
                     </el-input>
                   </el-form-item>
-                  <el-form-item label="手机号:">
-                    <el-input v-model="userInfo.phone" maxlength="11" size="small">
-                    </el-input>
-                  </el-form-item>
                   <el-form-item label="邮 箱:">
                     <el-input v-model="userInfo.email" size="small">
                     </el-input>
@@ -68,7 +64,7 @@
               >
               <el-image style="width:200px; height:200px; margin-top:20px" :src="srcList[0]"/>
             </el-upload>
-            <h1 style="margin-top:20px">点击图片选择更换新头像</h1>
+            <h1 style="margin-top:20px; color: #409EFF;">点击图片选择更换新头像</h1>
           </div>
         </el-tab-pane>
     </el-tabs>
@@ -121,21 +117,15 @@ export default {
         this.$confirm('确定修改?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
-          type: 'info'
+          type: 'warning'
         }).then(async ()=>{
             let res = await this.axios.put('/api/user/updateUser',this.userInfo)
             if(res.code===2000){
               this.$store.commit('getUserInfo',this.userInfo)
-              this.$message({
-                message:res.data,
-                type:'success'
-              })
+              this.$message.successres.data
             }
             else
-              this.$message({
-                  message:res.data,
-                  type:'error'
-                })
+              this.$message.error(res.data)
         }).catch(()=>{
           return
         })
@@ -157,10 +147,7 @@ export default {
               })
              }
              else
-              this.$message({
-                message:res.data,
-                type:'error'
-              })
+              this.$message.error(res.data)
             }
             else
               return
@@ -171,25 +158,16 @@ export default {
         if(response.code===2000){
           this.$store.commit('updateAvatar',response.data)
           this.srcList=[response.data]
-          this.$message({
-            message:'更换成功',
-            type:'success'
-          })
+          this.$message.success('更换成功！')
         }
         else
-        this.$message({
-            message:'更换失败',
-            type:'error'
-          })
+        this.$message.error('更换失败！')
       },
       // 图片上传前回调
       beforeUpload(file){
         let type = file.type==='image/jpeg' || file.type==='image/png'
         if(!type){
-          this.$message({
-            message:'请上传jpg、png格式的图片',
-            type:'error'
-          })
+          this.$message.error('请上传jpg、png格式的图片')
           return false
         }
         return true

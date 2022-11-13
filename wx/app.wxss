@@ -1,9 +1,5 @@
-/**app.wxss**/
-/**app.wxss**/
 @import "colorui/main.wxss";
 @import "colorui/icon.wxss";
-@import "colorui/animation.wxss";  /** 最后这个看自己需求，如果需要使用微动画则可以引入**/
-
 .container {
   height: 100%;
   display: flex;
@@ -12,4 +8,8 @@
   justify-content: space-between;
   padding: 200rpx 0;
   box-sizing: border-box;
+}
+page{
+    width: 100%;
+    height: 100%;
 } 

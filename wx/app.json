@@ -1,16 +1,36 @@
 {
   "pages":[
     "pages/home/home",
-    "pages/notice/notice",
     "pages/introduce/introduce",
-    "pages/my/my",
-    "pages/login/login"
+    "pages/my/my"
   ],
   "subPackages": [
       {
           "root":"sub_package",
           "pages":[
-              "pages/order/order"
+              "pages/login/login",
+              "pages/order/order",
+              "pages/about/about",
+              "pages/comment/comment",
+              "pages/notices/notices",
+              "pages/identify/identify",
+              "pages/progress/progress",
+              "pages/findCoach/findCoach",
+              "pages/order/record/record",
+              "pages/notices/notice/notice",
+              "pages/imformation/imformation",
+              "pages/findCoach/detail/detail"
+          ]
+      },
+      {
+          "root": "sub_packageB",
+          "pages": [
+              "pages/car/car",
+              "pages/vacate/vacate",
+              "pages/orders/orders",
+              "pages/comment/comment",
+              "pages/vacate/application/application"
+
           ]
       }
   ],
@@ -27,8 +47,8 @@
           {
           "pagePath": "pages/introduce/introduce",
           "text": "驾校信息",
-          "iconPath": "/icon/jianjie.png",
-          "selectedIconPath": "/icon/jianjie_active.png"
+          "iconPath": "/icon/introduce.png",
+          "selectedIconPath": "/icon/introduce_active.png"
         },
           {
           "pagePath": "pages/my/my",
@@ -42,7 +62,19 @@
     "navigationStyle":"custom"
   }, 
   "usingComponents": {
-    "cu-custom": "/colorui/components/cu-custom"
+    "cu-custom": "/colorui/components/cu-custom",
+    "van-icon": "@vant/weapp/icon/index",
+    "van-empty": "@vant/weapp/empty/index",
+    "van-button": "@vant/weapp/button/index",
+    "van-loading": "@vant/weapp/loading/index",
+    "van-dialog": "@vant/weapp/dialog/index",
+    "van-toast": "@vant/weapp/toast/index",
+    "van-tab": "@vant/weapp/tab/index",
+    "van-tabs": "@vant/weapp/tabs/index",
+    "van-cell": "@vant/weapp/cell/index",
+    "van-field": "@vant/weapp/field/index",
+    "van-rate": "@vant/weapp/rate/index"
   },
-  "sitemapLocation": "sitemap.json"
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents"
 }

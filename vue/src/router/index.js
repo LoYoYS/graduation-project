@@ -53,14 +53,26 @@ const routes = [
         ]  
     },
     {
-        path:'/train',
+        path:'/coach',
         name:'教练管理',
         component:Index,
-        children:[{
+        children:[
+            {
             path:'list',
             name:'教练列表',
-            component:() => import('../views/train/Train')
-            }]  
+            component:() => import('../views/coach/Coach')
+            },
+            {
+            path:'arrange',
+            name:'排班管理',
+            component:() => import('../views/coach/Arrange')
+            },
+            {
+            path:'vacate',
+            name:'请假管理',
+            component:() => import('../views/coach/Vacate')
+            }
+        ]  
     },
     {
         path:'/car',
@@ -74,18 +86,18 @@ const routes = [
     },
     {
         path:'/notice-introduce',
-        name:'公告-简介',
+        name:'公告管理',
         component:Index,
         children:[
             {
                 path:'notices',
                 name:'公告列表',
-                component:() => import('../views/notice-introduce/Notice')
+                component:() => import('../views/notice-introduce/NoticeList')
             },
             {
-                path:'introduce',
-                name:'驾校简介',
-                component:() => import('../views/notice-introduce/Introduce')
+                path:'notice',
+                name:'编辑、发布公告',
+                component:() => import('../views/notice-introduce/Notice')
             }
         ]  
     }

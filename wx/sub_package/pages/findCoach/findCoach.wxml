@@ -1,0 +1,40 @@
+<cu-custom bgColor="bg-gradual-my" isBack="{{true}}">
+	<view slot="content">查找教练</view>
+	<view slot="backText">返回</view>
+</cu-custom>
+<view class="cu-bar search bg-white">
+    <view class="search-form round">
+      <text class="cuIcon-search"></text>
+      <van-field type="text" maxlength="5" placeholder="输入教练姓名" bind:input="setKeyWord"
+      bind:clear="goBack" value="{{keyWord}}" confirm-type="search" clearable></van-field>
+    </view>
+    <view class="action">
+      <button class="cu-btn bg-gradual-my shadow-blur round" bindtap="search">查找</button>
+    </view>
+</view>
+<view> 
+    <view class="item" wx:for="{{coaches}}" wx:key="id">
+        <view>
+            <image src="https://pic1.imgdb.cn/item/635e8fcf16f2c2beb1efd8ca.png" 
+            style="width: 100rpx;height: 100rpx;"></image>
+        </view>
+        <view class="info margin-left">
+            <view>{{item.name}}</view>
+            <view>电话：{{item.phone}}</view>
+            <view>入职日期：{{item.date}}</view>
+        </view>
+        <view class="btn">
+            <van-button round bind:click="gotoDetail" data-coach="{{item}}">
+            查看他人评价</van-button>
+        </view>
+    </view>
+    <van-empty 
+        wx:if="{{!coaches.length&&!loading}}"
+        description="没有找到该教练">
+        <van-button round bind:click="goBack">返回</van-button>
+    </van-empty>
+</view>
+<van-loading color="#0081ff" size="50" vertical wx:if="{{loading}}">
+    加载中...
+</van-loading>
+

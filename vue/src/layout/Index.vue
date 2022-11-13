@@ -42,6 +42,7 @@ import Title from '../components/Title.vue';
   }
   .container{
     position: relative;
+    min-height: 590px;
     padding: 20px;
     text-align: center;
     box-shadow: 1px 1px 5px rgb(236, 236, 236);

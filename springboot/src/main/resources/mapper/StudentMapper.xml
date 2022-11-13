@@ -9,6 +9,7 @@
         <result property="phone" column="phone"></result>
         <result property="date" column="date"></result>
         <result property="type" column="type"></result>
+        <result property="isBindWx" column="isBindWx"></result>
         <association property="subject" javaType="com.yuan.domain.Subject">
             <result property="a" column="subject_a"></result>
             <result property="b" column="subject_b"></result>
@@ -16,25 +17,28 @@
             <result property="d" column="subject_d"></result>
         </association>
     </resultMap>
-    <insert id="insert" parameterType="com.yuan.domain.Student">
-        insert into student values(null,#{name},#{sex},#{id_number},#{phone},#{date},#{type})
+    <insert id="insert" parameterType="com.yuan.domain.Student" useGeneratedKeys="true" keyProperty="id">
+        insert into student values(null,#{name},#{sex},#{id_number},#{phone},#{date},#{type},#{isBindWx})
     </insert>
     <update id="updateStudent" parameterType="com.yuan.domain.Student">
         update student set name =#{name},sex =#{sex},id_number =#{id_number},
-                           phone =#{phone},date =#{date},type =#{type}
+                           phone =#{phone},date =#{date},type =#{type},isBindWx=#{isBindWx}
                            where id=#{id}
     </update>
+
     <delete id="delete" parameterType="com.yuan.domain.Student">
         delete from student where id =#{id}
     </delete>
+
     <delete id="deleteList" parameterType="java.util.List">
         delete from student where id in
         <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
             #{item.id}
         </foreach>
     </delete>
+
     <select id="list" resultMap="studentList" parameterType="com.yuan.qo.StudentQo">
-        select s.*,sub.subject_a,sub.subject_b,sub.subject_c,sub.subject_d from student s left join subject sub on s.phone=sub.phone
+        select s.*,sub.subject_a,sub.subject_b,sub.subject_c,sub.subject_d from student s left join subject sub on s.id=sub.s_id
         <where>
             <if test="keyWord != null and keyWord !=''">
                  s.name like concat('%',#{keyWord},'%') or s.phone =#{keyWord}
@@ -47,7 +51,36 @@
             </if>
         </where>
     </select>
+
     <select id="findAllById_number" resultType="com.yuan.domain.Student" parameterType="com.yuan.domain.Student">
         select * from student where id_number = #{id_number} and type = #{type}
     </select>
+
+
+<!--  小程序端  -->
+    <select id="findStudentByNIW" resultType="java.lang.Integer">
+        select count(*) from student where name=#{name} and id_number=#{id_number} and isBindWx=0
+    </select>
+
+    <select id="selectStudent" resultType="java.lang.Integer">
+        select id from student where name=#{name} and id_number=#{id_number}
+    </select>
+
+    <select id="getInfo" resultMap="studentList">
+        select s.*,sub.subject_a,sub.subject_b,sub.subject_c,sub.subject_d from student s left join
+            subject sub on s.id=sub.s_id where s.id=#{id}
+    </select>
+
+    <select id="selectAll" resultMap="studentList">
+        select * from student
+    </select>
+
+    <update id="updateWx">
+        update student set isBindWx=1 where name=#{name} and id_number=#{id_number}
+    </update>
+
+    <update id="unbind">
+        update student set isBindWx=0 where id=#{id}
+    </update>
+
 </mapper>

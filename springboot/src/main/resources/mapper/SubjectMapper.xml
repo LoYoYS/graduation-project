@@ -3,19 +3,23 @@
 <mapper namespace="com.yuan.mapper.SubjectMapper">
 
     <insert id="insert" parameterType="com.yuan.domain.Student">
-        insert into subject values(null,#{phone},#{type},#{subject.a},#{subject.b},#{subject.c},#{subject.d})
+        insert into subject values(null,#{id},#{type},#{subject.a},#{subject.b},#{subject.c},#{subject.d})
     </insert>
+
     <update id="update" parameterType="com.yuan.domain.Student">
-        update subject set subject_a =#{subject.a},subject_b =#{subject.b},subject_c =#{subject.c},
-                           subject_d =#{subject.d}
+        update subject set type=#{type},subject_a =#{subject.a},subject_b =#{subject.b},subject_c =#{subject.c},
+                           subject_d =#{subject.d} where s_id=#{id}
     </update>
+
     <delete id="delete" parameterType="com.yuan.domain.Student">
-        delete from subject where phone =#{phone} and type =#{type}
+        delete from subject where s_id =#{id}
     </delete>
+
     <delete id="deleteList" parameterType="java.util.List">
-        delete from subject where phone in
-        <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
-            #{item.phone}
-        </foreach>
+        delete from subject where s_id in
+            <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+                #{item.s_id}
+            </foreach>
     </delete>
+
 </mapper>

@@ -1,0 +1,25 @@
+<cu-custom style="color:white;" isBack="{{true}}">
+	<view slot="content">车辆信息</view>
+	<view slot="backText">返回</view>
+</cu-custom>
+<view class="father" hidden="{{loading}}">
+    <view class="top"></view>
+    <view class="card">
+        <view class="info" wx:if="{{car}}">
+            <image src="{{car.url}}" fit="cover"/>
+            <view class="text">
+                <view>品牌：{{car.brand}}</view>
+                <view>类型：<text class="cu-tag round bg-blue">{{car.type==1?'小车':'摩托车'}}</text></view>
+                <view>车牌号：{{car.number}}</view>
+            </view>
+        </view>
+        <van-empty wx:else description="空空如也 ">
+    </van-empty>
+    </view>
+    <view></view>
+    <view></view>
+</view>
+<van-loading color="#0081ff" size="50" vertical wx:if="{{loading}}">
+    加载中...
+</van-loading>
+

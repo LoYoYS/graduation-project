@@ -1,0 +1,79 @@
+<cu-custom style="color: white;" isBack="{{true}}">
+	<view slot="content">请假中心</view>
+	<view slot="backText">返回</view>
+</cu-custom>
+<view class="vessel">
+    <view class="title">请 假 记 录</view>
+    <view class="list" wx:if="{{list.length && !loading}}">
+        <view class="item" wx:for="{{list}}" wx:key="id" bindtap="showInfo" data-info="{{item}}">
+            <view class="info">
+                <view>
+                    <text>{{item.name}}</text>
+                    <text class="margin-left">{{item.phone}}</text>
+                </view>
+                <view>请假类型：{{item.type==0?'事假':'病假'}}</view>
+                <view>开始时间：{{item.startTime}}</view>
+                <view>结束时间：{{item.endTime}}</view>
+            </view>
+            <view class="status text-grey" wx:if="{{item.status===0}}">
+                <view>
+                    <text>待审批</text>
+                </view>
+            </view>
+            <view class="status text-green" wx:elif="{{item.status===1||item.status===3}}">
+                <view>
+                    <text >审批通过</text>
+                </view>
+            </view>
+            <view class="status text-red" wx:elif="{{item.status===-1}}">
+                <view>
+                    <text>审批不通过</text>
+                </view>
+            </view>
+            <view class="status text-gray" wx:else>
+                <view>
+                    <text>已撤销</text>
+                </view>
+            </view>
+            <view class="cuIcon-right"></view>
+        </view>
+        <view style="margin-bottom: 100px;">我是有底线的</view>
+    </view>
+    <van-empty wx:else description="暂无记录!"></van-empty>
+</view>
+<view class="btn">
+        <van-button bind:click="gotoApplication" round>请假申请</van-button>  
+</view>
+<van-dialog 
+    id="van-dialog"
+    use-slot
+    title="请假信息"
+    confirm-button-color="#2B78FC"
+    close-on-click-overlay
+    show="{{show}}"
+    >
+    <view class="dialogInfo">
+        <view>姓名：{{info.name}}</view>
+        <view>手机：{{info.phone}}</view>
+        <view>请假类型：{{item.type==0?'事假':'病假'}}</view>
+        <view>开始时间：{{info.startTime}}</view>
+        <view>结束时间：{{info.endTime}}</view>
+        <view>请假事由：<text>{{info.content}}</text></view>
+        <view class="mark">
+        </view>
+        <van-button round color="#e54d42" wx:if="{{info.status===0}}"
+        bind:click="cancel" data-id="{{info.id}}">
+            撤销申请
+        </van-button>
+        <van-button round color="#2881FC" wx:elif="{{info.status===1}}"
+        bind:click="confirm" data-id="{{info.id}}">
+            销假
+        </van-button>
+    </view>
+</van-dialog>
+<van-toast id="van-toast" />
+<van-loading color="#0081ff" size="50" vertical wx:if="{{loading}}">
+    加载中...
+</van-loading>
+
+

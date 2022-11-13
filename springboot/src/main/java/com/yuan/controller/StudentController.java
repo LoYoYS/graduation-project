@@ -5,13 +5,18 @@ import com.yuan.configure.isCheckToken;
 import com.yuan.domain.ResultData;
 import com.yuan.domain.Student;
 import com.yuan.qo.StudentQo;
-import com.yuan.qo.UpdateStudentQo;
 import com.yuan.service.StudentService;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.text.ParseException;
 import java.util.List;
 
 
@@ -24,10 +29,8 @@ public class StudentController {
     @isCheckToken
     @RequestMapping("/list")
     public ResultData<PageInfo<Student>> list(StudentQo studentQo){
-        System.out.println(studentQo);
         return ResultData.success(service.list(studentQo));
     }
-
 
     @RequestMapping("/save")
     @isCheckToken
@@ -38,23 +41,37 @@ public class StudentController {
 
     @RequestMapping("/update")
     @isCheckToken
-    public ResultData<String> update(@RequestBody UpdateStudentQo qo){
-//        System.out.println(qo);
-        return service.updateStudent(qo);
+    public ResultData<String> update(@RequestBody Student student){
+        return service.updateStudent(student);
     }
 
     @RequestMapping("/delete")
     @isCheckToken
     public ResultData<String> delete(@RequestBody Student student){
-        System.out.println(student);
         return service.delete(student);
     }
 
     @RequestMapping("/deleteList")
     @isCheckToken
     public ResultData<String> deleteList(@RequestBody List<Student> studentList){
-        System.out.println(studentList);
         return service.deleteList(studentList);
     }
 
+    @RequestMapping("/importExcel")
+    @isCheckToken
+    public ResultData<String> importExcel(MultipartFile file) throws IOException, ParseException {
+        return service.importExcel(file);
+    }
+
+    @RequestMapping("/exportExcel")
+    @isCheckToken
+    public void exportExcel(HttpServletResponse response) throws IOException {
+        Workbook workbook = service.exportExcel();
+        //设置响应头，告诉浏览器下载响应的内容
+        response.setHeader("Content-Disposition","attachment;filename=student.xls");
+        //获取响应输出流
+        ServletOutputStream outputStream = response.getOutputStream();
+        //将workbook对象通过响应输出流写出
+        workbook.write(outputStream);
+    }
 }
