@@ -9,7 +9,7 @@ page{
     height: 100%;
     display: flex;
     color: white;
-    margin-top: 200px;
+    margin-top: 300px;
     align-items: center;
     flex-direction: column;
     border-radius: 100rpx 100rpx 0 0;

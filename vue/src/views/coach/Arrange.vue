@@ -141,7 +141,7 @@
   methods:{
     // 获取教练列表
     getCoachList(){
-          this.axios.get('/api/coach/list',{
+          this.axios.get('/coach/list',{
             params:{
               keyWord:this.keyWord,
               status:this.status,
@@ -215,7 +215,7 @@
     },
     //获取某教练当月排班表
     async getArrange(){
-      let res = await this.axios.get('/api/arrange/list',{
+      let res = await this.axios.get('/arrange/list',{
         params:{id:this.coachID,date:this.date}}
       )
       if(res.code===2000){
@@ -232,7 +232,7 @@
                     cancelButtonText: '取消',
                     type: 'warning'
                   }).then(async ()=>{
-                    let res = await this.axios.post('/api/arrange/saveArrange',this.dataList)
+                    let res = await this.axios.post('/arrange/saveArrange',this.dataList)
                     if(res.code===2000){
                       this.$message.success(res.data)
                       this.getArrange()
@@ -251,7 +251,7 @@
           type: 'error'
           }).then(async ()=>{
               let d = new Date(this.date)
-              let res = await this.axios.delete('/api/arrange/deleteArrange',
+              let res = await this.axios.delete('/arrange/deleteArrange',
               {params:{id:this.coachID,date:d.toLocaleDateString()}})
               if(res.code===2000){
                 this.loading=true
@@ -268,7 +268,7 @@
     async valueChange(e){
       if(this.isFirst)
         return
-       let res = await this.axios.put('/api/arrange/updateArrange',e)
+       let res = await this.axios.put('/arrange/updateArrange',e)
        if(res.code===2000)
           this.$message.success(res.data)         
         else
@@ -287,7 +287,7 @@
         cancelButtonText: '取消',
         type: 'error'
       }).then(async ()=>{
-        let res = await this.axios.delete(`/api/arrange/deleteArrangeAll?id=${id}`)
+        let res = await this.axios.delete(`/arrange/deleteArrangeAll?id=${id}`)
         if(res.code===2000)
           this.$message.success(res.data)
         else
@@ -303,7 +303,7 @@
           cancelButtonText: '取消',
           type: 'error'
         }).then(async ()=>{
-          let res = await this.axios.delete('/api/arrange/deleteArrangeList',
+          let res = await this.axios.delete('/arrange/deleteArrangeList',
           {data:this.deletes})
           if(res.code===2000)
             this.$message.success(res.data)

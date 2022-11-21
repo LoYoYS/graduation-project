@@ -23,15 +23,20 @@ public class Interceptor implements HandlerInterceptor {
                 isCheckToken isCheckToken = method.getAnnotation(isCheckToken.class);
                 if (isCheckToken.required()) {
                     if(token == null || token.equals("")){
-                        throw new BusinessException("请登入!");
+                        throw new BusinessException("9999","请登入!");
                     }
                     else{
                         boolean flag = JwtUtil.verifyToken(token);
                         if(flag){
-                            return true;
+                            String userName = JwtUtil.getUserName(token);
+                            assert userName != null;
+                            if(userName.equals("root"))
+                                return true;
+                            else
+                                throw new BusinessException("5005","权限不足，操作失败");
                         }
                         else{
-                            throw new BusinessException("token无效或已过期，请重新登入!");
+                            throw new BusinessException("9999","token无效或已过期，请重新登入!");
                         }
                     }
                 }

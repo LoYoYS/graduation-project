@@ -1,10 +1,10 @@
 <cu-custom style="color: white;" isHome="{{true}}">
-    <view slot="content">来学车吧</view>
+    <view slot="content">简单约练</view>
 </cu-custom>
 <view class="top">
         <view>Hi ~</view>
         <view>欢迎使用</view>
-        <view>来学车吧小程序</view>
+        <view>简单约练小程序</view>
         <view class="line">
              <view></view>
              <view></view>

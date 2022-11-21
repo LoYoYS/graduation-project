@@ -56,13 +56,13 @@ public class UserController {
     public ResultData<String> updatePassword(@RequestBody UpdatePasswordQo qo) {return userService.updatePassword(qo);}
 
     @RequestMapping("/avatar")
-    @isCheckToken
+//    @isCheckToken
     public ResultData<String> avatar(@RequestParam("file") MultipartFile file,@RequestParam("id") Integer id){
         return userService.updateAvatar(file,id);
     }
 
     @RequestMapping("/list")
-    @isCheckToken
+//    @isCheckToken
     public ResultData<PageInfo<Wx_user>> list(UserQo qo){
         return userService.list(qo);
     }

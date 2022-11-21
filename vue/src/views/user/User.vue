@@ -96,7 +96,7 @@
   methods:{
     // 获取用户列表
    async getList(){
-        let res = await this.axios.get('/api/user/list',{
+        let res = await this.axios.get('/user/list',{
             params:{
               keyWord:this.keyWord,
               type:this.type,

@@ -77,7 +77,7 @@ export default {
          submitForm(name){
             this.$refs[name].validate((valid)=>{
                 if(valid){
-                  let result = this.axios.post('/api/student/save',this.ruleForm)
+                  let result = this.axios.post('/student/save',this.ruleForm)
                   result.then((data)=>{
                     if(data.code===2000){
                       this.$message.success(data.data)

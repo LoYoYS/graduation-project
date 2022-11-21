@@ -18,7 +18,7 @@
     <delete id="deleteList" parameterType="java.util.List">
         delete from subject where s_id in
             <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
-                #{item.s_id}
+                #{item.id}
             </foreach>
     </delete>
 

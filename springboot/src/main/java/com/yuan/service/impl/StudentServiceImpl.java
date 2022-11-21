@@ -38,8 +38,7 @@ public class StudentServiceImpl implements StudentService {
     public PageInfo<Student> list(StudentQo studentQo) {
         PageHelper.startPage(studentQo.getCurrentPage(),studentQo.getSize());
         List<Student> list = studentMapper.list(studentQo);
-        PageInfo<Student> pageInfo = new PageInfo<>(list);
-        return pageInfo;
+        return new PageInfo<>(list);
     }
 
     @Override
@@ -90,40 +89,47 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public ResultData<String> importExcel(MultipartFile file) throws IOException, ParseException {
+    public ResultData<String> importExcel(MultipartFile file){
         //获取读取上传文件的输入流
-        InputStream inputStream = file.getInputStream();
-        //以Excel的方式读取文件并解析  借助工具: poi -- pom.xml引进
-        Workbook workbook = new HSSFWorkbook(inputStream);
-        //解析数据
-        //1.获取第一张sheet  getSheet(sheetName): 根据sheet的名字获取sheet
-        // getSheetAt(sheetIndex): 根据sheet的下标获取sheet，以0开始
-        Sheet sheet = workbook.getSheetAt(0);
-        //2.循环获取sheet中的每一行
-        //获取最后一行的下标
-        int lastRowNum = sheet.getLastRowNum();
-        //从第二行开始遍历，第一行为表头标题行，非数据
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Subject subject = new Subject(0, 0, 0, 0);
-        for (int i = 1 ; i <= lastRowNum ; i++){
-            Row row = sheet.getRow(i);
-            //获取行(Row)当中的每一个单元格中的数据
-            String name = row.getCell(0).getStringCellValue();
-            String sex = row.getCell(1).getStringCellValue();
-            String id_number = row.getCell(2).getStringCellValue();
-            String phone = row.getCell(3).getStringCellValue();
-            String date = row.getCell(4).getStringCellValue();
-            String type = row.getCell(5).getStringCellValue();
-            Date parse = simpleDateFormat.parse(date);
-            Student student = new Student(null, name, sex, id_number, phone, parse, type, subject,0);
-            Student find = studentMapper.findAllById_number(student);
-            if (find!=null)
-                continue;
-            studentMapper.insert(student);
-            subjectMapper.insert(student);
+        InputStream inputStream;
+        try {
+            inputStream = file.getInputStream();
+            //以Excel的方式读取文件并解析  借助工具: poi -- pom.xml引进
+            Workbook workbook = new HSSFWorkbook(inputStream);
+            //解析数据
+            //1.获取第一张sheet  getSheet(sheetName): 根据sheet的名字获取sheet
+            // getSheetAt(sheetIndex): 根据sheet的下标获取sheet，以0开始
+            Sheet sheet = workbook.getSheetAt(0);
+            //2.循环获取sheet中的每一行
+            //获取最后一行的下标
+            int lastRowNum = sheet.getLastRowNum();
+            //从第二行开始遍历，第一行为表头标题行，非数据
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Subject subject = new Subject(0, 0, 0, 0);
+            for (int i = 1 ; i <= lastRowNum ; i++){
+                Row row = sheet.getRow(i);
+                //获取行(Row)当中的每一个单元格中的数据
+                String name = row.getCell(0).getStringCellValue();
+                String sex = row.getCell(1).getStringCellValue();
+                String id_number = row.getCell(2).getStringCellValue();
+                String phone = row.getCell(3).getStringCellValue();
+                String date = row.getCell(4).getStringCellValue();
+                String type = row.getCell(5).getStringCellValue();
+                Date parse = simpleDateFormat.parse(date);
+                Student student = new Student(null, name, sex, id_number, phone, parse, type, subject,0);
+                Student find = studentMapper.findAllById_number(student);
+                if (find!=null)
+                    continue;
+                studentMapper.insert(student);
+                subjectMapper.insert(student);
 
+            }
+            return ResultData.success("导入数据成功！");
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+            return ResultData.fail("导入数据失败！");
         }
-        return ResultData.success("导入数据成功！");
+
     }
 
     @Override
@@ -159,5 +165,11 @@ public class StudentServiceImpl implements StudentService {
         }
 
         return workbook;
+    }
+
+    @Override
+    public ResultData<List<Student>> findStudent(String keyWord) {
+        List<Student> student = studentMapper.findStudent(keyWord);
+        return ResultData.success(student);
     }
 }

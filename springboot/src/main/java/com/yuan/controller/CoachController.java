@@ -18,7 +18,6 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.text.ParseException;
 import java.util.List;
 
 
@@ -30,7 +29,7 @@ public class CoachController {
     private CoachService coachService;
 
     @RequestMapping("/list")
-    @isCheckToken
+//    @isCheckToken
     public ResultData<PageInfo<Coach>> list(CoachQo qo){
         System.out.println(qo);
         return ResultData.success(coachService.getList(qo));
@@ -61,7 +60,7 @@ public class CoachController {
     }
 
     @RequestMapping("/getCoachList")
-    @isCheckToken
+//    @isCheckToken
     public ResultData<List<Coach>> list(){
         return coachService.getCoachList();
     }
@@ -71,22 +70,27 @@ public class CoachController {
         return coachService.getCoaches(keyWord);
     }
 
-    @RequestMapping("/importExcel")
     @isCheckToken
-    public ResultData<String> importExcel(MultipartFile file) throws IOException, ParseException {
+    @RequestMapping("/importExcel")
+    public ResultData<String> importExcel(MultipartFile file){
         return coachService.importExcel(file);
     }
 
-    @RequestMapping("/exportExcel")
     @isCheckToken
-    public void exportExcel(HttpServletResponse response) throws IOException {
+    @RequestMapping("/exportExcel")
+    public void exportExcel(HttpServletResponse response){
         Workbook workbook = coachService.exportExcel();
         //设置响应头，告诉浏览器下载响应的内容
         response.setHeader("Content-Disposition","attachment");
         //获取响应输出流
-        ServletOutputStream outputStream = response.getOutputStream();
-        //将workbook对象通过响应输出流写出
-        workbook.write(outputStream);
+        ServletOutputStream outputStream;
+        try {
+            outputStream = response.getOutputStream();
+            //将workbook对象通过响应输出流写出
+            workbook.write(outputStream);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

@@ -232,7 +232,7 @@ export default {
     methods:{
       // 获取学员列表
       getStudentList(){
-        this.axios.get('/api/student/list',{
+        this.axios.get('/student/list',{
           params:{
             keyWord:this.keyWord,
             type:this.type,
@@ -249,7 +249,6 @@ export default {
       // 修改学员
       handleEdit(row){
         this.student=JSON.parse(JSON.stringify(row));
-        console.log(this.student);
         this.isShow=true
       },
       // 删除学员
@@ -259,7 +258,7 @@ export default {
           cancelButtonText: '取消',
           type: 'error'
         }).then(() => { 
-          this.axios.delete('/api/student/delete',{data:row}).then((res)=>{
+          this.axios.delete('/student/delete',{data:row}).then((res)=>{
             if(res.code===2000){
               this.loading=true
               this.$message.success(res.data)
@@ -314,7 +313,7 @@ export default {
                     cancelButtonText: '取消',
                     type: 'warning'
                   }).then(()=>{
-                    this.axios.post('/api/student/update',this.student
+                    this.axios.post('/student/update',this.student
                       ).then((res)=>{
                         if(res.code===2000){
                           this.$message.success(res.data)
@@ -345,7 +344,7 @@ export default {
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(()=>{
-                  this.axios.delete('/api/student/deleteList',
+                  this.axios.delete('/student/deleteList',
                   {data:this.deleteList}).then((res)=>{
                     if(res.code===2000){
                       this.$message.success(res.data)
@@ -387,7 +386,7 @@ export default {
       },
       // 导出
       async exportData(){
-        let res = await this.axios.post('/api/student/exportExcel',{},{responseType:'blob'})
+        let res = await this.axios.post('/student/exportExcel',{},{responseType:'blob'})
         this.downloadExcel(res)
       },
       // 下载模板

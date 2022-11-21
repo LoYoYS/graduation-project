@@ -1,0 +1,49 @@
+<cu-custom bgColor="bg-gradual-my" isBack="{{true}}">
+	<view slot="content">查找学员</view>
+	<view slot="backText">返回</view>
+</cu-custom>
+<view class="cu-bar search bg-white">
+    <view class="search-form round">
+      <text class="cuIcon-search"></text>
+      <van-field type="text" maxlength="5" placeholder="输入学员姓名" bind:clear="clear" model:value="{{keyWord}}" confirm-type="search" clearable></van-field>
+    </view>
+    <view class="action">
+      <button class="cu-btn bg-gradual-my shadow-blur round" bindtap="search">查找</button>
+    </view>
+</view>
+<view wx:if="{{students.length}}">
+    <view class="item" wx:for="{{students}}" wx:key="id">
+        <view>
+            <image src="https://pic.imgdb.cn/item/6364a11816f2c2beb12c106e.png" 
+            style="width: 120rpx;height: 120rpx;"></image>
+            <view class="info margin-left">
+                <view>{{item.name}}</view>
+                <view>电话：{{item.phone}}</view>
+                <view>报考驾照类型：{{item.type}}</view>
+                <view>报名日期：{{item.date}}</view>
+            </view>
+        </view>
+        <van-button round bind:click="open" data-student="{{item}}">
+        查看科目情况</van-button>
+    </view>
+</view>
+<van-dialog
+  use-slot
+  title="{{student.name}}科目情况"
+  show="{{show}}"
+  width="350"
+  theme="round-button"
+  closeOnClickOverlay
+  bind:close="onClose"
+  >
+    <view class="item {{item.class}}" 
+    wx:for="{{dataList}}" wx:key="index">
+        <view>{{item.name}}</view>
+        <view class="{{item.icon}}"></view>
+        <view>{{item.text}}</view>
+    </view>
+</van-dialog>
+<van-empty description="没有找到该学员" wx:if="{{!students.length && !loading && keyWord}}"></van-empty>
+<van-loading color="#0081ff" size="50" vertical wx:if="{{loading}}">
+    加载中...
+</van-loading>

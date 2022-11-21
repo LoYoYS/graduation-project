@@ -181,7 +181,7 @@
       methods:{
         // 获取车辆列表列表
         getCarList(){
-          this.axios.get('/api/car/getList',{
+          this.axios.get('/car/getList',{
             params:{
               keyWord:this.keyWord,
               type:this.type,
@@ -196,7 +196,7 @@
           
         },
         async getCoachList(){
-         let result = await this.axios.get('/api/coach/getCoachList')
+         let result = await this.axios.get('/coach/getCoachList')
          if(result.code===2000){
             this.coachList=result.data
          }
@@ -231,7 +231,7 @@
             cancelButtonText: '取消',
             type: 'error'
           }).then(() => { 
-            this.axios.delete('/api/car/deleteCar',{data:row}).then((res)=>{
+            this.axios.delete('/car/deleteCar',{data:row}).then((res)=>{
               if(res.code===2000){
                 this.$message.success(res.data)
                 this.deleteHandlePage(1)
@@ -275,7 +275,7 @@
                     type: 'warning'
                   }).then(async ()=>{
                     if(this.car.id==''){
-                      let res = await this.axios.post('/api/car/saveCar',this.car)
+                      let res = await this.axios.post('/car/saveCar',this.car)
                       if(res.code===2000){
                         this.$message.success(res.data)
                         this.getCarList()
@@ -287,7 +287,7 @@
                         this.$message.error(res.data)
                     }
                     else{
-                      let res = await this.axios.put('/api/car/updateCar',
+                      let res = await this.axios.put('/car/updateCar',
                       {oldCar:this.oldCar,newCar:this.car})
                       if(res.code===2000){
                         this.$message.success(res.data)
@@ -318,7 +318,7 @@
                       cancelButtonText: '取消',
                       type: 'warning'
                   }).then(()=>{
-                    this.axios.delete('/api/car/deleteCarList',
+                    this.axios.delete('/car/deleteCarList',
                     {data:this.deleteList}).then((res)=>{
                       if(res.code===2000){
                         this.$message.success(res.data)

@@ -9,10 +9,11 @@ import store from './store/index'
 import axios from 'axios'
 import VueAxios from "vue-axios"
 import{MessageBox} from 'element-ui'
+import { Message } from 'element-ui';
+
 
 const service=axios.create({
-  baseURL: 'http://localhost:8080',
-  // baseURL: 'http://192.168.1.101:8080',
+  baseURL: '/api',
   timeout: 30000,// 超时时间
 })
 
@@ -37,17 +38,12 @@ service.interceptors.response.use((res)=>{
     })
   }
   else if(res.data.code===5005){
-    MessageBox.alert(res.data.data,'错误',{
-      confirmButtonText: '确定',
-      type:'error'
-    }).then(()=>{
-      return
-    }).catch(()=>{
-      return
-    })
+    Message.error(res.data.data)
   }
   else
     return res.data
+},(err)=>{
+  Message.error('请求错误，请稍后重试！')
 })
 
 Vue.use(VueAxios, service) 

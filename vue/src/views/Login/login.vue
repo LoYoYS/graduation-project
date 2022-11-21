@@ -125,7 +125,7 @@
         },
         /* 登入 */
         login(){
-          const result =  this.axios.post("/api/user/login",this.ruleForm)
+          const result =  this.axios.post("/user/login",this.ruleForm)
           result.then((data)=>{
             if(data.code==2000){
                   this.$store.commit('getUserInfo',data.data)
@@ -147,7 +147,7 @@
                   this.isunable=true
                   this.countDown()
                   this.$message.success('发送成功！')
-                  const result =  this.axios.get(`/api/user/sendCode?email=${this.ruleForm1.email}`)
+                  const result =  this.axios.get(`/user/sendCode?email=${this.ruleForm1.email}`)
                   result.then((data)=>{
                   if(data.code==2000){
                     return
@@ -168,7 +168,7 @@
           form.append('code',this.ruleForm1.code)
           this.$refs.ruleForm1.validate((valid) => {
             if(valid){
-                this.axios.post('/api/user/forgetPassword',form).then((data)=>{
+                this.axios.post('/user/forgetPassword',form).then((data)=>{
                   if(data.code==2000)
                     this.$message.success(data.data)
                   else

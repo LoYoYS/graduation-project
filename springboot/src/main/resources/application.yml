@@ -15,6 +15,8 @@ spring:
   #德鲁伊连接池
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
+#    username: mydb
+#    password: abc123...
     username: root
     password: 123456
     url: jdbc:mysql://localhost:3306/drive_school?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
@@ -52,4 +54,5 @@ pagehelper:
 #图片存储路径
 Location:
   realPath: 'E:\Yuan\Project\drive_school\images\'
+#  realPath: '/www/wwwroot/project/images/'
   mapperPath: '/photo/'

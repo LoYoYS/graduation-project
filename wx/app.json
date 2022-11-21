@@ -29,6 +29,7 @@
               "pages/vacate/vacate",
               "pages/orders/orders",
               "pages/comment/comment",
+              "pages/students/students",
               "pages/vacate/application/application"
 
           ]

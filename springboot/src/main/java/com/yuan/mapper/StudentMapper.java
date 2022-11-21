@@ -28,4 +28,6 @@ public interface StudentMapper {
     Integer selectStudent(IdentifyQo qo);
     //获取信息
     Student getInfo(Integer id);
+    //查找学员
+    List<Student>findStudent(String keyWord);
 }

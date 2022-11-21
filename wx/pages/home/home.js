@@ -64,9 +64,8 @@ Page({
         else if(index===3)
             wx.navigateTo({url: '/sub_packageB/pages/car/car'})
         else
-            wx.showToast({
-              title: '功能正在开发中',
-              icon:'error'
+            wx.navigateTo({
+              url: '/sub_packageB/pages/students/students',
             })
             
     },

@@ -22,7 +22,7 @@ public class VacateController {
     @Autowired
     private VacateService service;
 
-    @isCheckToken
+//    @isCheckToken
     @RequestMapping("/list")
     public ResultData<PageInfo<Vacate>> list(VacateQo qo){
         return service.list(qo);

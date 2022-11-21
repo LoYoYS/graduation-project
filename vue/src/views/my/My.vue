@@ -119,7 +119,7 @@ export default {
           cancelButtonText: '取消',
           type: 'warning'
         }).then(async ()=>{
-            let res = await this.axios.put('/api/user/updateUser',this.userInfo)
+            let res = await this.axios.put('/user/updateUser',this.userInfo)
             if(res.code===2000){
               this.$store.commit('getUserInfo',this.userInfo)
               this.$message.successres.data
@@ -134,7 +134,7 @@ export default {
       updatePassword(name){
         this.$refs[name].validate(async (valid) => {
             if(valid){
-             let res =  await this.axios.put('/api/user/updatePassword',this.passwordForm)
+             let res =  await this.axios.put('/user/updatePassword',this.passwordForm)
              if(res.code===2000){
               this.$alert(`${res.data},请重新登入`, '提示', {
                 confirmButtonText: '确定',

@@ -32,12 +32,12 @@ public class CarController {
     private String mapperPath;
 
     @RequestMapping("/getList")
-    @isCheckToken
+//    @isCheckToken
     public ResultData<PageInfo<Car>> getList(CarQo qo){ return ResultData.success(carService.list(qo));
     }
 
     @RequestMapping("/list")
-    @isCheckToken
+//    @isCheckToken
     public ResultData<List<String>> list(){
         return ResultData.success(carService.numberList());
     }
@@ -51,8 +51,8 @@ public class CarController {
             assert fileName != null;
             String suffixName = fileName.substring(fileName.lastIndexOf("."));
             fileName = UUID.randomUUID()+suffixName;
-            file.transferTo(new File(realPath+"car\\"+fileName));
-            String url="http://localhost:8081"+mapperPath+"car/"+fileName;
+            file.transferTo(new File(realPath+fileName));
+            String url="http://localhost:8081"+mapperPath+fileName;
             return ResultData.success(url);
         }
     }

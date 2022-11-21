@@ -203,7 +203,7 @@
       methods:{
         // 获取教练列表列表
         getCoachList(){
-          this.axios.get('/api/coach/list',{
+          this.axios.get('/coach/list',{
             params:{
               keyWord:this.keyWord,
               sex:this.sex,
@@ -218,7 +218,7 @@
         },
         // 获取车辆牌照列表
         async getCarList(){
-          let res = await this.axios.get('/api/car/list')
+          let res = await this.axios.get('/car/list')
           if(res.code===2000){
             this.carList=res.data
           }
@@ -253,7 +253,7 @@
             cancelButtonText: '取消',
             type: 'error'
           }).then(() => { 
-            this.axios.delete('/api/coach/delete',{data:row}).then((res)=>{
+            this.axios.delete('/coach/delete',{data:row}).then((res)=>{
               if(res.code===2000){
                 this.loading=true
                 this.$message.success(res.data)
@@ -301,7 +301,7 @@
                     type: 'warning'
                   }).then(async ()=>{
                     if(this.coach.id==''){
-                      let res = await this.axios.post('/api/coach/saveCoach',this.coach)
+                      let res = await this.axios.post('/coach/saveCoach',this.coach)
                       if(res.code===2000){
                         this.$message.success(res.data)
                         this.loading=true
@@ -312,7 +312,7 @@
                         this.$message.error(res.data)
                     }
                     else{
-                      let res = await this.axios.put('/api/coach/updateCoach',
+                      let res = await this.axios.put('/coach/updateCoach',
                       {oldCoach:this.oldCoach,newCoach:this.coach})
                       if(res.code===2000){
                           this.$message.success(res.data)
@@ -344,7 +344,7 @@
                       cancelButtonText: '取消',
                       type: 'warning'
                   }).then(()=>{
-                    this.axios.delete('/api/coach/deleteList',
+                    this.axios.delete('/coach/deleteList',
                     {data:this.deleteList}).then((res)=>{
                       if(res.code===2000){
                         this.loading=true
@@ -389,7 +389,7 @@
       },
       // 导出
       async exportData(){
-        let res = await this.axios.post('/api/coach/exportExcel',{},{responseType:'blob'})
+        let res = await this.axios.post('/coach/exportExcel',{},{responseType:'blob'})
         this.downloadExcel(res)
       },
       // 下载模板

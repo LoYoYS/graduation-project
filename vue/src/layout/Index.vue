@@ -27,12 +27,16 @@ import Title from '../components/Title.vue';
 </script>
 
 <style scoped>
+  .el-aside{
+    transform: all 0.3s;
+    z-index: 1;
+  }
   .el-header{
     padding: 0;
     height: 90px !important;
   }
   .main-container {
-    transition: margin-left 0.45s;
+    transition: margin-left 0.3s;
     min-height: 100vh;
     margin-left: 210px;
     text-align: center;

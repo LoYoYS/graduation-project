@@ -136,7 +136,7 @@ export default {
     },
     methods:{
       async getData(){
-        let res = await this.axios.post('/api/notice/getNumber')
+        let res = await this.axios.post('/notice/getNumber')
         if(res.code===2000){
           this.studentNumber=res.data.studentCount
           this.coachNumber=res.data.coachCount

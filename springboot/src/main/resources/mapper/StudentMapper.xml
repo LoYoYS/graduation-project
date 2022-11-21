@@ -75,6 +75,15 @@
         select * from student
     </select>
 
+    <select id="findStudent" resultMap="studentList">
+        select s.*,sub.subject_a,sub.subject_b,sub.subject_c,sub.subject_d from student s left join subject sub on s.id=sub.s_id
+        <where>
+            <if test="keyWord != null and keyWord !=''">
+                s.name like concat('%',#{keyWord},'%')
+            </if>
+        </where>
+    </select>
+
     <update id="updateWx">
         update student set isBindWx=1 where name=#{name} and id_number=#{id_number}
     </update>

@@ -22,7 +22,16 @@
           <el-dropdown-item icon="el-icon-user-solid" command="setting">个人中心</el-dropdown-item>
           <el-dropdown-item icon="el-icon-switch-button" command="logout">退出登入</el-dropdown-item>
         </el-dropdown-menu>
-      </el-dropdown> 
+      </el-dropdown>
+      <div class="down_mark">
+        <el-dropdown @command="handleCommand">
+          <i class="el-icon-caret-bottom"></i>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item icon="el-icon-user-solid" command="setting">个人中心</el-dropdown-item>
+            <el-dropdown-item icon="el-icon-switch-button" command="logout">退出登入</el-dropdown-item>
+            </el-dropdown-menu>
+        </el-dropdown>
+      </div> 
     </div>
     </div>
      <!-- 动态标签栏 -->
@@ -74,7 +83,6 @@ export default {
             document.documentElement.RequestFullScreen();
           }
           //兼容火狐
-          console.log(document.documentElement.mozRequestFullScreen)
           if(document.documentElement.mozRequestFullScreen){
             document.documentElement.mozRequestFullScreen();
           }
@@ -93,7 +101,6 @@ export default {
             document.exitFullscreen()
           }
           //兼容火狐
-          console.log(document.mozExitFullScreen)
           if(document.mozCancelFullScreen){
             document.mozCancelFullScreen()
           }
@@ -189,7 +196,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   .navBar{
     position: relative;
     display: flex;
@@ -202,11 +209,26 @@ export default {
     font-size: 20px;
   }
   .rightMenu{
+    height: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     position: absolute;
     right: 10px;
+  }
+  .rightMenu>.down_mark{
+    margin-left: 5px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    
+  }
+  .down_mark>.el-dropdown{
+    width: auto;
+    height: auto;
+    font-size: 18px;
+    margin-bottom: 3px;
   }
   .fullScreen{
     cursor: pointer;
@@ -237,7 +259,6 @@ export default {
     overflow-x: auto;
     overflow-y: hidden;
     white-space: nowrap;
-    width: 95%;
   }
   .tabs-close-item {
     position: absolute;

@@ -44,7 +44,8 @@ public class GlobalExceptionHandler {
 	@ResponseStatus(HttpStatus.ACCEPTED)
 	@ExceptionHandler(BusinessException.class)
 	public  ResultData<String> doBusinessException(Exception e) {
+		String str = e.toString().split(":")[0];
 		log.error("业务异常消息------------", e.getMessage());
-		return ResultData.fail(9999,"error",e.getMessage());
+		return ResultData.fail(Integer.parseInt(str),"error",e.getMessage());
 	}
 }

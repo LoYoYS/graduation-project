@@ -9,10 +9,10 @@
 </view>
 <view class='margin-xl bg-white padding-xl radius shadow-lg solid'>
   <view class='text-center margin-bottom text-lg text-blue'>
-    来学车吧小程序
+    简单约练
   </view>
   <view class='text-content'>
-    <view>Hi！欢迎使用来学车吧小程序</view>
+    <view>Hi！欢迎使用简单约练小程序</view>
     <view class='margin-top-sm'>
         此小程序是个人的毕业设计作品，程序提供的功能仅为毕业设计所需的体验功能，尚未具备真实性。在用户使用小程序时，一些功能需要用户本人授予相关权限，才能够体验相关功能，在用户同意授予相关权限后，程序会将用户您的一些相关信息上传至服务器数据库保存，以便您进行功能的体验。
     </view>

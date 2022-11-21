@@ -29,7 +29,7 @@ export default {
         async getNotice(){
             let id =this.$route.params.id
             if(id){
-                let res = await this.axios.get(`/api/notice/getNotice?id=${id}`)
+                let res = await this.axios.get(`/notice/getNotice?id=${id}`)
                 if(res.code===2000)
                     this.notice=res.data 
             }
@@ -54,7 +54,7 @@ export default {
                 this.notice.title=title
                 this.notice.content=content
                 if(!this.notice.id){
-                   this.axios.post('/api/notice/save',this.notice).then((res)=>{
+                   this.axios.post('/notice/save',this.notice).then((res)=>{
                     if(res.code===2000){
                         this.$message.success(res.data)
                         this.notice.title=''
@@ -65,7 +65,7 @@ export default {
                    }) 
                 }
                 else{
-                    this.axios.post('/api/notice/update',this.notice).then((res)=>{
+                    this.axios.post('/notice/update',this.notice).then((res)=>{
                      if(res.code===2000)
                         this.$message.success(res.data)
                      else

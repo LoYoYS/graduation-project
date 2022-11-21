@@ -7,8 +7,6 @@ import com.yuan.qo.StudentQo;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.text.ParseException;
 import java.util.List;
 
 
@@ -18,6 +16,7 @@ public interface StudentService {
     ResultData<String> updateStudent(Student student);
     ResultData<String> delete(Student student);
     ResultData<String> deleteList(List<Student>studentList);
-    ResultData<String> importExcel(MultipartFile file) throws IOException, ParseException;
+    ResultData<String> importExcel(MultipartFile file);
     Workbook exportExcel();
+    ResultData<List<Student>> findStudent(String keyWord);
 }

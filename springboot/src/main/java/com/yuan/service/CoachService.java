@@ -8,8 +8,6 @@ import com.yuan.qo.UpdateCoachQo;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.text.ParseException;
 import java.util.List;
 
 public interface CoachService {
@@ -24,7 +22,7 @@ public interface CoachService {
     //小程序模块
     ResultData<List<Coach>> getCoaches(String keyWord);
 
-    ResultData<String> importExcel(MultipartFile file) throws IOException, ParseException;
+    ResultData<String> importExcel(MultipartFile file);
 
     Workbook exportExcel();
 }

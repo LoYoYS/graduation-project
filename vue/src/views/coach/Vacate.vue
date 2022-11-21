@@ -103,7 +103,7 @@
   methods:{
     // 获取请假列表
    async getList(){
-        let res = await this.axios.get('/api/vacate/list',{
+        let res = await this.axios.get('/vacate/list',{
             params:{
               keyWord:this.keyWord,
               status:this.status,
@@ -149,7 +149,7 @@
       let form = new FormData()
       form.append('id',id)
       form.append('status',status)
-      let res = await this.axios.put('/api/vacate/check',form)
+      let res = await this.axios.put('/vacate/check',form)
       if(res.code===2000){
         this.$message.success(res.data)
         this.getList()
@@ -164,7 +164,7 @@
         cancelButtonText: '取消',
         type: 'warning'
       }).then(async ()=>{
-        let res = await this.axios.put('/api/vacate/accessAll',this.actions)
+        let res = await this.axios.put('/vacate/accessAll',this.actions)
         if(res.code===2000){
           this.$message.success(res.data)
           this.getList()
@@ -180,7 +180,7 @@
         cancelButtonText: '取消',
         type: 'warning'
       }).then(async ()=>{
-        let res = await this.axios.put('/api/vacate/refuseAll',this.actions)
+        let res = await this.axios.put('/vacate/refuseAll',this.actions)
         if(res.code===2000){
           this.$message.success(res.data)
           this.getList()

@@ -21,7 +21,7 @@ public class ArrangeController {
     private ArrangeService service;
 
     @RequestMapping("/list")
-    @isCheckToken
+//    @isCheckToken
     public ResultData<List<Arrange>> arrange(Integer id, String date){
         return service.getArrangeList(id,date);}
 

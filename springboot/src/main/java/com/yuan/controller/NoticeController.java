@@ -39,6 +39,6 @@ public class NoticeController {
     public ResultData<String> delete(Integer id){ return service.delete(id);}
 
     @RequestMapping("/getNumber")
-    @isCheckToken
+//    @isCheckToken
     public ResultData<NumberCount> getNumber(){ return service.getNumber();}
 }

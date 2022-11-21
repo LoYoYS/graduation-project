@@ -8,7 +8,14 @@
       text-color="#fff"
       router
       active-text-color="#ffd04b">
-      <div class="title">小程序后台管理</div>
+      <div class="title">
+        <el-image 
+          style="width: 25px; height: 25px"
+          src="https://pic.imgdb.cn/item/63799e0016f2c2beb1cfbdf9.png" 
+          :preview-src-list="['https://pic.imgdb.cn/item/63799e0016f2c2beb1cfbdf9.png']">
+        </el-image>
+        <div v-if="!this.$store.state.isFold">简单约练小程序</div>
+      </div>
       <el-menu-item index="/">
           <i class="el-icon-s-home"></i>
           <span slot="title">首页</span>
@@ -83,7 +90,7 @@
 
 <script>
 export default {
-    name:'SideBar',
+    name:'SideBar'
 }
 </script>
 
@@ -92,15 +99,19 @@ export default {
     width: 210px;
   }
   .title{
-    font-size: 25px;
-    height: 28px;
-    overflow: hidden;
-    line-height: 30px;
+    width: 90%;
+    height: 30px;
+    font-size: 18px;
     letter-spacing: 2px;
     font-weight: bold;
     margin: 20px auto;
     color: white;
-    text-align: center;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+  .title div{
+    margin-top: 5px;
   }
   .el-menu-vertical-demo{
     position: fixed;

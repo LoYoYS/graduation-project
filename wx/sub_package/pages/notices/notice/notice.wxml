@@ -3,7 +3,7 @@
 </cu-custom>
 <view class="vessel" wx:if="{{!loading}}">
     <view class="title">{{notice.title}}</view>
-    <view style="color: #0081ff; margin-bottom: 8px;">来学车吧小程序  
+    <view style="color: #0081ff; margin-bottom: 8px;">简单约练小程序  
         <van-icon name="clock-o" style="margin-left: 10px; color:#8799a3;"/>
         <text style="color:#8799a3;">{{notice.time}}</text>
     </view>
