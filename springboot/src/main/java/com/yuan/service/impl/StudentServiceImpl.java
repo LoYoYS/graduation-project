@@ -20,9 +20,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -104,7 +101,7 @@ public class StudentServiceImpl implements StudentService {
             //获取最后一行的下标
             int lastRowNum = sheet.getLastRowNum();
             //从第二行开始遍历，第一行为表头标题行，非数据
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
             Subject subject = new Subject(0, 0, 0, 0);
             for (int i = 1 ; i <= lastRowNum ; i++){
                 Row row = sheet.getRow(i);
@@ -115,8 +112,8 @@ public class StudentServiceImpl implements StudentService {
                 String phone = row.getCell(3).getStringCellValue();
                 String date = row.getCell(4).getStringCellValue();
                 String type = row.getCell(5).getStringCellValue();
-                Date parse = simpleDateFormat.parse(date);
-                Student student = new Student(null, name, sex, id_number, phone, parse, type, subject,0);
+//                Date parse = simpleDateFormat.parse(date);
+                Student student = new Student(null, name, sex, id_number, phone, date, type, subject,0);
                 Student find = studentMapper.findAllById_number(student);
                 if (find!=null)
                     continue;
@@ -125,7 +122,7 @@ public class StudentServiceImpl implements StudentService {
 
             }
             return ResultData.success("导入数据成功！");
-        } catch (IOException | ParseException e) {
+        } catch (IOException e) {
             e.printStackTrace();
             return ResultData.fail("导入数据失败！");
         }
@@ -149,7 +146,7 @@ public class StudentServiceImpl implements StudentService {
         row.createCell(5).setCellValue("驾照类型");
         List<Student> students = studentMapper.selectAll();
         int index = 1;
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         for (Student student : students) {
             //每一个学员对象占用一行
             //创建每一行
@@ -159,7 +156,7 @@ public class StudentServiceImpl implements StudentService {
             row1.createCell(1).setCellValue(student.getSex());
             row1.createCell(2).setCellValue(student.getId_number());
             row1.createCell(3).setCellValue(student.getPhone());
-            row1.createCell(4).setCellValue(simpleDateFormat.format(student.getDate()));
+            row1.createCell(4).setCellValue(student.getDate());
             row1.createCell(5).setCellValue(student.getType());
             index++;
         }

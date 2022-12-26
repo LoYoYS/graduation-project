@@ -1,6 +1,7 @@
 server:
   port: 8081
-
+  servlet:
+    context-path: /driveSchool
 spring:
   mvc:
     static-path-pattern: /static/**
@@ -54,5 +55,6 @@ pagehelper:
 #图片存储路径
 Location:
   realPath: 'E:\Yuan\Project\drive_school\images\'
-#  realPath: '/www/wwwroot/project/images/'
   mapperPath: '/photo/'
+#  realPath: '/www/wwwroot/project/images/'
+#  mapperPath: '/images/'

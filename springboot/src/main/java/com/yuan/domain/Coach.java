@@ -16,7 +16,7 @@ public class Coach {
     private String sex;
     private String id_number;
     private String phone;
-    private Date date;
+    private String date;
     private String car;
     private Integer isBindWx=0;
 

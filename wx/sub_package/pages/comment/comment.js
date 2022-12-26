@@ -14,15 +14,16 @@ Page({
         start:0,
         text:'',
         comment:'',
-        hidden:1
+        hidden:1,
+        CustomBar:0
     },
     onLoad(options) {
         if(app.globalData.identifyInfo){
-            this.setData({s_id:app.globalData.identifyInfo.id})
+            this.setData({s_id:app.globalData.identifyInfo.id,CustomBar:Number.parseInt(app.globalData.CustomBar)})
             this.getComments()
         }
         else
-            this.setData({loading:false})    
+            this.setData({loading:false,CustomBar:Number.parseInt(app.globalData.CustomBar) })    
     },
     // 关闭遮罩层
     onClose(){ this.setData({
@@ -101,7 +102,7 @@ Page({
             s_id:this.data.record.s_id,
             c_id:this.data.record.c_id,
             subject:this.data.record.subject,
-            date:new Date().toLocaleDateString(),
+            date:this.formatDate(new Date().getTime()),
             content:this.data.comment,
             start:this.data.start,
             hidden:this.data.hidden
@@ -131,5 +132,13 @@ Page({
             }).catch(() => {
                 return
             });
-    }
+    },
+    // 日期格式函数
+    formatDate(val){
+        let date = new Date(val)
+        let year = date.getFullYear()
+        let month = date.getMonth()+1<10?`0${date.getMonth()+1}`:date.getMonth()+1
+        let day = date.getDate()<10?'0'+date.getDate():date.getDate() 
+        return `${year}-${month}-${day}`
+    },
 })

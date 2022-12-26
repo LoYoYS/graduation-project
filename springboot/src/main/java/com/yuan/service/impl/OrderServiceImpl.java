@@ -1,9 +1,6 @@
 package com.yuan.service.impl;
 
-import com.yuan.domain.Arrange;
-import com.yuan.domain.Coach;
-import com.yuan.domain.Order;
-import com.yuan.domain.ResultData;
+import com.yuan.domain.*;
 import com.yuan.mapper.OrderMapper;
 import com.yuan.qo.GetCoachListQo;
 import com.yuan.qo.OrdersQo;
@@ -26,8 +23,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public ResultData<Arrange> getNumber(Integer id, String date) {
-        Arrange number = mapper.getNumber(id, date);
+    public ResultData<List<Interval>> getInterval(Integer id, String date) {
+        List<Interval> number = mapper.getInterval(id, date);
         return ResultData.success(number);
     }
 
@@ -36,10 +33,14 @@ public class OrderServiceImpl implements OrderService {
         Integer record = mapper.getRecord(o.getS_id(), o.getDate());
         if(0<record)
             return ResultData.fail("预约失败，您今天已经预约过咯！");
+        Integer number = mapper.getNumber(o.getI_id());
+        if(number<1)
+            return ResultData.fail("预约失败，该时段已满人！");
         Integer integer = mapper.saveOrder(o);
         if(0<integer){
-            mapper.updateNumber(o);
-            return ResultData.success("预约成功！");
+            Integer integer1 = mapper.updateNumber(o.getI_id());
+            if(0<integer1)
+                return ResultData.success("预约成功！");
         }
         return ResultData.fail("预约失败！");
     }
@@ -53,19 +54,21 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public ResultData<String> updateRecord(OrdersQo qo) {
+        System.out.println(qo);
         if(qo.getStatus()==1){
             Integer integer = mapper.finishOrder(qo);
             if(0<integer)
-                return ResultData.success("已确认！");
+                return ResultData.success("您已完成本次练车！");
             return ResultData.fail("当前时间无法确认！");
         }
         else if(qo.getStatus()==3){
             Integer integer = mapper.cancelOrder(qo);
             if(0<integer){
-                mapper.cancelUpdate(qo);
-                return ResultData.success("已取消！");
+                Integer integer1 = mapper.cancelUpdate(qo.getI_id());
+                if(0<integer1)
+                    return ResultData.success("取消成功！");
             }
-            return ResultData.fail("当前时间无法取消！");
+            return ResultData.fail("练车时间已到，无法取消！");
         }
         return ResultData.fail("失败！");
     }

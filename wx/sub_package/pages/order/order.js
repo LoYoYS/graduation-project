@@ -26,7 +26,6 @@ Page({
         if(app.globalData.identifyInfo)
             this.setData({type:app.globalData.identifyInfo.type})
     },
-    onHide() {},
     // 关闭动作面板
     onClose(){this.setData({show:false,show1:false,showInfo:false})}, 
     // 切换日期
@@ -42,37 +41,36 @@ Page({
     // 打开科目面板  
     openSubject(){
         this.setData({
-            show:true,
             title:'选择科目',
             actions:[{name: '科目二',value:0},
-                    {name: '科目三',value:1}]
+                    {name: '科目三',value:1}],
+            show:true,
         })
     },
     // 打开教练面板   
     openCoach() {
+        this.setData({actions:[]})
         if(!this.data.subject){
             Toast.fail('请先选择科目')
             return
         }
-        this.setData({
-            actions:[],
-            show:true,
-            title:'选择教练',
-        })
-        this.getCoachList()
+        else{
+            this.setData({title:'选择教练',show:true})
+            this.getCoachList() 
+        }        
     },
     // 打开时间面板
     openTime(){
+        this.setData({actions:[]})
         if(!this.data.coach){
             Toast.fail('请选择教练')
             return
         }
-        this.setData({
-            actions:[],
-            title:'选择时间',
-            show1:true
-        })
-        this.getNumber()
+        else{
+            this.setData({title:'选择时间',show1:true})
+            this.getInterval()
+        }
+            
     },
     // 获取教练列表
     async getCoachList(){
@@ -81,39 +79,28 @@ Page({
             type:this.data.type,
             subject:this.data.subject.value
         })
-        if(res.code===2000){
-            this.setData({
-                actions:res.data
-            })
+        if(res.code && res.code===2000){
+            this.setData({actions:res.data})
         }
     },
     // 获取预约余量
-    async getNumber(){
-        let res = await api.getNumber({
+    async getInterval(){
+        let res = await api.getInterval({
             c_id:this.data.coach.id,
             date:this.data.dateArr[this.data.datetSelectIndex].dateValue,
         })
+        let list=[]
+        res.data.forEach(element => {
+            list.push({
+                id:element.id,
+                name:`${element.start} ~ ${element.end}`,
+                number:element.number,
+                start:`${this.data.dateArr[this.data.datetSelectIndex].dateValue} ${element.start}`,
+                end:`${this.data.dateArr[this.data.datetSelectIndex].dateValue} ${element.end}`,
+            })
+        });
         this.setData({
-            actions:[
-                {name:'08:00~10:00',number:res.data.a,value:'a',
-                start:`${this.data.dateArr[this.data.datetSelectIndex].dateValue} 08:00:00`,
-                end:`${this.data.dateArr[this.data.datetSelectIndex].dateValue} 10:00:00`},
-                {name:'10:00~12:00',number:res.data.b,value:'b',
-                start:`${this.data.dateArr[this.data.datetSelectIndex].dateValue} 10:00:00`,
-                end:`${this.data.dateArr[this.data.datetSelectIndex].dateValue} 12:00:00`},
-                {name:'12:00~14:00',number:res.data.c,value:'c',
-                start:`${this.data.dateArr[this.data.datetSelectIndex].dateValue} 12:00:00`,
-                end:`${this.data.dateArr[this.data.datetSelectIndex].dateValue} 14:00:00`},
-                {name:'14:00~16:00',number:res.data.d,value:'d',
-                start:`${this.data.dateArr[this.data.datetSelectIndex].dateValue} 14:00:00`,
-                end:`${this.data.dateArr[this.data.datetSelectIndex].dateValue} 16:00:00`},
-                {name:'16:00~18:00',number:res.data.e,value:'e',
-                start:`${this.data.dateArr[this.data.datetSelectIndex].dateValue} 16:00:00`,
-                end:`${this.data.dateArr[this.data.datetSelectIndex].dateValue} 18:00:00`},
-                {name:'18:00~20:00',number:res.data.f,value:'f',
-                start:`${this.data.dateArr[this.data.datetSelectIndex].dateValue} 18:00:00`,
-                end:`${this.data.dateArr[this.data.datetSelectIndex].dateValue} 20:00:00`}
-            ]
+            actions:list
         })
     },
      // 选择选项
@@ -152,23 +139,27 @@ Page({
         let res = await api.submitOrder({
             s_id:app.globalData.identifyInfo.id,
             c_id:this.data.coach.id,
+            i_id:this.data.time.id,
             subject:this.data.subject.value,
             date:this.data.dateArr[this.data.datetSelectIndex].dateValue,
+            type:this.data.type,
             time:this.data.time.name,
             startTime:this.data.time.start,
             endTime:this.data.time.end,
-            interval:this.data.time.value
         })
-        if(res.code===2000){
+        if(res.code && res.code===2000){
             Toast.success(res.data)
             this.setData({
                 subject:'',
                 coach:null,
                 time:''
             })
+            setTimeout(()=>{
+                wx.navigateTo({url: './record/record',})
+            },1200)
         }
         else
-            Toast.fail(res.data)
+            Toast({type:'fail',message:res.data,duration:3000})
     },
     // 检查数据
     checkData(){
@@ -195,18 +186,23 @@ Page({
         }   
         // 科目一未通过 
         if(!app.globalData.identifyInfo.subject.a){
-            Toast.fail('您的科目一还未通过哦，通过后再来预约吧！')
+            Toast({type:'fail',message:'您的科目一还未通过哦，通过后再来预约吧！',duration:3000})
             return false
         }  
         // 科目二未通过
         if(!app.globalData.identifyInfo.subject.b){
             if(this.data.subject.value===1){
-                Toast.fail('科目二还未通过,还不能预约科目三哦！')
+            Toast({type:'fail',message:'科目二还未通过,还不能预约科目三哦！',duration:3000})
+                return false}
+        }
+        if(app.globalData.identifyInfo.subject.b){
+            if(this.data.subject.value===0){
+                Toast({type:'fail',message:'科目二已通过不需要再预约咯。',duration:3000})
                 return false}
         }
         // 已经全部通过
         if(app.globalData.identifyInfo.subject.c){
-            Toast.success('恭喜您，已经完成全部考试，不需要再练车啦！')
+            Toast({type:'fail',message:'科目三已通过不需要再预约咯。',duration:3000})
             return false
         }
         return true

@@ -38,16 +38,17 @@
     </delete>
 
     <select id="list" resultMap="studentList" parameterType="com.yuan.qo.StudentQo">
-        select s.*,sub.subject_a,sub.subject_b,sub.subject_c,sub.subject_d from student s left join subject sub on s.id=sub.s_id
+        select s.*,sub.subject_a,sub.subject_b,sub.subject_c,sub.subject_d from
+                                  student s left join subject sub on s.id=sub.s_id
         <where>
-            <if test="keyWord != null and keyWord !=''">
-                 s.name like concat('%',#{keyWord},'%') or s.phone =#{keyWord}
-            </if>
             <if test=" type!= null and type !=''">
-                and s.type =#{type}
+                s.type =#{type}
             </if>
             <if test="subject != null and subject !=''">
                 and sub.subject_${subject} = 1
+            </if>
+            <if test="keyWord != null and keyWord !=''">
+                and s.name like concat('%',#{keyWord},'%') or s.phone =#{keyWord}
             </if>
         </where>
     </select>

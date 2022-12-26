@@ -2,11 +2,11 @@
 	<view slot="backText">返回</view>
 </cu-custom>
 <view class="vessel">
-    <view class="titel">填写信息</view>
+    <view class="titel">填写请假信息</view>
     <view class="img">
         <image src="https://pic1.imgdb.cn/item/63671d3716f2c2beb1a4cfaa.png"></image>
     </view>
-    <view class="form">
+    <view class="form" wx:if="{{form.c_id}}">
             <van-field
                 value="{{form.name}}"
                 label="姓名:"
@@ -49,7 +49,6 @@
                 <van-button bind:click="submit" round>提 交</van-button>  
             </view>
     </view>
-    
 </view>
 <van-action-sheet 
     show="{{show}}" 

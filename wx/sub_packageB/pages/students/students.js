@@ -4,6 +4,7 @@ Page({
     data: {
         keyWord:'',
         students:[],
+        markArray:1,
         loading:false,
         show:false,
         student:null,
@@ -17,7 +18,7 @@ Page({
             })
         this.setData({loading:true})
         let res = await api.findStudent({keyWord:this.data.keyWord})
-        this.setData({students:res.data,loading:false})
+        this.setData({students:res.data,markArray:res.data.length,loading:false})
     },
     open({currentTarget:{dataset}}){
         let subject = dataset.student.subject
@@ -52,5 +53,4 @@ Page({
             show:true})
     },
     onClose(){this.setData({show:false})}
-
 })

@@ -34,8 +34,8 @@ Page({
                 this.onShow()
                 Notify({ 
                     type: 'success',
-                     message: '清除成功',
-                     top:50,
+                    message: '清除成功',
+                    //  top:30,
                      safeAreaInsetTop:true,
                      color:'#2EA7E0',
                      background: '#fff'
@@ -45,5 +45,10 @@ Page({
                 return
          }
        })
-    },  
+    },
+    shwoBig(){
+        wx.previewImage({
+            urls: [this.data.userInfo.url]
+          })
+    }  
 })

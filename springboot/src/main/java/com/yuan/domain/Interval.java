@@ -1,5 +1,4 @@
-package com.yuan.qo;
-
+package com.yuan.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,11 +7,11 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrdersQo {
+public class Interval {
     private Integer id;
-    private Integer s_id;
+    private Integer a_id;
     private Integer c_id;
-    private Integer i_id;
-    private Integer status;
-    private String date;
+    private String start;
+    private String end;
+    private Integer number;
 }

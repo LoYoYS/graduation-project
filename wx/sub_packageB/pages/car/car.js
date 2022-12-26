@@ -21,4 +21,10 @@ Page({
         if(res.code===2000)
             this.setData({car:res.data})
     },
+    // 图片预览
+    shwoBig(){
+        wx.previewImage({
+            urls: [this.data.car.url]
+          })
+    }
 })

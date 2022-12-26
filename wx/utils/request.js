@@ -3,8 +3,9 @@ module.exports = {
     // 192.168.1.101
     // 192.168.1.102
     // localhost
-    // 172.20.10.5
-    let fullUrl = `http://localhost:8081/${url}`
+    // 172.20.10.5   8.134.191.240
+    // yuanshu.love
+    let fullUrl = `http://192.168.1.4:8081/driveSchool/${url}`
     return new Promise((resolve,reject)=>{
       wx.request({
         url: fullUrl,

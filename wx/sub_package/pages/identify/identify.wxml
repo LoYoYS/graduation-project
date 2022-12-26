@@ -13,10 +13,9 @@
                 <van-button icon="edit" round plain color="#e54d42" size="small"
                 bind:click="unbind">解除绑定</van-button>
             </view>
-            
         </view>
     </view>
-    <view class="bg-white info shadow-warp" wx:else>
+    <view class="bg-white info shadow-warp" wx:elif="{{isShow}}">
         <view class="text-xl text-black" style="margin-top: 20px;">按照提示完善身份信息</view>
         <view class="margin-top">
                 <van-field
@@ -46,7 +45,13 @@
                     >
                 </van-field>
                 <van-button icon="edit" bind:click="submit">点击提交认证</van-button>
+                <view class="statement">
+                **声明：用户填写的相关信息仅用于学员、教练身份认证，小程序不会收集用户您在本页面输入的信息进行存储，泄露，转卖等行为。
+                </view>
         </view>
+    </view>
+    <view wx:else>
+        <button open-type="contact" class="btn">点击联系客服进行认证申请</button>
     </view>    
 </view>
 <van-dialog id="van-dialog"/>

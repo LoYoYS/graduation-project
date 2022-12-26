@@ -3,6 +3,7 @@ package com.yuan.controller;
 
 import com.yuan.configure.isCheckToken;
 import com.yuan.domain.Arrange;
+import com.yuan.domain.Interval;
 import com.yuan.domain.ResultData;
 import com.yuan.service.ArrangeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +23,7 @@ public class ArrangeController {
 
     @RequestMapping("/list")
 //    @isCheckToken
-    public ResultData<List<Arrange>> arrange(Integer id, String date){
-        return service.getArrangeList(id,date);}
+    public ResultData<List<Arrange>> arrange(Integer id, String date){return service.getArrangeList(id,date);}
 
     @RequestMapping("/saveArrange")
     @isCheckToken
@@ -37,10 +37,15 @@ public class ArrangeController {
         return service.updateArrange(arrange);
     }
 
+    @RequestMapping("/updateInterval")
+    @isCheckToken
+    public ResultData<String> updateInterval(@RequestBody List<Interval> list){
+        return service.updateInterval(list);
+    }
+
     @RequestMapping("/deleteArrange")
     @isCheckToken
-    public ResultData<String> deleteArrange(Integer id,String date){
-        return service.deleteArrange(id,date);
+    public ResultData<String> deleteArrange(@RequestBody List<Arrange> list){return service.deleteArrange(list);
     }
 
     @RequestMapping("/deleteArrangeAll")
@@ -53,5 +58,8 @@ public class ArrangeController {
     @isCheckToken
     public ResultData<String> deleteArrangeList(@RequestBody List<Integer> list){
         return service.deleteArrangeList(list);
+    }
+    @RequestMapping("/getArranges")
+    public ResultData<List<Arrange>> getArranges(Integer id, String date){return service.getArranges(id,date);
     }
 }

@@ -1,20 +1,21 @@
 .order_item{
     width: 90%;
-    height: 200rpx;
+    height: 220rpx;
     position: relative;
     display: flex;
     flex-direction: column;
-    justify-content:space-around;
+    justify-content:center;
     margin: 20px auto;
     box-sizing: border-box;
     border-radius: 20rpx;
     padding: 20rpx 40rpx;
     background-color: white;
+    border: 1rpx solid #469ef7;
 }
 .time{
     position: absolute;
     width: 80%;
-    top: -15rpx;
+    top: -20rpx;
     left: 50%;
     transform: translateX(-50%);
     font-weight: bold;
@@ -44,6 +45,6 @@
     right: 20rpx;
 }
 .logo image{
-    width: 70rpx;
-    height: 70rpx;
+    width: 100rpx;
+    height: 100rpx;
 }

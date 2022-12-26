@@ -2,21 +2,52 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yuan.mapper.ArrangeMapper">
     <!-- 排班模块  -->
-    <select id="getArrangeList" resultType="com.yuan.domain.Arrange">
+
+    <resultMap id="ref" type="com.yuan.domain.Arrange">
+        <result property="id" column="id"></result>
+        <result property="c_id" column="c_id"></result>
+        <result property="work" column="work"></result>
+        <result property="subject" column="subject"></result>
+        <result property="type" column="type"></result>
+        <result property="date" column="date"></result>
+        <collection property="list" ofType="com.yuan.domain.Interval">
+            <result property="id" column="i_id"></result>
+            <result property="a_id" column="a_id"></result>
+            <result property="c_id" column="i_c_id"></result>
+            <result property="start" column="start"></result>
+            <result property="end" column="end"></result>
+            <result property="number" column="number"></result>
+        </collection>
+    </resultMap>
+
+    <select id="getArrangeList" resultMap="ref">
+        select a.*,i.id as i_id,i.a_id,i.c_id as i_c_id,i.start,i.end,i.number from
+            arrange a left join `interval` i on a.id=i.a_id where a.c_id =#{id}
+                    and date_format(date,'%Y-%m') =date_format(#{date},'%Y-%m')
+    </select>
+
+    <select id="getArranges" resultType="com.yuan.domain.Arrange">
         select * from arrange where c_id =#{id} and date_format(date,'%Y-%m') =date_format(#{date},'%Y-%m')
     </select>
 
-    <insert id="saveArrangeList" parameterType="java.util.List">
-        insert into arrange values
-        <foreach collection ="list" item="arrange" separator =",">
-            (#{arrange.id},#{arrange.c_id},#{arrange.work},#{arrange.type},#{arrange.subject},#{arrange.date}
-            ,#{arrange.a},#{arrange.b},#{arrange.c},#{arrange.d},#{arrange.e},#{arrange.f})
-        </foreach >
+    <insert id="saveArrangeList" useGeneratedKeys="true" keyProperty="id">
+        insert into arrange values(#{id},#{c_id},#{work},#{type},#{subject},#{date})
+    </insert>
+
+    <insert id="saveInterval">
+        insert into `interval` values (#{id},#{a_id},#{c_id},#{start},#{end},#{number})
     </insert>
 
     <update id="updateArrange">
         update arrange set work=#{work},type=#{type},subject=#{subject} where c_id=#{c_id} and date=date_format(#{date},'%Y-%m-%d')
     </update>
+
+    <insert id="updateInterval">
+        insert into `interval` values
+        <foreach collection="list" item="i" separator=",">
+            (#{i.id},#{i.a_id},#{i.c_id},#{i.start},#{i.end},#{i.number})
+        </foreach>
+    </insert>
 
     <delete id="deleteArrange">
         delete from arrange where c_id =#{id} and date_format(date,'%Y-%m') =date_format(#{date},'%Y-%m')
@@ -31,6 +62,21 @@
             <foreach collection="list" item="id" separator="," open="(" close=")">
                 #{id}
             </foreach>
+    </delete>
+
+    <delete id="deleteInterval">
+        delete from `interval` where a_id =#{id}
+    </delete>
+
+    <delete id="deleteIntervalByCid">
+        delete from `interval` where c_id =#{id}
+    </delete>
+
+    <delete id="deleteAllInterval">
+        delete from `interval` where c_id in
+        <foreach collection="list" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
     </delete>
 
 </mapper>

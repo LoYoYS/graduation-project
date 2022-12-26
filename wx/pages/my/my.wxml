@@ -1,7 +1,7 @@
 <view class="my_container">
     <view class="top">
         <view class="picturebox" wx:if="{{userInfo}}">
-            <image src="{{userInfo.url}}"></image>
+            <image src="{{userInfo.url}}" bindtap="shwoBig"></image>
             <text>{{userInfo.nickName}}</text>
         </view>
         <view wx:else>

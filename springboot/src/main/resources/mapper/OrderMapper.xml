@@ -6,10 +6,10 @@
         <result property="id" column="id"></result>
         <result property="s_id" column="s_id"></result>
         <result property="c_id" column="c_id"></result>
+        <result property="i_id" column="i_id"></result>
         <result property="subject" column="subject"></result>
         <result property="date" column="date"></result>
         <result property="time" column="time"></result>
-        <result property="interval" column="interval"></result>
         <result property="c_name" column="name"></result>
         <result property="c_phone" column="phone"></result>
         <result property="carNumber" column="car"></result>
@@ -21,8 +21,13 @@
              and date_format(a.date,'%Y-%m-%d') =date_format(#{date},'%Y-%m-%d')
     </select>
 
-    <select id="getNumber" resultType="com.yuan.domain.Arrange">
-        select * from arrange where c_id= #{id} and date_format(date,'%Y-%m-%d') =date_format(#{date},'%Y-%m-%d')
+    <select id="getInterval" resultType="com.yuan.domain.Interval">
+        select i.* from `interval` i left join arrange a on i.a_id = a.id
+        where a.c_id=#{id} and date_format(date,'%Y-%m-%d') =date_format(#{date},'%Y-%m-%d');
+    </select>
+
+    <select id="getNumber" resultType="java.lang.Integer">
+        select number from `interval` where id = #{id}
     </select>
 
     <select id="getRecord" resultType="java.lang.Integer">
@@ -31,58 +36,16 @@
     </select>
 
     <insert id="saveOrder">
-        insert into `order` values (#{id},#{s_id},#{c_id},#{subject},#{date},#{time},#{interval},#{startTime},
+        insert into `order` values (#{id},#{s_id},#{c_id},#{i_id},#{type},#{subject},#{date},#{time},#{startTime},
                                     #{endTime},#{status},#{comment},#{isDelete})
     </insert>
 
     <update id="updateNumber">
-        update arrange
-            <set>
-                <if test='interval=="a"'>
-                    a=a-1
-                </if>
-                <if test='interval=="b"'>
-                    b=b-1
-                </if>
-                <if test='interval=="c"'>
-                    c=c-1
-                </if>
-                <if test='interval=="d"'>
-                    d=d-1
-                </if>
-                <if test='interval=="e"'>
-                    e=e-1
-                </if>
-                <if test='interval=="f"'>
-                    f=f-1
-                </if>
-            </set>
-            where c_id=#{c_id} and date_format(date,'%Y-%m-%d') =date_format(#{date},'%Y-%m-%d')
+        update `interval` set number =number-1 where id =#{id}
     </update>
 
     <update id="cancelUpdate">
-        update arrange
-        <set>
-            <if test='interval=="a"'>
-                a=a+1
-            </if>
-            <if test='interval=="b"'>
-                b=b+1
-            </if>
-            <if test='interval=="c"'>
-                c=c+1
-            </if>
-            <if test='interval=="d"'>
-                d=d+1
-            </if>
-            <if test='interval=="e"'>
-                e=e+1
-            </if>
-            <if test='interval=="f"'>
-                f=f+1
-            </if>
-        </set>
-        where c_id=#{c_id} and date_format(date,'%Y-%m-%d') =date_format(#{date},'%Y-%m-%d')
+        update `interval` set number =number+1 where id =#{id}
     </update>
 
     <update id="updateDueOrder">

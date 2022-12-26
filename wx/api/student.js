@@ -2,8 +2,8 @@ const {request} = require("../utils/request.js")
 module.exports={
     // 获取出勤教练列表
     getCoachList:(params)=>request('order/getCoachList','POST',params),
-    // 获取预约余量
-    getNumber:(parmas)=>request('order/getNumber','POST',parmas,{}),
+    // 获取预约时间段
+    getInterval:(parmas)=>request('order/getInterval','POST',parmas,{}),
     // 提交预约
     submitOrder:(parmas)=>request('order/submitOrder','POST',parmas),
     // 学员获取预约记录

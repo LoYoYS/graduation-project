@@ -5,7 +5,7 @@
 <view class="cu-bar search bg-white">
     <view class="search-form round">
       <text class="cuIcon-search"></text>
-      <van-field type="text" maxlength="5" placeholder="输入学员姓名" bind:clear="clear" model:value="{{keyWord}}" confirm-type="search" clearable></van-field>
+      <van-field type="text" maxlength="5" placeholder="输入学员姓名查找" bind:clear="clear" model:value="{{keyWord}}" confirm-type="search" clearable></van-field>
     </view>
     <view class="action">
       <button class="cu-btn bg-gradual-my shadow-blur round" bindtap="search">查找</button>
@@ -17,21 +17,22 @@
             <image src="https://pic.imgdb.cn/item/6364a11816f2c2beb12c106e.png" 
             style="width: 120rpx;height: 120rpx;"></image>
             <view class="info margin-left">
-                <view>{{item.name}}</view>
+                <view>姓名：{{item.name}}</view>
                 <view>电话：{{item.phone}}</view>
                 <view>报考驾照类型：{{item.type}}</view>
                 <view>报名日期：{{item.date}}</view>
             </view>
         </view>
         <van-button round bind:click="open" data-student="{{item}}">
-        查看科目情况</van-button>
+        查看考试进度</van-button>
     </view>
 </view>
 <van-dialog
   use-slot
-  title="{{student.name}}科目情况"
+  title="{{student.name}}的考试进度"
   show="{{show}}"
   width="350"
+  confirm-button-text="关闭"
   theme="round-button"
   closeOnClickOverlay
   bind:close="onClose"
@@ -43,7 +44,7 @@
         <view>{{item.text}}</view>
     </view>
 </van-dialog>
-<van-empty description="没有找到该学员" wx:if="{{!students.length && !loading && keyWord}}"></van-empty>
+<van-empty description="没有找到该学员" wx:if="{{!markArray && !loading}}"></van-empty>
 <van-loading color="#0081ff" size="50" vertical wx:if="{{loading}}">
     加载中...
 </van-loading>

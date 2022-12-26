@@ -31,7 +31,6 @@ public class CoachController {
     @RequestMapping("/list")
 //    @isCheckToken
     public ResultData<PageInfo<Coach>> list(CoachQo qo){
-        System.out.println(qo);
         return ResultData.success(coachService.getList(qo));
     }
 

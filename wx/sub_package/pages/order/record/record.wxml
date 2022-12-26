@@ -2,15 +2,17 @@
 	<view slot="content">预约记录</view>
 	<view slot="backText">返回</view>
 </cu-custom>
-<van-tabs active="{{0}}" bind:change="onChange" sticky
+<van-tabs active="{{0}}" bind:change="onChange" sticky offset-top="{{CustomBar}}"
 swipeable color="#0081ff" line-width="70" title-active-color="#0081ff">
   <van-tab title="待练车">
     <view class="orderList" wx:if="{{!loading && records.length}}">
         <view class="order_item shadow-lg" wx:for="{{records}}" wx:key="idex">
+            <image src="/icon/car.png" class="logo"></image>
             <view class="cu-tag round bg-gradual-my text-lg time">{{item.date}} {{item.time}}</view>
-            <view style="margin: 5px 10px;">练习科目：{{item.subject===0?'科目二':'科目三'}}</view>
-            <view style="margin: 5px 10px;">车牌号码：{{item.carNumber?item.carNumber:'暂无号码'}}</view>
-            <view style="margin: 5px 10px;">
+            <view style="margin: 11px 10px 4px 10px;">驾照类型：{{item.type}}</view>
+            <view style="margin: 4px 10px;">练习科目：{{item.subject===0?'科目二':'科目三'}}</view>
+            <view style="margin: 4px 10px;">车牌号码：{{item.carNumber?item.carNumber:'暂无号码'}}</view>
+             <view style="margin: 3px 10px;">
                 <text>教学教练：{{item.c_name}}</text> 
                 <text class="margin-left">电话号码：{{item.c_phone}}</text> 
             </view>
@@ -32,10 +34,12 @@ swipeable color="#0081ff" line-width="70" title-active-color="#0081ff">
   <van-tab title="已完成">
     <view class="orderList" wx:if="{{!loading && records.length}}">
         <view class="order_item shadow-lg" wx:for="{{records}}" wx:key="idex">
+            <image src="/icon/car.png" class="logo"></image>
             <view class="cu-tag round bg-gradual-my text-lg time">{{item.date}} {{item.time}}</view>
-            <view style="margin: 5px 10px;">练习科目：{{item.subject===0?'科目二':'科目三'}}</view>
-            <view style="margin: 5px 10px;">车牌号码：{{item.carNumber?item.carNumber:'暂无号码'}}</view>
-            <view style="margin: 5px 10px;">
+            <view style="margin: 11px 10px 4px 10px;">驾照类型：{{item.type}}</view>
+            <view style="margin: 4px 10px;">练习科目：{{item.subject===0?'科目二':'科目三'}}</view>
+            <view style="margin: 4px 10px;">车牌号码：{{item.carNumber?item.carNumber:'暂无号码'}}</view>
+             <view style="margin: 4px 10px;">
                 <text>教学教练：{{item.c_name}}</text> 
                 <text class="margin-left">电话号码：{{item.c_phone}}</text> 
             </view>
@@ -53,10 +57,12 @@ swipeable color="#0081ff" line-width="70" title-active-color="#0081ff">
   <van-tab title="已过期">
     <view class="orderList" wx:if="{{!loading && records.length}}">
         <view class="order_item shadow-lg" wx:for="{{records}}" wx:key="idex">
+            <image src="/icon/car.png" class="logo"></image>
             <view class="cu-tag round bg-gradual-my text-lg time">{{item.date}} {{item.time}}</view>
-            <view style="margin: 5px 10px;">练习科目：{{item.subject===0?'科目二':'科目三'}}</view>
-            <view style="margin: 5px 10px;">车牌号码：{{item.carNumber?item.carNumber:'暂无号码'}}</view>
-            <view style="margin: 5px 10px;">
+            <view style="margin: 11px 10px 4px 10px;">驾照类型：{{item.type}}</view>
+            <view style="margin: 4px 10px;">练习科目：{{item.subject===0?'科目二':'科目三'}}</view>
+            <view style="margin: 4px 10px;">车牌号码：{{item.carNumber?item.carNumber:'暂无号码'}}</view>
+             <view style="margin: 4px 10px;">
                 <text>教学教练：{{item.c_name}}</text> 
                 <text class="margin-left">电话号码：{{item.c_phone}}</text> 
             </view>
@@ -74,10 +80,12 @@ swipeable color="#0081ff" line-width="70" title-active-color="#0081ff">
   <van-tab title="已取消">
     <view class="orderList" wx:if="{{!loading && records.length}}">
         <view class="order_item shadow-lg" wx:for="{{records}}" wx:key="idex">
+            <image src="/icon/car.png" class="logo"></image>
             <view class="cu-tag round bg-gradual-my text-lg time">{{item.date}} {{item.time}}</view>
-            <view style="margin: 5px 10px;">练习科目：{{item.subject===0?'科目二':'科目三'}}</view>
-            <view style="margin: 5px 10px;">车牌号码：{{item.carNumber?item.carNumber:'暂无号码'}}</view>
-            <view style="margin: 5px 10px;">
+            <view style="margin: 11px 10px 4px 10px;">驾照类型：{{item.type}}</view>
+            <view style="margin: 4px 10px;">练习科目：{{item.subject===0?'科目二':'科目三'}}</view>
+            <view style="margin: 4px 10px;">车牌号码：{{item.carNumber?item.carNumber:'暂无号码'}}</view>
+             <view style="margin: 4px 10px;">
                 <text>教学教练：{{item.c_name}}</text> 
                 <text class="margin-left">电话号码：{{item.c_phone}}</text> 
             </view>

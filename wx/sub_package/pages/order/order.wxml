@@ -1,5 +1,5 @@
 <cu-custom bgColor="bg-gradual-my" isBack="{{true}}">
-	<view slot="content">预约学车</view>
+	<view slot="content">预约申请</view>
 	<view slot="backText">返回</view>
 </cu-custom>
 <view class="swiper">
@@ -49,7 +49,7 @@
     bind:close="onClose"
     bind:cancel="onClose">
   <van-button class="time_item" wx:for="{{actions}}" wx:key="index" 
-  disabled="{{!item.value}}" bind:click="onSelect" data-item="{{item}}">
+  disabled="{{!item.number}}" bind:click="onSelect" data-item="{{item}}">
     <view style="font-weight: bold;font-size: 18px;">{{item.name}}</view>
     <text class="cu-tag round bg-blue sm">余量：{{item.number}}</text>
   </van-button >
@@ -73,7 +73,7 @@
         <view>{{subject.name}}</view>
     </view>
     <view class="info">
-        <view>教练：</view>
+        <view>教学教练：</view>
         <view>{{coach.name}}</view>
     </view>
     <view class="info">
@@ -82,4 +82,6 @@
     </view>
 </van-dialog>
 <van-toast id="van-toast" />
+<van-notify id="van-notify"/>
+
 

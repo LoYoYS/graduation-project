@@ -11,7 +11,7 @@ public interface NoticeMapper {
     Integer update(Notice notice);
     Notice getNotice(Integer id);
     Integer delete(Integer id);
-    List<Notice> list(Integer page);
+    List<Notice> list();
     Integer getStudentCount();
     Integer getCoachCount();
     Integer getUserCount();

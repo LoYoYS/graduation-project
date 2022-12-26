@@ -15,7 +15,7 @@ public class Student {
     private String sex;
     private String id_number;
     private String phone;
-    private Date date;
+    private String date;
     private String type;
     private Subject subject;
     private Integer isBindWx=0;

@@ -13,22 +13,22 @@
             <view>入职日期：{{coach.date}}</view>
         </view>
 </view>
-<view scroll-y class="margin-top">
+<view class="margin-top clearFix">
     <block wx:if="{{comments.length && !loading}}">
         <view class="comment" wx:for="{{comments}}" wx:key="id">
             <view class="top">
                 <view class="left">
                     <image  src="https://pic1.imgdb.cn/item/6364a11816f2c2beb12c106e.png"></image>
                     <view class="margin-left">
-                        <view class="margin-tb-xs">{{item.hidden?'匿名学员':item.s_name}}</view>
-                        <view class="margin-tb-xs">{{item.date}}</view>
+                        <view class="margin-tb-xs text-sm">{{item.hidden?'匿名学员':item.s_name}}</view>
+                        <view class="margin-tb-xs text-sm">{{item.date}}</view>
                     </view>
                 </view>
-                <van-rate color="#0081ff" size="18px" value="{{item.start}}" readonly 
+                <van-rate color="#0081ff" size="16px" value="{{item.start}}" readonly 
                 gutter="1px" void-color="#aaaaaa" style="margin-top: -15px;"/>
             </view>
             <view class="bottom">
-                <view>
+                <view style="font-size: 16px;">
                     {{item.content}}
                 </view>
                 <view class="praise">

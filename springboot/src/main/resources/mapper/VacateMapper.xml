@@ -15,14 +15,11 @@
     <select id="list" resultType="com.yuan.domain.Vacate">
         select * from vacate
         <where>
-            <if test="status ==null or status==''">
-                status!=2
-            </if>
-            <if test="status !=null and status!='' or status==0">
-               and status=#{status}
+            <if test="status != null and status !='' or status ==0 ">
+                 status=#{status}
             </if>
             <if test="keyWord != null and keyWord !=''">
-               and name like concat('%',#{keyWord},'%') or phone =#{keyWord}
+                and name like concat('%',#{keyWord},'%') or phone =#{keyWord}
             </if>
         </where>
             order by id desc

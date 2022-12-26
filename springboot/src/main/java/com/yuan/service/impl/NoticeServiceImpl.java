@@ -23,8 +23,21 @@ public class NoticeServiceImpl implements NoticeService {
 
     @Override
     public PageInfo<Notice> list(Integer page) {
-        PageHelper.startPage(page,5);
-        List<Notice> list = mapper.list(page);
+        PageHelper.startPage(page,10);
+        List<Notice> list = mapper.list();
+        return new PageInfo<>(list);
+    }
+
+    @Override
+    public ResultData<List<Notice>> getList() {
+        List<Notice> list = mapper.list();
+        return ResultData.success(list);
+    }
+
+    @Override
+    public PageInfo<Notice> getNotices() {
+        PageHelper.startPage(1,5);
+        List<Notice> list = mapper.list();
         return new PageInfo<>(list);
     }
 
@@ -43,6 +56,10 @@ public class NoticeServiceImpl implements NoticeService {
 
     @Override
     public ResultData<String> update(Notice notice) {
+        Date date = new Date();
+        SimpleDateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        String format = dateFormat.format(date);
+        notice.setTime(format);
         Integer update = mapper.update(notice);
         if(0<update)
             return ResultData.success("修改成功！");

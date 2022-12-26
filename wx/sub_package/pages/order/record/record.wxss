@@ -1,20 +1,21 @@
 .order_item{
     width: 95%;
-    height: 280rpx;
+    height: 300rpx;
     position: relative;
     display: flex;
     flex-direction: column;
-    justify-content:center;
+    /* justify-content:center; */
     margin: 20px auto;
     box-sizing: border-box;
     border-radius: 20rpx;
     padding: 20rpx 40rpx;
     background-color: white;
+    border: 1rpx solid #469ef7;
 }
 .time{
     position: absolute;
     width: 80%;
-    top: -10rpx;
+    top: -15rpx;
     left: 50%;
     transform: translateX(-50%);
     font-weight: bold;
@@ -39,4 +40,11 @@
 .van-dialog__button button{
     height: 100rpx !important;
     margin: 0 !important;
+}
+.logo{
+    position: absolute;
+    right: 10%;
+    bottom: 45%;
+    width: 100rpx; 
+    height: 100rpx;
 }

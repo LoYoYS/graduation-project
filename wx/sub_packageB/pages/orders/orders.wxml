@@ -1,16 +1,17 @@
 <cu-custom bgColor="bg-gradual-my" isBack="{{true}}">
-	<view slot="content">预约列表</view>
+	<view slot="content">查看学员预约列表</view>
 	<view slot="backText">返回</view>
 </cu-custom>
-<van-tabs active="{{0}}" bind:change="onChange" sticky
+<van-tabs active="{{0}}" bind:change="onChange" sticky offset-top="{{CustomBar}}"
 swipeable color="#0081ff" line-width="70" title-active-color="#0081ff">
   <van-tab title="待教学" >
     <view class="orderList" wx:if="{{records.length && !loading}}">
         <view class="order_item shadow-lg" wx:for="{{records}}" wx:key="idex">
             <view class="cu-tag round bg-gradual-my text-lg time">{{item.date}} {{item.time}}</view>
-            <view style="margin:5px 0 0 10px">练习科目：{{item.subject===0?'科目二':'科目三'}}</view>
-            <view>学员姓名：{{item.s_name}}</view> 
-            <view>电话号码：{{item.s_phone}}</view> 
+            <view style="margin-top: 12px;">驾照类型：{{item.type}}</view>
+            <view style="margin-top: 5px;">练习科目：{{item.subject===0?'科目二':'科目三'}}</view>
+            <view style="margin-top: 5px;">学员姓名：{{item.s_name}}</view> 
+            <view style="margin-top: 5px;">电话号码：{{item.s_phone}}</view>
             <view class="logo">
                 <image src="/icon/car.png"></image>
             </view>
@@ -23,28 +24,25 @@ swipeable color="#0081ff" line-width="70" title-active-color="#0081ff">
   </van-tab>
   <van-tab title="已完成">
     <view class="orderList" wx:if="{{records.length && !loading}}">
-        <view class="order_item shadow-lg" wx:for="{{records}}" wx:key="idex">
+        <view class="order_item shadow-lg" wx:for="{{records}}" wx:key="index">
             <view class="cu-tag round bg-gradual-my text-lg time">{{item.date}} {{item.time}}</view>
-            <view style="margin:5px 0 0 10px">练习科目：{{item.subject===0?'科目二':'科目三'}}</view>
-            <view class="margin-left-sm">学员姓名：{{item.s_name}}</view> 
-            <view class="margin-left-sm">电话号码：{{item.s_phone}}</view>
+            <view style="margin-top: 12px;">驾照类型：{{item.type}}</view>
+            <view style="margin-top: 5px;">练习科目：{{item.subject===0?'科目二':'科目三'}}</view>
+            <view style="margin-top: 5px;">学员姓名：{{item.s_name}}</view> 
+            <view style="margin-top: 5px;">电话号码：{{item.s_phone}}</view>
             <view class="logo">
                 <image src="/icon/car.png"></image>
             </view> 
-           <!--  <view class="btn">
-                <van-button round plain color="#e54d42" bind:click="deleteOrder" data-id="{{item.id}}"> 删除记录
-                </van-button>
-            </view> -->
         </view>
     </view>
     <van-empty 
         wx:if="{{!records.length && !loading}}"
-        description="无记录">
+        description="暂无记录">
     </van-empty>
   </van-tab>
 </van-tabs>
 <view class="btn">
-  <van-button bind:click="onDisplay" round>{{date}}</van-button>  
+  <van-button bind:click="onDisplay" round>日期：{{date}}</van-button>  
 </view>
 <van-calendar show="{{show}}" bind:close="onClose"
 color="#0081ff" bind:confirm="onConfirm" min-date="{{minDate}}" />

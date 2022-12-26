@@ -14,6 +14,8 @@ module.exports={
     cancel:(parmas)=>request('vacate/cancel','POST',parmas,{}),
     // 销假
     confirm:(parmas)=>request('vacate/confirm','POST',parmas,{}),
-    // 查找学院
+    // 查找学员
     findStudent:(parmas)=>request('student/findStudent','POST',parmas,{}),
+    // 获取排班表
+    getArranges:(parmas)=>request('arrange/getArranges','GET',parmas,{}),
 }

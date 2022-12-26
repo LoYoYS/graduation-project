@@ -70,13 +70,10 @@ Page({
         let isLogin = app.checkUser()
         if(!isLogin)
             return
-        if(!app.globalData.identifyInfo){
-            this.showDialog()
-            return
-        }
         let res = await api.submitVacate(this.data.form)
-        if(res.code===2000)
+        if(res.code===2000){ 
             Toast.success(res.data)
+        }
         else
             Toast.fail(res.data)
     },
@@ -106,19 +103,15 @@ Page({
             Toast.fail("请填写请假事由")
             return false
         }
+        else {
+            let time1 = Date.parse(this.data.form.startTime)
+            let time2 = Date.parse(this.data.form.endTime)
+            if(time1>time2){
+                Toast.fail("结束时间不得小于开始时间")
+                return false
+            }
+        }
         return true     
-    },
-    // 提示身份认证
-    showDialog(){
-        Dialog.alert({
-            message: '清先进行身份认证！',
-            theme: 'round-button',
-            closeOnClickOverlay:true,
-          }).then(() => {
-           wx.navigateTo({
-             url: '/sub_package/pages/identify/identify',
-           })
-        })
     },
     // 格式化时间
     timeFormat(val){

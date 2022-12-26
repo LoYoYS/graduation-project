@@ -6,7 +6,7 @@
     <view class="top"></view>
     <view class="card">
         <view class="info" wx:if="{{car}}">
-            <image src="{{car.url}}" fit="cover"/>
+            <image src="{{car.url}}" fit="cover" bindtap="shwoBig"/>
             <view class="text">
                 <view>品牌：{{car.brand}}</view>
                 <view>类型：<text class="cu-tag round bg-blue">{{car.type==1?'小车':'摩托车'}}</text></view>

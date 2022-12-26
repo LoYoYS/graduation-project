@@ -27,8 +27,8 @@
               :value="item.value">
             </el-option>
           </el-select>
-          <el-input v-model.lazy="keyWord" size="small" style="width:170px" clearable
-          placeholder="姓名/手机号" prefix-icon="el-icon-search">
+          <el-input v-model.lazy="keyWord" size="small" style="width:170px" clearable @clear="clearKeyWord"
+          placeholder="姓名/手机号" prefix-icon="el-icon-search" >
           </el-input>
           <el-button type="primary" size="small" icon="el-icon-search"  @click="search">搜素</el-button>
         </div>
@@ -280,6 +280,10 @@ export default {
         this.currentPage=1
         this.getStudentList()
       },
+      clearKeyWord(){
+          this.loading=true
+          this.getStudentList()
+        },
       // 显示数量改变
       handleSizeChange(index){
         this.loading=true
@@ -391,7 +395,7 @@ export default {
       },
       // 下载模板
       download(){
-        window.open('http://localhost:8081/static/excel/学员信息导入模板.xlsx')
+        window.open('http://localhost:8081/driveSchool/static/excel/学员信息导入模板.xlsx')
       },
       //下载文件
       downloadExcel(data){

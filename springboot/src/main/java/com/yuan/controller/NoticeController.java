@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/notice")
@@ -22,6 +24,12 @@ public class NoticeController {
 
     @RequestMapping("/list")
     public ResultData<PageInfo<Notice>> list(Integer page){return ResultData.success(service.list(page));}
+
+    @RequestMapping("/getList")
+    public ResultData<List<Notice>> getList(){return service.getList();}
+
+    @RequestMapping("/getNotices")
+    public ResultData<PageInfo<Notice>> getNotices(){return ResultData.success(service.getNotices());}
 
     @RequestMapping("/save")
     @isCheckToken
@@ -37,6 +45,8 @@ public class NoticeController {
     @RequestMapping("/delete")
     @isCheckToken
     public ResultData<String> delete(Integer id){ return service.delete(id);}
+
+
 
     @RequestMapping("/getNumber")
 //    @isCheckToken

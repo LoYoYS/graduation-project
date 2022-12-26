@@ -21,8 +21,16 @@ Page({
         this.setData({keyWord:e.detail})
     },
     search(){
-        this.setData({loading:true})
-        this.getCoachList()
+        if(!this.data.keyWord)
+            return wx.showToast({
+              title: '请输入教练姓名',
+              icon: 'error',
+            })
+        else{
+            this.setData({loading:true})
+            this.getCoachList()
+        }
+        
     },
     goBack(){
         this.setData({keyWord:'',loading:true})
@@ -33,5 +41,10 @@ Page({
         wx.navigateTo({
           url: `./detail/detail?coach=${coach}`,
         })
+    },
+    call({currentTarget:{dataset}}){
+        wx.makePhoneCall({
+            phoneNumber: dataset.number
+          })
     }
 })

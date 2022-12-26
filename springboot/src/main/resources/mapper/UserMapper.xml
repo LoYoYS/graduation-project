@@ -61,7 +61,7 @@
 
     <insert id="insertUser" parameterType="com.yuan.domain.User" useGeneratedKeys="true" keyProperty="id">
         insert into user
-            values (null,#{username},null,null,null,1,#{nickName},#{url})
+            values (null,#{username},null,null,null,#{role},#{nickName},#{url})
     </insert>
 
     <update id="updateRole">

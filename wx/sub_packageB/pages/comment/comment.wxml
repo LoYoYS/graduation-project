@@ -1,4 +1,5 @@
 <cu-custom  isBack="{{true}}" style="color: white;">
+	<view slot="content">我收到的评价</view>
 	<view slot="backText">返回</view>
 </cu-custom>
 <view class="commentList">
@@ -25,8 +26,9 @@
                 </view>
             </view>
         </view>
+        <view class="tip">到底啦~</view>
     </block>
-    <van-empty wx:else description="暂无评价!"></van-empty>
+    <van-empty wx:if="{{!list.length && !loading}}" description="暂时没有收到评价!"></van-empty>
 </view>
 <van-loading color="#0081ff" size="50" vertical wx:if="{{loading}}">
     加载中...

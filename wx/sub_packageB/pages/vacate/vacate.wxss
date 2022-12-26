@@ -1,5 +1,5 @@
 page{
-    background-image: linear-gradient(rgb(0, 214, 252),rgb(61,81,252));
+    background-image: linear-gradient(rgb(0, 202, 252),#F1F1F1);
 }
 .btn .van-button{
     left: 50%;
@@ -13,10 +13,10 @@ page{
     background-image: linear-gradient(rgb(0, 214, 252),rgb(61,81,252)) !important;
 }
 .vessel{
-    height: calc(100% - 60px);
+    height: 90%;
     background-color: #F1F1F1;
 }
-.title,.list,.item,.info,.status,.status>view{
+.title,.item,.info,.status,.status>view{
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -31,7 +31,7 @@ page{
     font-weight: bold;
     justify-content: center;
     border-radius: 0px 0px 20% 20%;
-    background-image: linear-gradient(rgb(0, 214, 252),rgb(61,81,252));
+    background-image: linear-gradient(rgb(0, 202, 252),rgb(61,81,252));
 }
 .list{
     width: 100%;
@@ -40,6 +40,7 @@ page{
     display: flex;
     text-align: center;
     margin-top: 45rpx;
+    display: flex;
     flex-direction: column;
 }
 .item{
@@ -52,6 +53,7 @@ page{
     margin: 5px auto;
     background-color: white;
     border-radius: 6px;
+    border: 1rpx solid #469ef7;
 }
 .info{
     min-height: 200rpx;

@@ -1,0 +1,36 @@
+<cu-custom  isBack="{{true}}" bgColor="bg-gradual-my">
+	<view slot="content">我的排班列表</view>
+	<view slot="backText">返回</view>
+</cu-custom>
+<view class="list" wx:if="{{arranges.length && !loading}}">
+    <view class="item margin-top shadow-lg" wx:for="{{arranges}}" wx:key="index" >
+        <view class="cu-tag round bg-gradual-my text-lg date">日期：{{item.date}}</view>
+        <view style="margin-top: 20px;">上班情况：{{item.work?'正常上班':'休息'}}</view>
+        <view style="margin-top: 10px;">教学科目：{{item.subject?'科目三':'科目二'}} </view>
+    </view>
+</view>
+<van-empty 
+        wx:if="{{!arranges.length && !loading}}"
+        description="暂无记录">
+</van-empty>
+<view style="height: 100px;"></view>
+<view class="btn">
+  <van-button bind:click="onDisplay" round>时间：{{date}}</van-button>  
+</view>
+<van-popup
+  show="{{ showTime }}"
+  position="bottom"
+  custom-style="height: 40%;"
+  bind:close="onClose"
+>
+<van-datetime-picker
+    type="year-month"
+    title="选择年月"
+    value="{{date}}"
+    bind:confirm="selecDate"
+    bind:cancel="onClose"
+/>
+</van-popup>
+<van-loading color="#0081ff" size="50" vertical wx:if="{{loading}}">
+    加载中...
+</van-loading>

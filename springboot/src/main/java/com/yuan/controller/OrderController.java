@@ -1,10 +1,7 @@
 package com.yuan.controller;
 
 
-import com.yuan.domain.Arrange;
-import com.yuan.domain.Coach;
-import com.yuan.domain.Order;
-import com.yuan.domain.ResultData;
+import com.yuan.domain.*;
 import com.yuan.qo.GetCoachListQo;
 import com.yuan.qo.OrdersQo;
 import com.yuan.service.OrderService;
@@ -28,9 +25,9 @@ public class OrderController {
         return service.getCoachList(qo);
     }
 
-    @RequestMapping("/getNumber")
-    public ResultData<Arrange> getNumber(@RequestParam("c_id") Integer id, @RequestParam("date") String date){
-        return service.getNumber(id,date);
+    @RequestMapping("/getInterval")
+    public ResultData<List<Interval>> getInterval(@RequestParam("c_id") Integer id, @RequestParam("date") String date){
+        return service.getInterval(id,date);
     }
     @RequestMapping("/submitOrder")
     public ResultData<String> submitOrder(@RequestBody Order o){return service.submitOrder(o);}

@@ -1,6 +1,6 @@
 .order_item,.comment_item{
     width: 95%;
-    height: 250rpx;
+    height: 270rpx;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -10,6 +10,8 @@
     border-radius: 20rpx;
     padding: 20rpx 40rpx;
     background-color: white;
+    border: 1rpx solid #469ef7;
+
 }
 .time{
     position: absolute;
@@ -22,7 +24,7 @@
 .btn{
     position: absolute;
     right: 10rpx;
-    bottom: 15rpx;
+    bottom: 40%;
 }
 .van-button{
     width: 140rpx;

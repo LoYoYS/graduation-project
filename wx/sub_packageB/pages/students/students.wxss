@@ -22,6 +22,8 @@
     border-radius: 5px;
     background-color: white;
     box-shadow: 1px 1px 5px rgb(233, 233, 233);
+    border: 1rpx solid #469ef7;
+
 }
 .info{
     display: flex;

@@ -13,33 +13,31 @@
             <view class="text-center">
                 <van-icon name="manager" size="50px" color="#0081ff"></van-icon>
             </view>
-            <view class="margin-top-xl solid-bottom">
+            <view class="margin-top solid-bottom">
                 <text class="text-lg text-blue ">* 姓名：</text>
                 <text class="text-lg">{{info.name}}</text>
             </view>
-            <view class="margin-top solid-bottom ">
+            <view class="solid-bottom">
                 <text class="text-lg text-blue ">* 性别：</text>
                 <text class="text-lg">{{info.sex}}</text>
             </view>
-            <view class="margin-top solid-bottom">
+            <view class="solid-bottom">
                 <text class="text-lg text-blue ">* 身份证号：</text>
                 <text class="text-lg">{{info.id_number}}</text>
             </view>
-            <view class="margin-top solid-bottom">
+            <view class="solid-bottom">
                 <text class="text-lg text-blue ">* 手机号：</text>
                 <text class="text-lg">{{info.phone}}</text>
             </view>
-            <view wx:if="{{isStudent===1}}">
-                <view class="margin-top solid-bottom">
+                <view class="solid-bottom" wx:if="{{isStudent===1}}">
                     <text class="text-lg text-blue ">* 驾照类型：</text>
                     <text class="text-lg">{{info.type}}</text>
                 </view>
-                <view class="margin-top solid-bottom">
+                <view class="solid-bottom" wx:if="{{isStudent===1}}">
                     <text class="text-lg text-blue ">* 报名日期：</text>
                     <text class="text-lg">{{info.date}}</text>
                 </view>
-            </view>
-            <view class="margin-top solid-bottom" wx:if="{{isStudent===-1}}">
+            <view class="solid-bottom" wx:if="{{isStudent===-1}}">
                 <text class="text-lg text-blue ">* 入职日期：</text>
                 <text class="text-lg">{{info.date}}</text>
             </view>

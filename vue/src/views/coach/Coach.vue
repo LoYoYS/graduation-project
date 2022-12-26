@@ -20,9 +20,10 @@
               </el-option> 
             </el-select>
             <el-input v-model.lazy="keyWord" size="small" style="width:170px" clearable
-            placeholder="姓名/手机号" maxlength="11" prefix-icon="el-icon-search">
+            placeholder="姓名/手机号" maxlength="11" prefix-icon="el-icon-search" @clear="clearKeyWord">
             </el-input>
-            <el-button type="primary" size="small" icon="el-icon-search"  @click="search">搜素</el-button>
+            <el-button type="primary" size="small" icon="el-icon-search"  
+            @click="search">搜素</el-button>
           </div>
         </div>
         <!-- 表格 -->
@@ -275,6 +276,10 @@
           this.currentPage=1
           this.getCoachList()
         },
+        clearKeyWord(){
+          this.loading=true
+          this.getCoachList()
+        },
         // 微信绑定开关
         switchChange(val){
           this.coach.isBindWx=val
@@ -370,50 +375,50 @@
             this.currentPage = pagenum < 1 ? 1 : pagenum
         },
         // 导入
-      submitUpload(){
-        this.$refs.upload.submit()
-      },
-      // 导入成功
-      importSuccess(res){
-        if(res.code===2000){
-          this.$message.success(res.data)
-          this.$refs.upload.clearFiles();
-          this.getCoachList()
-        }
-        else
-        this.$message.error('导入失败！')
-      },
-      // 导入失败
-      importError(){
-        this.$message.error('导入失败！')
-      },
-      // 导出
-      async exportData(){
-        let res = await this.axios.post('/coach/exportExcel',{},{responseType:'blob'})
-        this.downloadExcel(res)
-      },
-      // 下载模板
-      download(){
-        window.open('http://localhost:8081/static/excel/教练信息导入模板.xlsx')
-      },
-      //下载文件
-      downloadExcel(data){
-         if(!data){
-             return
-         }
-         let blob = new Blob([data])
-         let url = window.URL.createObjectURL(blob);
-         let aLink = document.createElement("a");
-         aLink.style.display = "none";
-         aLink.href = url;
-         aLink.setAttribute("download", "教练档案信息.xls");
-         document.body.appendChild(aLink);
-         aLink.click();
-         document.body.removeChild(aLink); //下载完成移除元素
-         window.URL.revokeObjectURL(url); //释放掉blob对象
-      },
-      closeDialog(){this.$refs.upload.clearFiles();}
-      },
+        submitUpload(){
+          this.$refs.upload.submit()
+        },
+        // 导入成功
+        importSuccess(res){
+          if(res.code===2000){
+            this.$message.success(res.data)
+            this.$refs.upload.clearFiles();
+            this.getCoachList()
+          }
+          else
+          this.$message.error('导入失败！')
+        },
+        // 导入失败
+        importError(){
+          this.$message.error('导入失败！')
+        },
+        // 导出
+        async exportData(){
+          let res = await this.axios.post('/coach/exportExcel',{},{responseType:'blob'})
+          this.downloadExcel(res)
+        },
+        // 下载模板
+        download(){
+          window.open('http://localhost:8081/driveSchool/static/excel/教练信息导入模板.xlsx')
+        },
+        //下载文件
+        downloadExcel(data){
+          if(!data){
+              return
+          }
+          let blob = new Blob([data])
+          let url = window.URL.createObjectURL(blob);
+          let aLink = document.createElement("a");
+          aLink.style.display = "none";
+          aLink.href = url;
+          aLink.setAttribute("download", "教练档案信息.xls");
+          document.body.appendChild(aLink);
+          aLink.click();
+          document.body.removeChild(aLink); //下载完成移除元素
+          window.URL.revokeObjectURL(url); //释放掉blob对象
+        },
+        closeDialog(){this.$refs.upload.clearFiles();}
+        },
       watch:{
         // 类型筛选
         sex(){

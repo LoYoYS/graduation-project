@@ -18,7 +18,7 @@
               </el-option> 
             </el-select>
             <el-input v-model.lazy="keyWord" size="small" style="width:170px" clearable
-            placeholder="姓名/手机号" maxlength="11" prefix-icon="el-icon-search">
+            placeholder="姓名/手机号" maxlength="11" prefix-icon="el-icon-search" @clear="clearKeyWord">
             </el-input>
             <el-button type="primary" size="small" icon="el-icon-search" 
             clearable @click="search">搜素</el-button>
@@ -53,14 +53,16 @@
             </template>
           </el-table-column>
           <el-table-column label="操作" align="center" width="200px">
-            <template slot-scope="scope" v-if="scope.row.status===0">
+            <template slot-scope="scope" >
               <el-button
                 size="small"
                 type="success"
+                :disabled="scope.row.status!==0"
                 icon="el-icon-success"
                 @click="check(scope.row.id,1)">通过</el-button>
                 <el-button
                 size="small"
+                :disabled="scope.row.status!==0"
                 type="danger"
                 icon="el-icon-error"
                 @click="check(scope.row.id,-1)">拒绝</el-button>
@@ -124,6 +126,10 @@
           this.currentPage=1
           this.getList()
     },
+    clearKeyWord(){
+          this.loading=true
+          this.getList()
+    },
     // 显示数量改变
     handleSizeChange(index){
           this.size = index
@@ -144,7 +150,7 @@
             this.actions.push(item.id)
       })
     },
-    // 操作
+    // 审批
     async check(id,status){
       let form = new FormData()
       form.append('id',id)

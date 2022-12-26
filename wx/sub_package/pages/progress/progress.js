@@ -2,7 +2,8 @@ const app = getApp()
 Page({
     data: {
       dataList:[],
-      loading:true
+      loading:true,
+      CustomBar:0
     },
     onLoad(){
         this.getData()
@@ -39,6 +40,6 @@ Page({
                 ]
             })
         }
-        this.setData({loading:false})
+        this.setData({loading:false,CustomBar:Number.parseInt(app.globalData.CustomBar)})
     }
   })

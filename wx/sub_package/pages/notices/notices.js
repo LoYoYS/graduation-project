@@ -3,15 +3,14 @@ Page({
 
     data: {
         noticeList:[],
-        page:1,
         loading:true
     },
 
     onLoad(options) {
-        api.getNoticeList(this.data.page).then((res)=>{
+        api.getList().then((res)=>{
             if(res.code===2000)
                 this.setData({
-                    noticeList:res.data.list
+                    noticeList:res.data
                 })
         })
         this.setData({loading:false})

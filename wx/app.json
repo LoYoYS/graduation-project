@@ -30,6 +30,7 @@
               "pages/orders/orders",
               "pages/comment/comment",
               "pages/students/students",
+              "pages/arrange/arrange",
               "pages/vacate/application/application"
 
           ]
@@ -47,7 +48,7 @@
         },
           {
           "pagePath": "pages/introduce/introduce",
-          "text": "驾校信息",
+          "text": "驾校简介",
           "iconPath": "/icon/introduce.png",
           "selectedIconPath": "/icon/introduce_active.png"
         },
@@ -74,7 +75,8 @@
     "van-tabs": "@vant/weapp/tabs/index",
     "van-cell": "@vant/weapp/cell/index",
     "van-field": "@vant/weapp/field/index",
-    "van-rate": "@vant/weapp/rate/index"
+    "van-rate": "@vant/weapp/rate/index",
+    "van-notify": "@vant/weapp/notify/index"
   },
   "sitemapLocation": "sitemap.json",
   "lazyCodeLoading": "requiredComponents"

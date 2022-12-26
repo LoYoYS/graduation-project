@@ -1,6 +1,10 @@
+page{
+    background-color: rgb(221, 221, 221);
+
+}
 .father{
     width: 100%;
-    height: calc(100% - 60px);
+    height: 90.5%;
     position: relative;
     background-color: rgb(221, 221, 221);
 }

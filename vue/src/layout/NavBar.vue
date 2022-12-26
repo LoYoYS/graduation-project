@@ -42,7 +42,8 @@
           <i class="el-icon-close" v-if="item.path != '/'" @click.stop="removeTab(item)" />
         </span>
       </div>
-      <el-button class="tabs-close-item" style="float: right" @click="closeAllTab">全部关闭</el-button>
+      <el-button class="tabs-close-item" style="float: right" 
+      @click="closeAllTab" v-show="this.$store.state.tabList.length>1">全部关闭</el-button>
     </div>
   </div>
 </template>
@@ -256,9 +257,17 @@ export default {
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12), 0 0 3px 0 rgba(0, 0, 0, 0.04);
   }
   .tabs-wrapper {
+    perspective: 100px;
+    transform-style: preserve-3d;
     overflow-x: auto;
     overflow-y: hidden;
     white-space: nowrap;
+  }
+  .tabs-wrapper i:hover{
+    color: rgb(4, 138, 248);
+    border-radius: 50%;
+    background-color: rgb(237, 237, 237);
+
   }
   .tabs-close-item {
     position: absolute;
@@ -269,6 +278,10 @@ export default {
     background: #fff;
     padding: 0 8px;
     font-size: 12px;
+  }
+  .tabs-close-item:hover{
+    background-image: linear-gradient(rgb(0, 214, 252),rgb(61,81,252));
+    color: white;
   }
   .tabs-view-item {
     cursor: pointer;

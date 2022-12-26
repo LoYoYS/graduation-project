@@ -18,7 +18,7 @@
               </el-option> 
             </el-select>
             <el-input v-model.lazy="keyWord" size="small" style="width:170px" clearable
-            placeholder="车牌号" maxlength="11" prefix-icon="el-icon-search">
+            placeholder="车牌号" maxlength="11" prefix-icon="el-icon-search" @clear="clearKeyWord">
             </el-input>
             <el-button type="primary" size="small" icon="el-icon-search"  @click="search">搜素</el-button>
           </div>
@@ -214,6 +214,10 @@
           this.getCoachList()
           this.isShow=true
         },
+        clearKeyWord(){
+          this.loading=true
+          this.getCarList()
+        },
         // 打开修改车辆面板
         handleEdit(row){
           this.title='编辑车辆'
@@ -280,7 +284,7 @@
                         this.$message.success(res.data)
                         this.getCarList()
                         this.reset('car')
-                        this.car={}
+                        // this.car={}
                         this.getCoachList()
                       }
                       else

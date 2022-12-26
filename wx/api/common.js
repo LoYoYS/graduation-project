@@ -10,8 +10,10 @@ module.exports={
     unbind: (params) => request('user/unbind', 'POST', params),
     // 获取个人信息
     getInfo: (params) => request('user/getInfo', 'POST', params,{}),
-    //获取公告列表 
-    getNoticeList:(page)=>request('notice/list','GET',{page:page}),
+    //获取首页公告列表 
+    getNotices:()=>request('notice/getNotices','GET'),
+    //获取全部公告 
+    getList:()=>request('notice/getList','GET'),
     // 获取单个公告
     getNotice:(id)=>request('notice/getNotice','GET',{id:id}),
 }

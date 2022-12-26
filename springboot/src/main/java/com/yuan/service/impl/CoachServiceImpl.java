@@ -20,9 +20,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -115,7 +112,7 @@ public class CoachServiceImpl implements CoachService {
             //获取最后一行的下标
             int lastRowNum = sheet.getLastRowNum();
             //从第二行开始遍历，第一行为表头标题行，非数据
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
             for (int i = 1 ; i <= lastRowNum ; i++){
                 Row row = sheet.getRow(i);
                 //获取行(Row)当中的每一个单元格中的数据
@@ -124,15 +121,14 @@ public class CoachServiceImpl implements CoachService {
                 String id_number = row.getCell(2).getStringCellValue();
                 String phone = row.getCell(3).getStringCellValue();
                 String date = row.getCell(4).getStringCellValue();
-                Date parse = simpleDateFormat.parse(date);
-                Coach coach = new Coach(null, name, sex, id_number, phone, parse, null, 0);
+                Coach coach = new Coach(null, name, sex, id_number, phone, date, null, 0);
                 Coach find = coachMapper.findById_number(coach.getId_number());
                 if (find!=null)
                     continue;
                 coachMapper.save(coach);
             }
             return ResultData.success("导入数据成功！");
-        } catch (IOException | ParseException e) {
+        } catch (IOException e) {
             e.printStackTrace();
             return ResultData.fail("导入数据失败！");
         }
@@ -155,7 +151,7 @@ public class CoachServiceImpl implements CoachService {
         row.createCell(4).setCellValue("入职日期");
         List<Coach> coaches = coachMapper.selectAll();
         int index = 1;
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         for (Coach coach : coaches) {
             //每一个教练对象占用一行
             //创建每一行
@@ -165,7 +161,8 @@ public class CoachServiceImpl implements CoachService {
             row1.createCell(1).setCellValue(coach.getSex());
             row1.createCell(2).setCellValue(coach.getId_number());
             row1.createCell(3).setCellValue(coach.getPhone());
-            row1.createCell(4).setCellValue(simpleDateFormat.format(coach.getDate()));
+//            row1.createCell(4).setCellValue(simpleDateFormat.format(coach.getDate()));
+            row1.createCell(4).setCellValue(coach.getDate());
             index++;
         }
 

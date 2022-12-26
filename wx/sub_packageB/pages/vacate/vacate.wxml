@@ -37,7 +37,7 @@
             </view>
             <view class="cuIcon-right"></view>
         </view>
-        <view style="margin-bottom: 100px;">我是有底线的</view>
+        <view style="margin-bottom: 100px;">我是有底线的~</view>
     </view>
     <van-empty wx:else description="暂无记录!"></van-empty>
 </view>

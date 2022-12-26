@@ -10,15 +10,15 @@ Page({
         status:0,
         loading:true,
         minDate: new Date(2022,0,1).getTime(),
+        CustomBar:0
     },
     onLoad(options) {
         this.setData({date:this.formatDate(new Date())})
         if(app.globalData.identifyInfo){
-            this.setData({c_id:app.globalData.identifyInfo.id})
+            this.setData({c_id:app.globalData.identifyInfo.id,CustomBar:Number.parseInt(app.globalData.CustomBar)})
             this.getRecord()
         }
     },
-    onReady() {},
     onShow() {},
     // 获取当天预约记录
     async getRecord(){

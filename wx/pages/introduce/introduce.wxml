@@ -6,17 +6,21 @@
                 <image src="/icon/car1.png"></image>
             </view>
             <view class="title">
-                <text>梧州XXX驾校</text>
+                <text>XXX驾校</text>
                 <view>
                     <text class="cu-tag round sm bg-blue">专业</text>
                     <text class="cu-tag round sm bg-blue">品质</text>
                     <text class="cu-tag round sm bg-blue">高效</text>
                     <text class="cu-tag round sm bg-blue">保障</text>
+                    <!-- <text class="cu-tag round sm bg-blue">简单</text>
+                    <text class="cu-tag round sm bg-blue">方便</text>
+                    <text class="cu-tag round sm bg-blue">快捷</text>
+                    <text class="cu-tag round sm bg-blue">流畅</text> -->
                 </view>
             </view>
         </view>
         <view class="bottom">
-            <view class="pl">
+            <view class="pl" bindtap='clickPhone'>
                 <van-icon name="phone" color="#fff" size="23px"></van-icon>
                 <text>0071-7735991</text>
             </view>

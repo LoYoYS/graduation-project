@@ -1,4 +1,4 @@
-<cu-custom bgColor="bg-gradual-pink" isBack="{{true}}">
+<cu-custom bgColor="bg-gradual-my" isBack="{{true}}">
 	<view slot="content">考试进度</view>
 	<view slot="backText">返回</view>
 </cu-custom>
@@ -16,17 +16,17 @@
 </view>
 <view hidden="{{loading}}">
     <view class="padding-sm text-df text-red">小提示：</view>
-    <van-tabs active="{{0}}" sticky swipeable color=" #6739b6" 
-    line-width="70" title-active-color="#9c26b0">
+    <van-tabs active="{{0}}" sticky swipeable color=" #0081ff" offset-top="{{CustomBar}}"
+    line-width="70" title-active-color="#0081ff">
         <van-tab title="科目一">
             <view class=' bg-white padding-xl radius shadow-lg solid'>
                 <view>
-                    <view class="text-mauve">考试流程：</view>
+                    <view class="text-blue">考试流程：</view>
                     <view class='margin-top-sm'>
                         1、领取科目一考试凭证后，核对受理凭证上的基本信息是否与本人相符。
                         2、根据考试预约时间和场次，考生携带本人身份证原件于考前一小时到达考场，在工作人员处获取考试编号。3、进入侯考室候考，严禁将考试书籍和个人随身携带的物品(包括手机、手提包)带入考场，禁止任何形式的作弊行为，保持肃静。4、在听到语音播报到自己的名字后，进入考场，根据编号找到自己的座位。5、在电脑上输入本人的身份证号，点击【确定】，确认信息无误后，点击【开始考试】依序答题。完成考试后，点击【交卷】→【确认交卷】，系统会自动显示成绩。6、考试及格的学员在考场出口在工作人员指导下签字后离开考场;考试不及格的学员，可以补考一次。如果补考还是不及格，本次考试终止，听候所在驾校工作人员另行通知补考时间。（科一科四考试没有预约次数的限制）
                     </view>
-                    <view class='margin-top-sm text-mauve'>注意事项：</view>
+                    <view class='margin-top-sm text-blue'>注意事项：</view>
                     <view class='margin-top-sm'>
                         1、看清选项顺序。不少考生上来看到是熟悉的题目就直接选择，结果就会做错，考试时答案的顺序与我们平时做的模拟题的答案顺序有所不同，考试时一定要细心点。2、先难后易。在没有点击下一题之前，答案都是可以修改的，如果这道题有疑问，可以先空着，点击屏幕右上角其他未答的题目先做，后面再回来仔细研究这道题会节省时间！3、做完要检查。做完一定要全面检查一遍有没有遗漏的题，要是有漏题没做系统会直接默认为错题。
                     </view>
@@ -36,14 +36,14 @@
         <van-tab title="科目二">
             <view class=' bg-white padding-xl radius shadow-lg solid'>
                 <view>
-                    <view class="text-mauve">考试流程：</view>
+                    <view class="text-blue">考试流程：</view>
                     <view class='margin-top-sm'>
                         1、学员需要先在网上预约科目二的考试，预约成功之后，手机上面是会收到预约成功的短信，短信里面会有具体的考试时间和考试地点，根据短信的提示，前往考试地点参加考试。
                         2、考试需要携带本人的身份证，因为需要进行身份的核验，一般是在考试前的30分钟到达等候大厅验证指纹，领取到自己的排队号码就可以等待考试了。
                         3、等到系统叫到自己的名字，需要前往指定的考场区域，找到自己的考试车辆，上车之前先对车辆进行检查，检查之后上车调整座椅，系好安全带。
                         4、准备进去之后就可以验证指纹，根据车子系统里面的语音提示进行各个科目的考试。5、所有的科目考试完成之后，系统直接就会语音提示考试是否合格，如果考试合格需要在成绩单上面签字就可以离开考场了。如果考试不合格，需要将车子开回考试开始的通道，然后再参加一次补考。6、要注意，科目二考试结束之后，学员需要快速离开考场，不可以指导下面的人参加考试。
                     </view>
-                    <view class='margin-top-sm text-mauve'>注意事项：</view>
+                    <view class='margin-top-sm text-blue'>注意事项：</view>
                     <view class='margin-top-sm'>
                         （一）倒车入库注意事项：（1）车开到起始位置，车身离线的距离，车身要压住库右前方的白线，但不要超过；（2）倒车时要注意看准线点，打死方向，平时怎么练的这时还是怎么考，从倒视镜里看准库点；（3）车进库以后一定要车正回正，不要左拐右拐的；（4）进库以后注意不要倒的太多了，入库即停；（5）左出库时要注意，看一下左边车身距离库线的大小，适当调整方向盘；（6）左出库一定要出库到达规定的位置；（7）在整个过程中不能停车、不能溜车、不能掉档、不能熄火、不能越线。
                     </view>
@@ -68,7 +68,7 @@
         <van-tab title="科目三">
             <view class=' bg-white padding-xl radius shadow-lg solid'>
                 <view>
-                    <view class="text-mauve">考试流程：</view>
+                    <view class="text-blue">考试流程：</view>
                     <view class='margin-top-sm'>
                         一、上车起步    
                         1、第一个上车的从驾驶座位置逆时针绕车1周后入座，其余考生从右侧下车后至右前方，顺时针至左前方后入座；2、入座后向考官问好，扣上安全带；3、脚踩离合器；4、启动发动机（完成灯光模拟）；5、开左转向灯；6、挂一档；7、放手刹，鸣喇叭；8、看左后视镜，抬离合器。
@@ -93,7 +93,7 @@
                         六、靠边停车
                         1、开右灯，注意让直行，不用管白色实线，考官发指令就可以靠边停车；2、注意消防栓，路口，公交车站，厂门口不可停车，要离30米外；3、车头压路沿1/3，然后开直即可，车不能停离路边太远，30cm以上容易挂，也不能太近，擦边也会挂；4、停下来路沿线在车头右筋内5cm左右为佳，要开直。
                     </view>
-                    <view class='margin-top-sm text-mauve'>注意事项：</view>
+                    <view class='margin-top-sm text-blue'>注意事项：</view>
                     <view class='margin-top-sm'>
                         1、考官考察的是开车的熟练程度，是否有良好的驾驶习惯等等，所以一定要小心谨慎，应对自如，给考官好印象；2、一般考官发了转弯和掉头指令，是要马上开方向灯的；3、路面如果碰到土堆等小障碍物，即使前车开过去了，也不能直接压，要绕行；4、不系安全带必挂；5、闯红灯必挂；6、拐弯和掉头时，压黄线或白色实线，必挂；7、碰到有停字的，不管怎样，都要停一下车，所谓的停车让行；8、档位没有跟上速度，也会有相应扣分；9、看后视镜：换道拐弯注意看反光镜，方向盘往哪边打，往哪边看。不看后视镜可能会挂，也不能看超过2秒钟，看一即可；10、到了路口，看到绿灯在闪，即停车等待下一个绿灯。如果已经过了停车线绿灯才闪，一定不能停车，要继续过去，则就变成了路口停车了；11、到路口考官未发指令，即按交通标志走，或直行，或拐弯，或掉头。
                     </view>
@@ -103,11 +103,11 @@
         <van-tab title="科目四">
             <view class=' bg-white padding-xl radius shadow-lg solid'>
                 <view>
-                    <view class="text-mauve">考试流程：</view>
+                    <view class="text-blue">考试流程：</view>
                     <view class='margin-top-sm'>
                         跟科目一考试差不多，科目四考完后需要进行驾驶员宣誓
                     </view>
-                    <view class='margin-top-sm text-mauve'>注意事项：</view>
+                    <view class='margin-top-sm text-blue'>注意事项：</view>
                     <view class='margin-top-sm'>
                         1、答题要有策略在考试中可以先答自己有把握做对的题目，不一定是按照顺序答题。先解决心里有数的题目，之后再仔细推敲不确定的目。提高答题的效率。2、答题要果断因为答题之后不可以更改，所以在答题时要果断一点，确定正确答案就自信的填上去。学员在平时做题就要训练答题准速度快的本领。过度的纠结、犹豫会使头脑混乱，影响下面的答题效果。3、心态要端正考试时尽量放效率，认真审题。避免出现选项没看清、想选A结果选B的情况，估计自己也会因这样的失误而懊恼。4、考前认真备考临阵磨枪，不快也光。学员在临考前一定要多刷题。尤其是之前易错的题目，把它们多做几遍强化记忆。
                     </view>

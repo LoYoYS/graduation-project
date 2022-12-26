@@ -19,5 +19,5 @@ public class Vacate {
     private String startTime;
     private String endTime;
     private Integer status;
-    private Date date;
+    private String date;
 }

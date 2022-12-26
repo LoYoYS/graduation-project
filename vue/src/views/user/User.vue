@@ -11,7 +11,7 @@
                 :value="item.value">
               </el-option> 
             </el-select>
-            <el-input v-model.lazy="keyWord" size="small" style="width:170px" 
+            <el-input v-model.lazy="keyWord" size="small" style="width:170px" @clear="clearKeyWord"
             placeholder="昵称" maxlength="11" clearable prefix-icon="el-icon-search">
             </el-input>
             <el-button type="primary" size="small" icon="el-icon-search" 
@@ -52,13 +52,13 @@
               <el-tag type="danger" v-else>未认证</el-tag>
             </template>
           </el-table-column>
-          <el-table-column label="操作" align="center" width="200px">
+          <!-- <el-table-column label="操作" align="center" width="200px">
               <el-button
                 size="small"
                 type="primary"
                 icon="el-icon-edit"
                 @click="check">编辑</el-button>
-          </el-table-column>  
+          </el-table-column>   -->
         </el-table>
         <!-- 分页 -->
         <el-pagination
@@ -116,6 +116,10 @@
           this.loading=true
           this.currentPage=1
           this.getList()
+    },
+    clearKeyWord(){
+      this.loading=true
+      this.getList()
     },
     // 显示数量改变
     handleSizeChange(index){

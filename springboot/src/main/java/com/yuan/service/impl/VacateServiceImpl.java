@@ -64,7 +64,7 @@ public class VacateServiceImpl implements VacateService {
 
     @Override
     public ResultData<List<Vacate>> getList(Integer id) {
-        List<Vacate> list = mapper. getList(id);
+        List<Vacate> list = mapper.getList(id);
         return ResultData.success(list);
     }
 

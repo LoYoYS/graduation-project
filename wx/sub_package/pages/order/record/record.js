@@ -7,26 +7,26 @@ Page({
         records:[],
         s_id:0,
         status:0,
-        loading:true
+        loading:true,
+        CustomBar:0
     },
     onLoad(options) {
         if(app.globalData.identifyInfo){
             this.setData({s_id:app.globalData.identifyInfo.id})
             this.getRecords()
         }
+        this.setData({CustomBar:Number.parseInt(app.globalData.CustomBar)})
     },
     onShow() {this.setData({loading:false})},
     // Tag栏切换
     onChange(e){
-        
         if(app.globalData.identifyInfo){
             this.setData({
             loading:true,
             status:e.detail.name
             })
             this.getRecords()
-        }
-            
+        }     
     },
     // 获取预约记录
     async getRecords(){
@@ -51,16 +51,16 @@ Page({
                   id:order.id,
                   s_id:order.s_id,
                   c_id:order.c_id,
+                  i_id:order.i_id,
                   status:1,
                   date:order.date,
-                  interval:order.interval
               })
               if(res.code===2000){
                   Toast.success(res.data)
                   this.getRecords()
               }
               else
-                Toast.fail(res.data)
+                Toast.fail('请在练车时间内进行确认！')
             }).catch(() => {
               return
             });
@@ -76,9 +76,9 @@ Page({
                 id:order.id,
                 s_id:order.s_id,
                 c_id:order.c_id,
+                i_id:order.i_id,
                 status:3,
                 date:order.date,
-                interval:order.interval
             })
             if(res.code===2000){
                 Toast.success(res.data)

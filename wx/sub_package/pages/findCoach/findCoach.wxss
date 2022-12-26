@@ -1,3 +1,8 @@
+.list{
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px 5px 10px 5px;
+}
 .item,.item view:first-child{
     display: flex;
     align-items: center;
@@ -5,18 +10,18 @@
 .item{
     width: 95%;
     margin: 15rpx auto;
+    position: relative;
     box-sizing: border-box;
     padding: 10rpx;
-    border-radius: 5px;
+    border-radius: 8px;
     background-color: white;
     box-shadow: 1px 1px 5px rgb(233, 233, 233);
+    border: 1rpx solid #469ef7;
 }
 .item>view:first-child{
     justify-content: center;
     width: 130rpx;
     height: 130rpx;
-    border-radius: 50%;
-    border: 1rpx solid #0363f3;
     background-color: white;
 }
 .info{
@@ -26,15 +31,13 @@
     justify-content: space-between;
 }
 .btn{
-    margin-left: 15rpx;
-    margin-top: 50rpx;
+    margin-left: 10rpx;
 }
 .van-button{
     color: white !important;
     width: 200rpx;
     height: 60rpx !important;
     padding: 0 !important;
-    margin: 0 10rpx;
     background-image: linear-gradient(rgb(0, 214, 252),rgb(61,81,252)) !important;
 }
 .van-cell{
@@ -47,4 +50,16 @@
     top:50%;
     left: 50%;
     transform: translate(-50%,-50%);
+}
+.search{
+    position: fixed;
+    width: 100%;
+    top:auto;
+    z-index: 999;
+}
+.clearFix::after,.clearFix::before{
+    content: '';
+    display: block;
+    clear: both;
+    height: 50px;
 }

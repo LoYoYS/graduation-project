@@ -9,19 +9,25 @@ Page({
         name:'',
         error:'',
         error1:'',
+        isShow:false
     },
     onLoad(options) {
+        let nowTime  = Date.parse(new Date())
+        let delineTime = Date.parse('2022-12-01')
+        if(nowTime > delineTime) {
+            this.setData({isShow:true})
+        } 
     },
     onShow(){
         app.checkUser()
         if(app.globalData.userInfo){
-            this.setData({userInfo:app.globalData.userInfo})
             if(app.globalData.identifyInfo){
                 this.setData({
                     name:this.format(app.globalData.identifyInfo.name),
                     id_number:app.globalData.identifyInfo.id_number.slice(0,4),
                 })
-            } 
+            }
+        this.setData({userInfo:app.globalData.userInfo})
         }
     },
     collectNumber(e){

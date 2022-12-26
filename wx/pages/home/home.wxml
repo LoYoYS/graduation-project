@@ -15,10 +15,97 @@
 </view>
 <view class="vessel">
     <view class="funList">功能列表</view>
-    <view class="list" wx:if="{{isStudent==1 || isStudent==0}}">
+   <!--  <swiper class="list" display-multiple-items="2.25" circular
+    wx:if="{{isStudent===0 || isStudent===1}}">
+        <swiper-item class="swiper_item"> 
             <view class="bg-gradual-blue" catchtap="gotoOrder">
                 <view style="font-weight: bold;">YUYUE</view>
-                <view>预约学车</view>
+                <view>预约练车</view>
+                <view class="icon">
+                    <van-icon name="/icon/car1.png" size="35px"></van-icon>
+                </view>
+            </view>
+        </swiper-item>
+        <swiper-item class="swiper_item">
+            <view class="bg-gradual-purple" catchtap="gotoNewPage" data-index="{{1}}">
+                <view style="font-weight: bold;">RECORD</view>
+                <view>预约记录</view>
+                <van-icon name="todo-list" size="35px" class="icon"></van-icon>
+            </view>
+        </swiper-item>
+        <swiper-item class="swiper_item">
+            <view class="bg-gradual-pink" catchtap="gotoNewPage" data-index="{{2}}">
+                <view style="font-weight: bold;">EXAM</view>
+                <view>考试进度</view>
+                <view class="icon cuIcon-timefill"></view>
+            </view>
+        </swiper-item>
+        <swiper-item class="swiper_item">
+            <view class="bg-gradual-orange" catchtap="gotoNewPage" data-index="{{3}}">
+                <view style="font-weight: bold;">COMMENT</view>
+                <view>评价中心</view>
+                <view class="icon cuIcon-messagefill"></view>
+            </view>
+        </swiper-item>
+        <swiper-item class="swiper_item">
+            <view class="bg-gradual-red" catchtap="gotoNewPage" data-index="{{4}}">
+                <view style="font-weight: bold;">LOOK</view>
+                <view>查看教练</view>
+                <view class="icon cuIcon-friendfill"></view>
+            </view>
+        </swiper-item>
+    </swiper>
+    <swiper class="list" display-multiple-items="2.25" 
+    wx:else circular>
+        <swiper-item class="swiper_item"> 
+            <view class="bg-gradual-blue" catchtap="gotoOrderList">
+                <view style="font-weight: bold;">LIST</view>
+                <view>预约列表</view>
+                <view class="icon">
+                    <van-icon name="todo-list" size="35px" ></van-icon>
+                </view>
+            </view>
+        </swiper-item>
+        <swiper-item class="swiper_item">
+            <view class="bg-gradual-purple" catchtap="gotoNewPageB" data-index="{{1}}">
+                <view style="font-weight: bold;">COMMENT</view>
+                <view>学员评价</view>
+                <view class="icon cuIcon-communityfill"></view>
+            </view>
+        </swiper-item>
+        <swiper-item class="swiper_item">
+            <view class="bg-gradual-orange" catchtap="gotoNewPageB" data-index="{{2}}">
+                <view style="font-weight: bold;">LEAVE</view>
+                <view>请假中心</view>
+                <view class="icon cuIcon-messagefill"></view>
+            </view>
+        </swiper-item>
+        <swiper-item class="swiper_item">
+            <view class="bg-gradual-red" catchtap="gotoNewPageB" data-index="{{4}}">
+                <view style="font-weight: bold;">LOOK</view>
+                <view>查找学员</view>
+                <view class="icon cuIcon-peoplefill"></view>
+            </view>
+        </swiper-item>
+        <swiper-item class="swiper_item">
+            <view class="bg-gradual-pink" catchtap="gotoNewPageB" data-index="{{3}}">
+                <view style="font-weight: bold;">CAR</view>
+                <view>车辆信息</view>
+                <view class="icon cuIcon-deliver_fill"></view>
+            </view>
+        </swiper-item>
+        <swiper-item class="swiper_item">
+            <view class="bg-gradual-green margin-right" catchtap="gotoNewPageB" data-index="{{5}}">
+                <view style="font-weight: bold;">ARRANGE</view>
+                <view>排班情况</view>
+                <view class="icon cuIcon-formfill"></view>
+            </view>     
+        </swiper-item>
+    </swiper> -->
+    <view class="list" wx:if="{{isStudent===0 || isStudent===1}}">
+            <view class="bg-gradual-blue" catchtap="gotoOrder">
+                <view style="font-weight: bold;">YUYUE</view>
+                <view>预约练车</view>
                 <view class="icon">
                     <van-icon name="/icon/car1.png" size="35px"></van-icon>
                 </view>
@@ -26,7 +113,7 @@
             <view class="bg-gradual-purple" catchtap="gotoNewPage" data-index="{{1}}">
                 <view style="font-weight: bold;">RECORD</view>
                 <view>预约记录</view>
-                <view class="icon cuIcon-formfill"></view>
+                <van-icon name="todo-list" size="35px" class="icon"></van-icon>
             </view>
             <view class="bg-gradual-pink" catchtap="gotoNewPage" data-index="{{2}}">
                 <view style="font-weight: bold;">EXAM</view>
@@ -42,15 +129,14 @@
                 <view style="font-weight: bold;">LOOK</view>
                 <view>查看教练</view>
                 <view class="icon cuIcon-friendfill"></view>
-            </view>
-            
+            </view>   
     </view>
     <view class="list" wx:else>
             <view class="bg-gradual-blue" catchtap="gotoOrderList">
                 <view style="font-weight: bold;">LIST</view>
                 <view>预约列表</view>
                 <view class="icon">
-                    <van-icon name="/icon/car1.png" size="35px"></van-icon>
+                    <van-icon name="todo-list" size="35px" ></van-icon>
                 </view>
             </view>
             <view class="bg-gradual-purple" catchtap="gotoNewPageB" data-index="{{1}}">
@@ -63,17 +149,21 @@
                 <view>请假中心</view>
                 <view class="icon cuIcon-messagefill"></view>
             </view>
+            <view class="bg-gradual-red" catchtap="gotoNewPageB" data-index="{{4}}">
+                <view style="font-weight: bold;">LOOK</view>
+                <view>查找学员</view>
+                <view class="icon cuIcon-peoplefill"></view>
+            </view>
             <view class="bg-gradual-pink" catchtap="gotoNewPageB" data-index="{{3}}">
                 <view style="font-weight: bold;">CAR</view>
                 <view>车辆信息</view>
                 <view class="icon cuIcon-deliver_fill"></view>
             </view>
-            <view class="bg-gradual-red" catchtap="gotoNewPageB" data-index="{{4}}">
-                <view style="font-weight: bold;">LOOK</view>
-                <view>查看学员</view>
-                <view class="icon cuIcon-friendfill"></view>
-            </view>
-            
+            <view class="bg-gradual-green margin-right" catchtap="gotoNewPageB" data-index="{{5}}">
+                <view style="font-weight: bold;">ARRANGE</view>
+                <view>排班情况</view>
+                <view class="icon cuIcon-formfill"></view>
+            </view>     
     </view>
     <view class="bottom">
         <view class="notice_head"> 

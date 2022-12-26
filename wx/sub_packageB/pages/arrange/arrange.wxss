@@ -1,0 +1,46 @@
+.btn .van-button{
+    left: 50%;
+    bottom: 5%;
+    font-size: 18px !important;
+    font-weight: bold;
+    width: 50% !important;
+    color: white !important;
+    transform: translateX(-50%);
+    position: fixed !important;
+    background-image: linear-gradient(rgb(0, 214, 252),rgb(61,81,252)) !important;
+}
+.list{
+    width: 100%;
+    display: flex;
+    box-sizing: border-box;
+    padding: 10px;
+    flex-wrap: wrap;
+    flex-shrink: 1;
+    justify-content: space-around;
+}
+.item{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 48%;
+    height: 150rpx;
+    box-sizing: border-box;
+    padding: 5px;
+    background-color: white;
+    border-radius: 6px;
+    border: 1rpx solid #469ef7;
+}
+.date{
+    position: absolute;
+    left: 50%;
+    font-weight: bold;
+    transform: translate(-50%,-40%);
+    width: 85%;
+}
+.van-loading{
+    position: absolute;
+    top:50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}

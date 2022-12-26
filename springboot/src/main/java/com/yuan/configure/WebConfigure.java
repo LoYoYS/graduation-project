@@ -44,7 +44,7 @@ public class WebConfigure implements WebMvcConfigurer {
         return new Interceptor();
     }
 
-    //JSON格式 全局日期转换器配置
+   /* //JSON格式 全局日期转换器配置
     @Bean
     public MappingJackson2HttpMessageConverter getMappingJackson2HttpMessageConverter() {
         MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter = new MappingJackson2HttpMessageConverter();
@@ -69,7 +69,7 @@ public class WebConfigure implements WebMvcConfigurer {
         converters.add(globalDateConvert);
         factoryBean.setConverters(converters);
         return factoryBean.getObject();
-    }
+    }*/
 
     @Value("${Location.realPath}")
     private String realPath;

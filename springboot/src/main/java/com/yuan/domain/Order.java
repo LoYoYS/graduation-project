@@ -11,12 +11,13 @@ public class Order {
     private Integer id;
     private Integer s_id;
     private Integer c_id;
+    private Integer i_id;
     private Integer subject;
     private String date;
     private String time;
+    private String type;
     private String startTime;
     private String endTime;
-    private String interval;
     private Integer status=0;
     private Integer comment=0;
     private Integer isDelete=0;

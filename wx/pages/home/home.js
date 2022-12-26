@@ -10,18 +10,20 @@ Page({
             'https://pic1.imgdb.cn/item/63620eb016f2c2beb1f943ff.jpg'
         ],
         notices:[],
-        isStudent:true,
+        isStudent:0,
     },
     onLoad(options) {
         // 获取公告列表
-        api.getNoticeList(1).then((res)=>{
+        api.getNotices().then((res)=>{
             if(res.code===2000)
                 this.setData({notices:res.data.list})
         })
     },
     onShow(){
         if(app.globalData.userInfo)
-            this.setData({isStudent:app.globalData.userInfo.role}) 
+            this.setData({isStudent:app.globalData.userInfo.role})
+        else
+            this.setData({isStudent:0})
     },
      // 图片预览
     showImage(e){
@@ -52,7 +54,7 @@ Page({
             wx.navigateTo({url: '/sub_package/pages/progress/progress'})
         else if(index===3)
             wx.navigateTo({url: '/sub_package/pages/comment/comment'})
-        else
+        else if(index===4)
             wx.navigateTo({url: '/sub_package/pages/findCoach/findCoach'})
     },
     // 打开教练功能页面
@@ -63,9 +65,13 @@ Page({
             wx.navigateTo({url: '/sub_packageB/pages/vacate/vacate'})
         else if(index===3)
             wx.navigateTo({url: '/sub_packageB/pages/car/car'})
-        else
+        else if(index===4)
             wx.navigateTo({
               url: '/sub_packageB/pages/students/students',
+            })
+        else if(index===5)
+            wx.navigateTo({
+              url: '/sub_packageB/pages/arrange/arrange',
             })
             
     },

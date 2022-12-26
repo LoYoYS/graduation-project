@@ -12,7 +12,7 @@
       <button class="cu-btn bg-gradual-my shadow-blur round" bindtap="search">查找</button>
     </view>
 </view>
-<view> 
+<view class="list clearFix"> 
     <view class="item" wx:for="{{coaches}}" wx:key="id">
         <view>
             <image src="https://pic1.imgdb.cn/item/635e8fcf16f2c2beb1efd8ca.png" 
@@ -20,12 +20,12 @@
         </view>
         <view class="info margin-left">
             <view>{{item.name}}</view>
-            <view>电话：{{item.phone}}</view>
+            <view bindtap="call" data-number="{{item.phone}}" class="text-blue">电话：{{item.phone}}</view>
             <view>入职日期：{{item.date}}</view>
         </view>
         <view class="btn">
             <van-button round bind:click="gotoDetail" data-coach="{{item}}">
-            查看他人评价</van-button>
+            查看评价</van-button>
         </view>
     </view>
     <van-empty 
