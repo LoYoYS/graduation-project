@@ -5,10 +5,12 @@ import com.github.pagehelper.PageInfo;
 import com.yuan.domain.ResultData;
 import com.yuan.domain.Student;
 import com.yuan.domain.Subject;
+import com.yuan.domain.SubjectApply;
 import com.yuan.mapper.StudentMapper;
 import com.yuan.mapper.SubjectMapper;
 import com.yuan.mapper.UserMapper;
 import com.yuan.qo.StudentQo;
+import com.yuan.qo.VacateQo;
 import com.yuan.service.StudentService;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
@@ -20,6 +22,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -69,8 +73,10 @@ public class StudentServiceImpl implements StudentService {
     public ResultData<String> delete(Student student) {
         Integer delete = studentMapper.delete(student);
         subjectMapper.delete(student);
-        if(0<delete)
+        if(0<delete){
+            userMapper.updateUserRole(student.getId(),1);
             return ResultData.success("删除成功");
+        }
         else
             return ResultData.fail("删除失败");
     }
@@ -79,8 +85,11 @@ public class StudentServiceImpl implements StudentService {
     public ResultData<String> deleteList(List<Student> studentList) {
         Integer integer = subjectMapper.deleteList(studentList);
         studentMapper.deleteList(studentList);
-        if(0<integer)
+        if(0<integer){
+            userMapper.updateUserByStudentList(studentList);
             return ResultData.success("删除成功!");
+        }
+
         else
             return ResultData.fail("删除失败!");
     }
@@ -168,5 +177,81 @@ public class StudentServiceImpl implements StudentService {
     public ResultData<List<Student>> findStudent(String keyWord) {
         List<Student> student = studentMapper.findStudent(keyWord);
         return ResultData.success(student);
+    }
+
+    @Override
+    public ResultData<String> saveApply(SubjectApply apply) {
+        if (apply==null)
+            return ResultData.fail("申请失败！");
+        Integer apply1 = subjectMapper.findApply(apply);
+        if(0<apply1)
+            return ResultData.fail("申请失败，存在未处理申请！");
+        StringBuilder url= new StringBuilder();
+        for(String str:apply.getUrls()){
+            url.append(str).append(",");
+        }
+        apply.setUrl(url.toString());
+        Date date = new Date();
+        SimpleDateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        String format = dateFormat.format(date);
+        apply.setDate(format);
+        Integer integer = subjectMapper.saveApply(apply);
+        if(0<integer)
+            return ResultData.success("提交申请成功！");
+        return ResultData.fail("申请失败！");
+    }
+
+    @Override
+    public ResultData<List<SubjectApply>> getApplicationListById(Integer id) {
+        List<SubjectApply> applicationListById = subjectMapper.getApplicationListById(id);
+        for(SubjectApply apply:applicationListById){
+            String [] arr = apply.getUrl().split(",");
+            apply.setUrls(arr);
+        }
+        return ResultData.success(applicationListById);
+    }
+
+    @Override
+    public ResultData<String> cancelApply(Integer id) {
+        Integer integer = subjectMapper.cancelApply(id);
+        if(0<integer)
+            return ResultData.success("已撤销！");
+        return ResultData.fail("撤销失败！");
+    }
+
+    @Override
+    public ResultData<PageInfo<SubjectApply>> getList(VacateQo qo) {
+        PageHelper.startPage(qo.getCurrentPage(),qo.getSize());
+        List<SubjectApply> list = subjectMapper.getList(qo);
+        for(SubjectApply apply:list){
+            String [] arr = apply.getUrl().split(",");
+            apply.setUrls(arr);
+        }
+        return ResultData.success(new PageInfo<>(list));
+    }
+
+    @Override
+    public ResultData<String> check(SubjectApply apply) {
+        String subject = apply.getSubject();
+        if(apply.getStatus()==1){
+            switch (subject) {
+                case "a":
+                    subjectMapper.updateSubjectA(apply.getS_id());
+                    break;
+                case "b":
+                    subjectMapper.updateSubjectB(apply.getS_id());
+                    break;
+                case "c":
+                    subjectMapper.updateSubjectC(apply.getS_id());
+                    break;
+                default:
+                    subjectMapper.updateSubjectD(apply.getS_id());
+                    break;
+            }
+        }
+        Integer integer1 = subjectMapper.updateApply(apply);
+        if(0<integer1)
+            return ResultData.success("操作成功！");
+        return ResultData.fail("操作失败！");
     }
 }

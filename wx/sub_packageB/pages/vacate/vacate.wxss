@@ -67,6 +67,7 @@ page{
     margin-right: 40rpx;
     border: 3px solid;
     justify-content: center;
+    animation: turn 5s linear infinite;
 }
 .status>view{
     width: 110rpx;
@@ -96,4 +97,14 @@ page{
 }
 .dialogInfo .van-button{
     width: 100% !important;
+}
+@keyframes turn{
+    0%{transform: rotateZ(0deg);}
+    100%{transform: rotateZ(360deg);}
+}
+.van-loading{
+    position: absolute;
+    top:50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
 }

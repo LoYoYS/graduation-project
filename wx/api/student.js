@@ -24,4 +24,10 @@ module.exports={
     getCoaches:(parmas)=>request('coach/getCoaches','POST',parmas,{}),
     // 查看某个教练的评价
     getCoachComment:(parmas)=>request('comment/getCoachComment','GET',parmas,{}),
+    // 提交科目更新申请
+    submitApply:(parmas)=>request('student/saveApply','POST',parmas),
+    // 获取科目申请列表
+    getApplicationListById:(parmas)=>request('student/getApplicationListById','GET',parmas),
+    // 撤销申请
+    cancelApply:(parmas)=>request('student/cancelApply','PUT',parmas,{})
 }

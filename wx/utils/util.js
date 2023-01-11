@@ -12,6 +12,8 @@ const getDate = function(){
           m=12<(month+1)?formatdate((month+1)%12):formatdate(month+1)
           y=12<(month+1)?year+1:year
         }
+        else
+            m=formatdate(m)
         let newday=day+i>days?formatdate((day+i)%days):formatdate(day+i)
         let newweek =getWeek(week+i)
         dateArr[i]={title:newweek,dateValue:(y+'-'+m+'-'+newday),isSelect:false}

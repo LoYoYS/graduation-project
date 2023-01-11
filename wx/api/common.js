@@ -11,9 +11,11 @@ module.exports={
     // 获取个人信息
     getInfo: (params) => request('user/getInfo', 'POST', params,{}),
     //获取首页公告列表 
-    getNotices:()=>request('notice/getNotices','GET'),
+    getNotices:()=>request('common/getNotices','GET'),
     //获取全部公告 
-    getList:()=>request('notice/getList','GET'),
+    getList:()=>request('common/getList','GET'),
     // 获取单个公告
-    getNotice:(id)=>request('notice/getNotice','GET',{id:id}),
+    getNotice:(id)=>request('common/getNotice','GET',{id:id}),
+    // 获取驾校信息
+    getDInfo:()=>request('common/getInfo','GET')
 }

@@ -40,6 +40,7 @@
         <!-- 分页 -->
         <el-pagination
           background
+          class="page"
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
           :current-page="currentPage"
@@ -561,7 +562,7 @@
   
 <style scoped>
 .el-table{
-    margin: 10px auto;
+    margin: 30px auto;
 }
 .operation{
     display: flex;
@@ -656,5 +657,11 @@
   display: flex;
   margin: 20px 0px;
   justify-content: space-around;
+}
+.page{
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
 }
 </style>

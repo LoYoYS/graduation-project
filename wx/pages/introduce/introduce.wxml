@@ -1,47 +1,34 @@
-
-<view class="vessel">
-    <view class="info">
-        <view class="top">
-            <view class="logo">
-                <image src="/icon/car1.png"></image>
+<view class="father" style="background: url({{info.back}}) no-repeat;background-size: contain">
+    <view class="vessel">
+        <view class="info">
+            <view class="top">
+                <view class="logo">
+                    <image src="{{info.logo}}"></image>
+                </view>
+                <view class="title">
+                    <text>{{info.name}}</text>
+                    <view wx:if="{{info.slogans.length}}">
+                        <text class="cu-tag round sm bg-blue" 
+                        wx:for="{{info.slogans}}" wx:key="index">{{item}}</text>
+                    </view>
+                </view>
             </view>
-            <view class="title">
-                <text>XXX驾校</text>
-                <view>
-                    <text class="cu-tag round sm bg-blue">专业</text>
-                    <text class="cu-tag round sm bg-blue">品质</text>
-                    <text class="cu-tag round sm bg-blue">高效</text>
-                    <text class="cu-tag round sm bg-blue">保障</text>
-                    <!-- <text class="cu-tag round sm bg-blue">简单</text>
-                    <text class="cu-tag round sm bg-blue">方便</text>
-                    <text class="cu-tag round sm bg-blue">快捷</text>
-                    <text class="cu-tag round sm bg-blue">流畅</text> -->
+            <view class="bottom">
+                <view class="pl" bindtap='clickPhone'>
+                    <van-icon name="phone" color="#fff" size="23px"></van-icon>
+                    <text>{{info.phone}}</text>
+                </view>
+                <view class="pl" catchtap="openLocation">
+                    <van-icon name="location" color="#fff" size="23px"></van-icon>
+                    <text>{{info.address}}</text>
                 </view>
             </view>
         </view>
-        <view class="bottom">
-            <view class="pl" bindtap='clickPhone'>
-                <van-icon name="phone" color="#fff" size="23px"></van-icon>
-                <text>0071-7735991</text>
-            </view>
-            <view class="pl" catchtap="openLocation">
-                <van-icon name="location" color="#fff" size="23px"></van-icon>
-                <text>梧州市万秀区富民三路82号</text>
-            </view>
+        <view class="cu-tag round text-blue text-lg" style="width: 30%;">
+            驾校简介
         </view>
-    </view>
-    <view class="cu-tag round text-blue text-lg" style="width: 30%;">
-        驾校简介
-    </view>
-    <view class="introduce">
-        <text user-select="true">
-            富强 明主 文明 和谐 富强 明主 文明 和谐 富强 明主 文明 和谐 富强 明主 文明 和谐 富强 明主 文明  和谐 富强 明主 文明 和谐 富强 明主 文明 和谐 富强 明主 文明 和谐 富强 明主 文明 和谐 富强 明主  文明 和谐 富强 明主 文明 和谐 富强 明主 文明 和谐 富强 明主 文明 和谐。
-        </text>
-        <text user-select="true">
-            自由 平等 公正 法治 自由 平等 公正 法治 自由 平等 公正 法治 自由 平等 公正 法治 自由 平等 公正 法治 自由 平等 公正 法治 自由 平等 公正 法治 自由 平等 公正 法治 自由 平等 公正 法治 自由 平等 公正 法治 自由 平等 公正 法治 自由 平等 公正 法治 自由 平等 公正 法治。
-        </text>
-        <text user-select="true">
-            爱国 敬业 诚信 友善 爱国 敬业 诚信 友善 爱国 敬业 诚信 友善 爱国 敬业 诚信 友善 爱国 敬业 诚信 友善 爱国 敬业 诚信 友善 爱国 敬业 诚信 友善 爱国 敬业 诚信 友善 爱国 敬业 诚信 友善 爱国 敬业 诚信 友善 爱国 敬业 诚信 友善 爱国 敬业 诚信 友善 爱国 敬业 诚信 友善。
-        </text>
+        <view class="introduce">
+            <text user-select="true">{{info.text}}</text>
+        </view>
     </view>
 </view>

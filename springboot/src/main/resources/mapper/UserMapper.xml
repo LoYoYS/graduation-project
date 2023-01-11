@@ -35,6 +35,20 @@
         update user set a_id=null,role=0 where a_id=#{id} and role=#{role}
     </update>
 
+    <update id="updateUserByStudentList">
+        update user set a_id=null,role=0 where role=1 and a_id in
+        <foreach collection="list" item="item" separator="," open="(" close=")">
+            #{item.id}
+        </foreach>
+    </update>
+
+    <update id="updateUserByCoachList">
+        update user set a_id=null,role=0 where role=-1 and a_id in
+        <foreach collection="list" item="item" separator="," open="(" close=")">
+            #{item.id}
+        </foreach>
+    </update>
+
 <!--  小程序端  -->
     <select id="findUserByUsername" resultType="com.yuan.domain.Wx_user" parameterType="string">
         select * from user where username=#{username}

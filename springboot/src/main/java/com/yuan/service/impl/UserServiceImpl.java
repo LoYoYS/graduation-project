@@ -127,7 +127,8 @@ public class UserServiceImpl implements UserService {
         }
         try {
             file.transferTo(new File(realPath+fileName));
-            String url="http://locahostL:8081"+mapperPath+fileName;
+//            String url="https://yuanshu.love"+mapperPath+fileName;
+            String url="http://192.168.1.2:8081/driveSchool"+mapperPath+fileName;
             userMapper.updateUserAvatar(id,url);
             return ResultData.success(url);
         }catch (Exception e){

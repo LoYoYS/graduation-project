@@ -10,7 +10,7 @@
             "list": [
                 {
                     "name": "",
-                    "pathName": "sub_packageB/pages/comment/comment",
+                    "pathName": "sub_package/pages/apply/apply",
                     "query": "",
                     "launchMode": "default",
                     "scene": null

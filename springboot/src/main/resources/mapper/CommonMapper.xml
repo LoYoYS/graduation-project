@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.yuan.mapper.NoticeMapper">
+<mapper namespace="com.yuan.mapper.CommonMapper">
 
     <insert id="save">
         insert into notice values (null,#{title},#{content},#{time})
@@ -10,8 +10,17 @@
         update notice set title=#{title},content=#{content} where id=#{id}
     </update>
 
+    <insert id="saveInfo">
+        insert into info values (#{id},#{name},#{phone},#{address},#{longitude},#{latitude},#{logo},
+                                 #{back},#{slogan},#{text})
+    </insert>
+
     <delete id="delete">
         delete from notice where id=#{id}
+    </delete>
+
+    <delete id="deleteInfo">
+        delete from info
     </delete>
 
     <select id="list" resultType="com.yuan.domain.Notice">
@@ -36,6 +45,10 @@
 
     <select id="getCarCount" resultType="java.lang.Integer">
         select count(*) from car
+    </select>
+
+    <select id="getInfo" resultType="com.yuan.domain.Info">
+        select * from info
     </select>
 
 </mapper>

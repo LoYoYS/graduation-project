@@ -1,12 +1,12 @@
-page{
-    width: 100%;
+.father{
+    width:100%;
     height: 100%;
-    background: url(https://pic1.imgdb.cn/item/6362578916f2c2beb1e754f4.jpg) no-repeat;
-    background-size: contain;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 .vessel{
     width: 100%;
-    height: 100%;
+    min-height: 60%;
     display: flex;
     color: white;
     margin-top: 350px;
@@ -17,7 +17,7 @@ page{
 }
 .info{
     width: 100%;
-    height: 25%;
+    height: 20%;
     display: flex;
     margin-top: 50px;
     font-weight: bold;
@@ -48,18 +48,22 @@ page{
     margin-left: 20rpx;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: center;
 }
 .bottom{
     flex-direction: column;
     justify-content: space-around;
     height: 60px;
+    margin: 15px 0 20px 15px;
 }
 .bottom>.p1{
     display: flex;
+    margin: 10px 0px;
 }
 .introduce{
-    width: 95%;
-    text-align: center;
+    width: 93%;
+    margin-top: 10px;
+    box-sizing: border-box;
+    line-height: 22px;
 }
 

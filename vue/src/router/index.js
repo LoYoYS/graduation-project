@@ -23,6 +23,11 @@ const routes = [
                 component:() => import('../views/home/Home')
             },
             {
+                path:'/info',
+                name:'驾校简介',
+                component:() => import('../views/info/Info')
+            },
+            {
                 path:"/my",
                 name:'个人中心',
                 component:() => import('../views/my/My')
@@ -48,6 +53,11 @@ const routes = [
                 path:'save',
                 name:'添加学员',
                 component:() => import('../views/student/SaveStudent')
+            },
+            {
+                path:'apply',
+                name:'科目申请管理',
+                component:() => import('../views/student/Apply')
             }
 
         ]  

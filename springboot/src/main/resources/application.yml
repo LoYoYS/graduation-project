@@ -16,8 +16,6 @@ spring:
   #德鲁伊连接池
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-#    username: mydb
-#    password: abc123...
     username: root
     password: 123456
     url: jdbc:mysql://localhost:3306/drive_school?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
@@ -31,8 +29,8 @@ spring:
       maxActive: 20
 #  #邮件配置
   mail:
-    username: 574064600@qq.com
-    password: gkdxsqmwaisubeib
+    username: 填自己的邮箱
+    password: 密码
     host: smtp.qq.com
     default-encoding: UTF-8
     properties:
@@ -56,5 +54,3 @@ pagehelper:
 Location:
   realPath: 'E:\Yuan\Project\drive_school\images\'
   mapperPath: '/photo/'
-#  realPath: '/www/wwwroot/project/images/'
-#  mapperPath: '/images/'

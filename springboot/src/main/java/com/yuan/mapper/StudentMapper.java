@@ -1,6 +1,7 @@
 package com.yuan.mapper;
 
 import com.yuan.domain.Student;
+import com.yuan.domain.SubjectApply;
 import com.yuan.qo.IdentifyQo;
 import com.yuan.qo.StudentQo;
 import org.apache.ibatis.annotations.Mapper;
@@ -30,4 +31,5 @@ public interface StudentMapper {
     Student getInfo(Integer id);
     //查找学员
     List<Student>findStudent(String keyWord);
+
 }

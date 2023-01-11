@@ -48,7 +48,7 @@ export default {
     },
     methods: {
         async getNotices(){
-           let result = await this.axios.get(`/notice/list?page=${this.currentPage}`)
+           let result = await this.axios.get(`/common/list?page=${this.currentPage}`)
            if(result.code===2000){
             this.noticeList=result.data.list
             this.total=result.data.total
@@ -73,7 +73,7 @@ export default {
                 cancelButtonText: '取消',
                 type:"error"
             }).then(async () => {
-                let res = await this.axios.delete(`/notice/delete?id=${id}`)
+                let res = await this.axios.delete(`/common/delete?id=${id}`)
                 if(res.code===2000){
                     this.$message.success(res.data)
                     this.getNotices()
@@ -135,6 +135,7 @@ export default {
 }
 .time{
     font-size: 12px;
+    width: 200px;
     color: rgb(127, 127, 127);
 }
 .content{

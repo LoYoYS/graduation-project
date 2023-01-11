@@ -115,21 +115,26 @@
                 <view>预约记录</view>
                 <van-icon name="todo-list" size="35px" class="icon"></van-icon>
             </view>
-            <view class="bg-gradual-pink" catchtap="gotoNewPage" data-index="{{2}}">
-                <view style="font-weight: bold;">EXAM</view>
-                <view>考试进度</view>
-                <view class="icon cuIcon-timefill"></view>
-            </view>
             <view class="bg-gradual-orange" catchtap="gotoNewPage" data-index="{{3}}">
                 <view style="font-weight: bold;">COMMENT</view>
                 <view>评价中心</view>
                 <view class="icon cuIcon-messagefill"></view>
             </view>
+            <view class="bg-gradual-green" catchtap="gotoNewPage" data-index="{{5}}">
+                <view style="font-weight: bold;">APPLY</view>
+                <view>科目更新申请</view>
+                <view class="icon cuIcon-writefill"></view>
+            </view>
+            <view class="bg-gradual-pink" catchtap="gotoNewPage" data-index="{{2}}">
+                <view style="font-weight: bold;">EXAM</view>
+                <view>考试进度</view>
+                <view class="icon cuIcon-timefill"></view>
+            </view>  
             <view class="bg-gradual-red" catchtap="gotoNewPage" data-index="{{4}}">
                 <view style="font-weight: bold;">LOOK</view>
                 <view>查看教练</view>
                 <view class="icon cuIcon-friendfill"></view>
-            </view>   
+            </view>    
     </view>
     <view class="list" wx:else>
             <view class="bg-gradual-blue" catchtap="gotoOrderList">

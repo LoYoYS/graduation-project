@@ -38,7 +38,7 @@ public class CarServiceImpl implements CarService {
     public ResultData<String> saveCar(Car car) {
         Car carByNumber = carMapper.findCarByNumber(car.getNumber());
         if(carByNumber!=null)
-            return ResultData.fail("车辆档案已存在!");
+            return ResultData.fail("添加失败，车辆档案已存在!");
         Integer save = carMapper.save(car);
         if(0<save){
             coachMapper.updateCar(car.getNumber(),car.getCoach_id());

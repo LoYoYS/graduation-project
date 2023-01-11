@@ -122,7 +122,7 @@ export default {
             let res = await this.axios.put('/user/updateUser',this.userInfo)
             if(res.code===2000){
               this.$store.commit('getUserInfo',this.userInfo)
-              this.$message.successres.data
+              this.$message.success(res.data)
             }
             else
               this.$message.error(res.data)

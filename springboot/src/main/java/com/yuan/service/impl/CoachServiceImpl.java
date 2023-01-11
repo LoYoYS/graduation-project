@@ -71,8 +71,10 @@ public class CoachServiceImpl implements CoachService {
     public ResultData<String> delete(Coach coach) {
         Integer delete = coachMapper.delete(coach);
         carMapper.update(null, coach.getCar());
-        if(0<delete)
-          return ResultData.success("删除成功！");
+        if(0<delete){
+            userMapper.updateUserRole(coach.getId(),-1);
+            return ResultData.success("删除成功！");
+        }
         return ResultData.fail("删除失败！");
     }
 
@@ -80,8 +82,11 @@ public class CoachServiceImpl implements CoachService {
     public ResultData<String> deleteList(List<Coach> list) {
         Integer integer = coachMapper.deleteList(list);
         carMapper.updateList(list);
-        if(0<integer)
+        if(0<integer){
+            userMapper.updateUserByCoachList(list);
             return ResultData.success("删除成功！");
+        }
+
         return ResultData.fail("删除失败！");
     }
 

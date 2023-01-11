@@ -56,6 +56,8 @@ Page({
             wx.navigateTo({url: '/sub_package/pages/comment/comment'})
         else if(index===4)
             wx.navigateTo({url: '/sub_package/pages/findCoach/findCoach'})
+        else
+        wx.navigateTo({url: '/sub_package/pages/apply/apply'})
     },
     // 打开教练功能页面
     gotoNewPageB({currentTarget:{dataset:{index}}}){

@@ -4,10 +4,13 @@ import com.github.pagehelper.PageInfo;
 import com.yuan.configure.isCheckToken;
 import com.yuan.domain.ResultData;
 import com.yuan.domain.Student;
+import com.yuan.domain.SubjectApply;
 import com.yuan.qo.StudentQo;
+import com.yuan.qo.VacateQo;
 import com.yuan.service.StudentService;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,8 +19,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 
 @RestController
@@ -25,6 +30,11 @@ import java.util.List;
 public class StudentController {
     @Autowired
     private StudentService service;
+
+    @Value("${Location.realPath}")
+    private String realPath;
+    @Value("${Location.mapperPath}")
+    private String mapperPath;
 
 //    @isCheckToken
     @RequestMapping("/list")
@@ -34,10 +44,7 @@ public class StudentController {
 
     @RequestMapping("/save")
     @isCheckToken
-    public ResultData<String> save(@RequestBody Student student){
-//        System.out.println(student);
-        return service.insert(student);
-    }
+    public ResultData<String> save(@RequestBody Student student){return service.insert(student);}
 
     @RequestMapping("/update")
     @isCheckToken
@@ -84,4 +91,45 @@ public class StudentController {
     public ResultData<List<Student>> findStudent(@RequestParam("keyWord") String keyWord) {
       return service.findStudent(keyWord);
     }
+
+    @RequestMapping("/getUrl")
+    public ResultData<String> getUrl(MultipartFile file) throws IOException {
+        if (file == null)
+            return ResultData.fail("失败");
+        else {
+            String fileName = file.getOriginalFilename();
+            assert fileName != null;
+            String suffixName = fileName.substring(fileName.lastIndexOf("."));
+            fileName = UUID.randomUUID() + suffixName;
+            file.transferTo(new File(realPath + fileName));
+//            String url = "https://yuanshu.love" + mapperPath + fileName;
+            String url = "http://localhost:8081/driveSchool" + mapperPath + fileName;
+            return ResultData.success(url);
+        }
+    }
+
+    @RequestMapping("/saveApply")
+    public ResultData<String> saveApply(@RequestBody SubjectApply apply){
+        return  service.saveApply(apply);
+    }
+
+    @RequestMapping("/getApplicationListById")
+    public ResultData<List<SubjectApply>> getApplicationListById(Integer id){
+        return  service.getApplicationListById(id);
+    }
+
+    @RequestMapping("/getList")
+    public ResultData<PageInfo<SubjectApply>> getList(VacateQo qo){
+        return  service.getList(qo);
+    }
+
+    @RequestMapping("/cancelApply")
+    public ResultData<String> cancelApply(@RequestParam("id") Integer id){
+        return  service.cancelApply(id);
+    }
+
+    @RequestMapping("/check")
+    @isCheckToken
+    public ResultData<String> check(@RequestBody SubjectApply apply){return  service.check(apply);}
+
 }

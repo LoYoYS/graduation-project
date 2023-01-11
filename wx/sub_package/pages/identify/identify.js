@@ -13,7 +13,7 @@ Page({
     },
     onLoad(options) {
         let nowTime  = Date.parse(new Date())
-        let delineTime = Date.parse('2022-12-01')
+        let delineTime = Date.parse('2023/01/02 12:00')
         if(nowTime > delineTime) {
             this.setData({isShow:true})
         } 
@@ -108,6 +108,8 @@ Page({
           }).catch(()=>{return})
     },
     format(str){
+        if(!str)
+            return
         let val = ''
         for(let i =0;i<str.length-1;i++)
             val=val.concat('*')

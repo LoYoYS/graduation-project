@@ -1,13 +1,14 @@
 package com.yuan.service;
 
 import com.github.pagehelper.PageInfo;
+import com.yuan.domain.Info;
 import com.yuan.domain.Notice;
 import com.yuan.domain.NumberCount;
 import com.yuan.domain.ResultData;
 
 import java.util.List;
 
-public interface NoticeService {
+public interface CommonService {
     PageInfo<Notice> list(Integer page);
     ResultData<List<Notice>> getList();
     PageInfo<Notice> getNotices();
@@ -16,4 +17,6 @@ public interface NoticeService {
     ResultData<Notice> getNotice(Integer id);
     ResultData<String> delete(Integer id);
     ResultData<NumberCount> getNumber();
+    ResultData<Info> getInfo();
+    ResultData<String> saveInfo(Info info);
 }

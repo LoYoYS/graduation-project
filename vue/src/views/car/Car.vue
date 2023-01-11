@@ -73,6 +73,7 @@
         <!-- 分页 -->
         <el-pagination
           background
+          class="page"
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
           :current-page="currentPage"
@@ -383,7 +384,7 @@
   
   <style scoped>
   .el-table{
-    margin: 10px auto;
+    margin: 30px auto;
   }
   .operation{
     width: 100%;
@@ -416,4 +417,10 @@
   .addPhoto:hover{
     border: 1px dotted rgb(35, 156, 193);
   }
+  .page{
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
 </style>

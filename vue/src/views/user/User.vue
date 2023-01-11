@@ -23,7 +23,6 @@
             :header-cell-style="{background:'#f4f3f9',color:'#606266',fontWeight:'bold'}"
             @selection-change="seletChange"
             >
-          <el-table-column type="selection" align="center"></el-table-column>
           <el-table-column prop="url" label="用户头像" align="center" width="150px">
             <template slot-scope="scope">
               <el-image
@@ -63,6 +62,7 @@
         <!-- 分页 -->
         <el-pagination
           background
+          class="page"
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
           :current-page="currentPage"
@@ -157,7 +157,7 @@
   
 <style scoped>
 .el-table{
-    margin: 10px auto;
+    margin: 30px auto;
 }
 .operation{
     display: flex;
@@ -171,5 +171,11 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
+}
+.page{
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
 }
 </style>

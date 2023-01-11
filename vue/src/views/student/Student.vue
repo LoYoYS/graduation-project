@@ -99,6 +99,7 @@
       <!-- 分页 -->
       <el-pagination
         background
+        class="page"
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
         :current-page="currentPage"
@@ -395,6 +396,7 @@ export default {
       },
       // 下载模板
       download(){
+        // window.open('https://yuanshu.love/driveSchool/static/excel/学员信息导入模板.xlsx')
         window.open('http://localhost:8081/driveSchool/static/excel/学员信息导入模板.xlsx')
       },
       //下载文件
@@ -463,5 +465,11 @@ export default {
 }
 .upload-demo{
   text-align: center;
+}
+.page{
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
 }
 </style>

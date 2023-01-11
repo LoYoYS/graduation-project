@@ -1,0 +1,153 @@
+<cu-custom bgColor="bg-gradual-my" isBack="{{true}}">
+	<view slot="content">申请记录</view>
+	<view slot="backText">返回</view>
+</cu-custom>
+<view class="box">
+    <view class="list" style="padding-bottom: 50px;" wx:if="{{applicationList.length && !loading}}">
+        <view class="item" wx:for="{{applicationList}}" wx:key="index">
+            <view class="basic_info">
+                <view>
+                    <view>申请人：{{item.name}}</view>
+                    <view>手机号码：{{item.phone}}</view>
+                    <view>
+                        <text wx:if="{{item.subject==='a'}}">申请科目：科目一</text>
+                        <text wx:elif="{{item.subject==='b'}}">申请科目：科目二</text>
+                        <text wx:elif="{{item.subject==='c'}}">申请科目：科目三</text>
+                        <text wx:elif="{{item.subject==='d'}}">申请科目：科目四</text>  
+                    </view>
+                    <view>申请时间：{{item.date}}</view> 
+                </view>
+                 <view>
+                    <view class="out_circle text-grey" wx:if="{{item.status===0}}">
+                        <view class="inner_circle" >
+                            <text>待审核</text>
+                        </view>
+                    </view>
+                    <view class="out_circle text-green" wx:elif="{{item.status===1}}">
+                        <view class="inner_circle" >
+                            <text>申请通过</text>
+                        </view>
+                    </view>
+                    <view class="out_circle text-red" wx:elif="{{item.status===2}}">
+                        <view class="inner_circle" >
+                            <text>申请不通过</text>
+                        </view>
+                    </view>
+                    <view class="out_circle text-gray" wx:else>
+                        <view class="inner_circle" >
+                            <text>已撤销</text>
+                        </view>
+                    </view>
+                 </view>
+            </view>
+            <view class="btn">
+                <van-button bindtap="showDetail" data-item="{{item}}" color="#0081ff">查看详情</van-button>
+            </view>
+        </view>
+        <view class="text-grey text-center margin-bottom-sm">我是有底线的~</view>
+    </view>
+    <van-empty 
+        wx:if="{{!applicationList.length && !loading}}"
+        description="暂无记录">
+    </van-empty>
+</view>
+<view class="add">
+    <van-button color="#8799a3" catchtap="addApply">新增申请</van-button>
+</view>
+<van-dialog
+  use-slot
+  width="90%"
+  title="提交新申请"
+  show="{{ isShow }}"
+  show-cancel-button
+  confirm-button-text="提交"
+  confirm-button-color="#0081ff"
+  cancel-button-color="#ee0a24"
+  bind:confirm="submit"
+  bind:close="onClose"
+>
+    <view class="info">
+        <view class="margin-bottom-sm">选择需要更新通过的科目：</view>
+        <radio-group bindchange="radioChange" class="radiogroup">
+                <label style="text-align: center;" wx:for="{{subjectList}}" wx:key="index">
+                    <radio value="{{item.value}}"/>
+                    <view class="margin-top-sm">{{item.name}}</view>
+                </label>
+        </radio-group>
+        <view>
+        <view class="margin-top-xl margin-bottom-sm">上传证明截图：</view>
+            <van-uploader
+                file-list="{{ fileList }}"
+                max-count="2"
+                bind:delete="deleteImg"
+                bind:after-read="afterRead"
+            />
+        </view>
+        <view class="text-sm margin-top-sm text-grey">
+            提示：证明图片应为车管所显示该科目通过截图或是下一科目约考截图。
+        </view>
+    </view>
+</van-dialog>
+<van-dialog
+  use-slot
+  width="90%"
+  title="申请详情"
+  show="{{ showDetail }}"
+  confirm-button-color="#0081ff"
+  confirm-button-text="关闭"
+  bind:close="onClose"
+>
+    <view class="detail_info">
+        <view>
+            <view>
+                <view>申请人：{{info.name}}</view>
+                <view>手机号码：{{info.phone}}</view>
+                <view>
+                    <text wx:if="{{info.subject==='a'}}">申请科目：科目一</text>
+                    <text wx:elif="{{info.subject==='b'}}">申请科目：科目二</text>
+                    <text wx:elif="{{info.subject==='c'}}">申请科目：科目三</text>
+                    <text wx:elif="{{info.subject==='d'}}">申请科目：科目四</text>
+                </view>
+                <view>申请时间：{{info.date}}</view> 
+            </view>
+            <view>
+                <view class="out_circle text-grey" wx:if="{{info.status===0}}">
+                    <view class="inner_circle" >
+                        <text>待审核</text>
+                    </view>
+                </view>
+                <view class="out_circle text-green" wx:elif="{{info.status===1}}">
+                    <view class="inner_circle" >
+                        <text>申请通过</text>
+                    </view>
+                </view>
+                <view class="out_circle text-red" wx:elif="{{info.status===2}}">
+                    <view class="inner_circle" >
+                        <text>申请不通过</text>
+                    </view>
+                </view>
+                <view class="out_circle text-gray" wx:else>
+                    <view class="inner_circle" >
+                        <text>已撤销</text>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view class="margin-top">
+            已上传图片：
+        </view>
+        <view class="images margin-top-sm">
+            <view wx:for="{{info.urls}}" wx:key="url" wx:for-item="url">
+                <image src="{{url}}" bindtap="preView" data-url="{{url}}"></image>
+            </view>
+        </view>
+        <view class="btn" wx:if="{{info.status===0}}">
+            <van-button color="#f37b1d" catchtap="cancelApply">撤销申请</van-button>
+        </view>
+    </view>
+</van-dialog>
+<van-dialog id="van-dialog"/>
+<van-toast id="van-toast" />
+<van-loading color="#0081ff" size="50" vertical wx:if="{{loading}}">
+    加载中...
+</van-loading>

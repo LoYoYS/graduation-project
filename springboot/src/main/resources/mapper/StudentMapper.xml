@@ -20,6 +20,7 @@
     <insert id="insert" parameterType="com.yuan.domain.Student" useGeneratedKeys="true" keyProperty="id">
         insert into student values(null,#{name},#{sex},#{id_number},#{phone},#{date},#{type},#{isBindWx})
     </insert>
+
     <update id="updateStudent" parameterType="com.yuan.domain.Student">
         update student set name =#{name},sex =#{sex},id_number =#{id_number},
                            phone =#{phone},date =#{date},type =#{type},isBindWx=#{isBindWx}
@@ -54,7 +55,7 @@
     </select>
 
     <select id="findAllById_number" resultType="com.yuan.domain.Student" parameterType="com.yuan.domain.Student">
-        select * from student where id_number = #{id_number} and type = #{type}
+        select * from student where id_number = #{id_number}
     </select>
 
 
@@ -92,5 +93,7 @@
     <update id="unbind">
         update student set isBindWx=0 where id=#{id}
     </update>
+
+
 
 </mapper>

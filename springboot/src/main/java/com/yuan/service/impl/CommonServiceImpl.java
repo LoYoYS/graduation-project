@@ -3,11 +3,12 @@ package com.yuan.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.yuan.domain.Info;
 import com.yuan.domain.Notice;
 import com.yuan.domain.NumberCount;
 import com.yuan.domain.ResultData;
-import com.yuan.mapper.NoticeMapper;
-import com.yuan.service.NoticeService;
+import com.yuan.mapper.CommonMapper;
+import com.yuan.service.CommonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,10 +17,10 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-public class NoticeServiceImpl implements NoticeService {
+public class CommonServiceImpl implements CommonService {
 
     @Autowired
-    private NoticeMapper mapper;
+    private CommonMapper mapper;
 
     @Override
     public PageInfo<Notice> list(Integer page) {
@@ -90,6 +91,38 @@ public class NoticeServiceImpl implements NoticeService {
         Integer carCount = mapper.getCarCount();
         NumberCount numberCount = new NumberCount(studentCount, coachCount, userCount, carCount);
         return ResultData.success(numberCount);
+    }
+
+    @Override
+    public ResultData<Info> getInfo() {
+        Info info = mapper.getInfo();
+        if(info==null)
+            return ResultData.fail(null);
+        String slogan = info.getSlogan();
+        String[] split = slogan.split(",");
+        System.out.println(split);
+        info.setSlogans(split);
+        return ResultData.success(info);
+    }
+
+    @Override
+    public ResultData<String> saveInfo(Info info) {
+        System.out.println(info);
+        if(info==null)
+            return ResultData.fail("保存失败");
+        String[] slogans = info.getSlogans();
+        String str="";
+        for (String slogan : slogans) {
+            str+=slogan+",";
+        }
+        info.setSlogan(str);
+        Integer integer = mapper.deleteInfo();
+        if(0<integer){
+            Integer integer1 = mapper.saveInfo(info);
+            if(0<integer1)
+                return ResultData.success("保存修改成功！");
+        }
+        return ResultData.fail("保存修改失败！");
     }
 
 }

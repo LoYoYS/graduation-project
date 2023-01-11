@@ -19,7 +19,8 @@
               "pages/order/record/record",
               "pages/notices/notice/notice",
               "pages/imformation/imformation",
-              "pages/findCoach/detail/detail"
+              "pages/findCoach/detail/detail",
+              "pages/apply/apply"
           ]
       },
       {

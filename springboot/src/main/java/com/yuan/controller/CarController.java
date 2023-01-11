@@ -52,7 +52,7 @@ public class CarController {
             String suffixName = fileName.substring(fileName.lastIndexOf("."));
             fileName = UUID.randomUUID()+suffixName;
             file.transferTo(new File(realPath+fileName));
-            String url="http://locaalhost:8081"+mapperPath+fileName;
+            String url="http://localhost:8081/driveSchool"+mapperPath+fileName;
             return ResultData.success(url);
         }
     }

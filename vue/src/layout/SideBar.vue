@@ -33,6 +33,10 @@
             <i class="iconfont icontianjialianxiren icon_class" style="font-size:22px"></i>
             <span slot="title">添加学员</span>
         </el-menu-item>
+        <el-menu-item index="/student/apply">
+            <i class="el-icon-s-check" style="font-size:22px"></i>
+            <span slot="title">科目申请管理</span>
+        </el-menu-item>
       </el-submenu>
       <el-submenu index="/coach">
         <template slot="title">
@@ -76,6 +80,10 @@
             <span slot="title">编辑、发布公告</span>
         </el-menu-item>
       </el-submenu>
+      <el-menu-item index="/info">
+            <i class="el-icon-info"></i>
+            <span slot="title">驾校简介</span>
+      </el-menu-item>
       <el-menu-item index="/user">
             <i class="iconfont icon24gf-userGroup2 icon_class"></i>
             <span slot="title">用户列表</span>

@@ -73,6 +73,7 @@
         <!-- 分页 -->
         <el-pagination
           background
+          class="page"
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
           :current-page="currentPage"
@@ -168,7 +169,7 @@
             rules: {
               name: [
                 { required: true, message: '请输入姓名', trigger: 'blur' },
-                { min: 2, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
+                { min: 2, max: 5, message: '长度在 2 到 5 个字符', trigger: 'blur' }
               ],
               sex: [{ required: true, message: '请选择性别', trigger: 'blur' }],
               id_number: [
@@ -399,6 +400,7 @@
         },
         // 下载模板
         download(){
+          // window.open('https://yuanshu.love/driveSchool/static/excel/教练信息导入模板.xlsx')
           window.open('http://localhost:8081/driveSchool/static/excel/教练信息导入模板.xlsx')
         },
         //下载文件
@@ -432,7 +434,7 @@
   
   <style scoped>
   .el-table{
-    margin: 10px auto;
+    margin: 30px auto;
   }
   .operation{
     width: 100%;
@@ -460,5 +462,11 @@
 }
 .upload-demo{
   text-align: center;
+}
+.page{
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
 }
 </style>
